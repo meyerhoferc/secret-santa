@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   # to see all routes and connections to controllers, run `rails routes` Rake task
 
   get '/new', to: 'users#new', as: 'signup'
+  get "logout", to: "sessions#destroy", as: 'logout'
 
-  resources :users
-  resources :sessions
+  resources :users, only: [:new, :create]
+  resources :sessions, except: [:edit, :update]
 end

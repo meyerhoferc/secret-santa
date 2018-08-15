@@ -13,8 +13,13 @@ class UsersController < ApplicationController
   end
   
   def show
-    byebug
-    @user = User.find(params[:id]);
+    if !session[:user_id]
+      flash[:warning] = 'You must be logged in first.'
+      redirect_to root_url
+    else
+      @user = User.find(session[:user_id])
+      render 'show'
+    end
   end
 
   private

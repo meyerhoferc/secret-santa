@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   # to see all routes and connections to controllers, run `rails routes` Rake task
 
   get '/signup' => 'users#new', as: 'signup'
+  get '/profile' => 'users#show', as: 'profile'
   get '/login' => 'sessions#new', as: 'login'
   delete '/logout' => 'sessions#destroy', as: 'logout'
 

@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   get '/new', to: 'users#new', as: 'signup'
   get "logout", to: "sessions#destroy", as: 'logout'
 
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create, :show]
   resources :sessions, except: [:edit, :update]
 end

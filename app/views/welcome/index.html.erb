@@ -1,14 +1,9 @@
 <h1>Welcome to Secret Santa</h1>
 
-<h5>Eventually, this will have a login page and other information about how you can create an account.</h5>
-
-<div>
-  <p>All of our user and their info from our database, for your viewing pleasure.</p>
-  <ul>
-  <% @users.each do |user| %>
-    <li><%= user.first_name %></li>
-    <li><%= user.last_name %></li>
-    <li><%= user.email %></li>
-  <% end %>
-  </ul>
-</div>
+<% if current_user%>
+  <%= "Welcome, #{current_user.first_name || current_user.email}." %>
+  <%= link_to "Sign Out", "/sessions/#{session[:user_id]}", method: :delete %>
+<% else %>
+  <%= link_to 'Log In', new_session_path %> or
+  <%= link_to 'Sign Up', new_user_path %>
+<% end %>

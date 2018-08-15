@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   # note Rails has a helper for the above "root" path: root to: 'welcome#index'
   # to see all routes and connections to controllers, run `rails routes` Rake task
 
-  get '/new', to: 'users#new', as: 'signup'
-  get "logout", to: "sessions#destroy", as: 'logout'
+  get '/signup' => 'users#new', as: 'signup'
+  get '/login' => 'sessions#new', as: 'login'
+  delete '/logout' => 'sessions#destroy', as: 'logout'
 
   resources :users, only: [:new, :create, :show]
   resources :sessions, except: [:edit, :update]

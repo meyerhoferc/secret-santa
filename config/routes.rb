@@ -12,6 +12,6 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new', as: 'login'
   delete '/logout' => 'sessions#destroy', as: 'logout'
 
-  resources :users, only: [:new, :create, :show]
+  resources :users, only: [:create]
   resources :sessions, except: [:edit, :update]
 end

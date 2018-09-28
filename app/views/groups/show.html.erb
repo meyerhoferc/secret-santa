@@ -3,6 +3,12 @@
 <br>
 
 Users in this group:
+<ul>
+  <% @group.users.each do |user| %>
+  <li><%= "#{user.first_name} #{user.last_name}" %></li>
+  <% end %>
+</ul>
+
 
 
 <br>

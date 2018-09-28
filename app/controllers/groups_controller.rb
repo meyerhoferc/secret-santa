@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
-  # def index
-  #   @groups = Group.all
-  # end
+  def index
+    @groups = Group.all
+  end
   def new
     @group = Group.new
   end
@@ -9,7 +9,6 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     @group.user_ids= current_user.id
-    # binding.pry
     if @group.save
       redirect_to dashboard_path
     else
@@ -19,7 +18,9 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    # @users = Users.find(WHERE THE GROUP ID IS EQUAL TO THE PARAMS)
+    # user_id_array = @group.user_ids
+    # @users = user_id_array.map { |id| User.find(id) }
+    # @users = @group.users
   end
 
   def edit

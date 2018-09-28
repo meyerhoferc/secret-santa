@@ -18,9 +18,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    if current_user
+    if params[:id]
+      @user = User.find(params[:id])
+    elsif current_user
       @user = User.find(session[:user_id])
-      render 'show'
     else
       redirect_to root_url
       flash[:warning] = 'You must be logged in first.'

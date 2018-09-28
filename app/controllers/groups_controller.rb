@@ -18,9 +18,6 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    # user_id_array = @group.user_ids
-    # @users = user_id_array.map { |id| User.find(id) }
-    # @users = @group.users
   end
 
   def edit

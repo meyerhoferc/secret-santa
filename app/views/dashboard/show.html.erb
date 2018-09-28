@@ -1,0 +1,14 @@
+<% if current_user %>
+  <h1><%= "Welcome, #{current_user.first_name || current_user.email}." %></h1>
+  <%= link_to 'Profile', profile_path %>
+  <%= link_to 'Sign Out', logout_path, method: :delete %>
+
+  <h2>My Groups</h2>
+  <%= link_to "Create a Group", new_group_path %>
+  <br>
+  <% if !current_user.groups.nil? %>
+    <%= render partial: 'users/groups', collection: current_user.groups %>
+  <% else %>
+    You are not part of any groups.
+  <% end %>
+<% end %>

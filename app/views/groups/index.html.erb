@@ -1,0 +1,10 @@
+<% if !@groups.nil? %>
+Groups:
+<ul>
+  <% @groups.each do |group| %>
+  <li><%= link_to group.name, group_path %></li>
+  <% end %>
+</ul>
+<% elsif @groups.nil? %>
+  <%= link_to 'Create a group', new_group_path%>
+<% end %>

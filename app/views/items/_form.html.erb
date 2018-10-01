@@ -1,0 +1,21 @@
+<%= form_for [@group, @list, @item] do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+  <div>
+    <%= f.label :note %>
+    <%= f.text_area :note %>
+  </div>
+  <div>
+    <%= f.label :size %>
+    <%= f.text_field :size %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

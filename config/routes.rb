@@ -10,12 +10,14 @@ Rails.application.routes.draw do
   get '/dashboard' => 'dashboard#show', as: 'dashboard'
 
   get '/signup' => 'users#new', as: 'signup'
-  get '/profile(/:id)' => 'users#show', as: 'profile'
+  get '/profile' => 'users#profile', as: 'profile'
   get '/login' => 'sessions#new', as: 'login'
   delete '/logout' => 'sessions#destroy', as: 'logout'
 
-  resources :users, only: [:create, :edit, :update]
-  resources :groups
+  resources :users, only: [:show, :create, :edit, :update]
+  resources :groups do
+    resources :lists
+  end
 
   resources :sessions, except: [:edit, :update]
 end

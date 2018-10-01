@@ -7,4 +7,5 @@ Email: <%= @user.email %>
 <% if @own_profile %>
   <%= link_to 'Update Your Information', edit_user_path(@user.id) %>
 <% end %>
-<%= link_to 'Back', dashboard_path %>
+<br>
+<%= link_to 'Back to Dashboard', dashboard_path %>

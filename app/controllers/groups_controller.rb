@@ -21,6 +21,8 @@ class GroupsController < ApplicationController
   end
 
   def show
+    @user_list = @group.lists.where(['user_id = :user_id and group_id = :group_id',
+                                    { user_id: current_user.id, group_id: @group.id }])
   end
 
   def edit

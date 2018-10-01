@@ -1,0 +1,15 @@
+<h1>Item Information</h1>
+<%= link_to "#{@user.first_name} #{@user.last_name}'s item", user_path(@user) %>
+<ul>
+  <li>Name: <%= "#{@item.name}" %></li>
+  <li>Description: <%= "#{@item.description}" %></li>
+  <li>Size: <%= "#{@item.size}" %></li>
+  <li>Note: <%= "#{@item.note}" %></li>
+</ul>
+
+<% if @item_owner %>
+<%= link_to 'Edit Item', edit_group_list_item_path(@group, @list, @item) %>
+<%= link_to 'Delete Item', group_list_item_path(@group, @list, @item), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
+<br>
+<%= link_to 'Back', group_list_path(@group, @list) %>

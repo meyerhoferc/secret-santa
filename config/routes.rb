@@ -16,8 +16,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :create, :edit, :update]
   resources :groups do
-    resources :lists
+    resources :lists do
+      resources :items
+    end
   end
-
   resources :sessions, except: [:edit, :update]
 end

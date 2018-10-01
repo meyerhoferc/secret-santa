@@ -7,7 +7,7 @@
 <br>
 <br>
 <% if !@user_list.empty? %>
-  <%= link_to 'View your Wish list', group_list_path(@group, @user_list[0]) %>
+  <%= link_to 'View your Wish List', group_list_path(@group, @user_list[0]) %>
 <% else %>
   <%= link_to 'Create a Wish List', group_lists_path(@group), method: :post %>
 <% end %>

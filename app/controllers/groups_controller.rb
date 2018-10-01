@@ -10,10 +10,12 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
-    @group.user_ids= current_user.id
+    @group.user_ids = current_user.id # Add user as a user
+    @group.owner_id = current_user.id # Add user as owner
     if @group.save
-      redirect_to dashboard_path
+      redirect_to group_path(@group.id) # Find the group page
     else
+      flash[:notice] = 'The group name is already taken. Please choose another name.'
       render 'new'
     end
   end
@@ -43,6 +45,6 @@ class GroupsController < ApplicationController
   end
 
   def group_params
-    params.require(:group).permit(:name, :description)
+    params.require(:group).permit(:name, :description, :owner_id)
   end
 end

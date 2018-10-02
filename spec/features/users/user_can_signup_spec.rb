@@ -18,7 +18,7 @@ describe 'user signup' do
       fill_in('password', with: 'passpass')
       click_on 'Log In'
 
-      expect(current_path).to eq root_path
+      expect(current_path).to eq dashboard_path
       expect(page).to have_content 'Welcome, Ra.'
       expect(page).to have_link 'Sign Out'
       expect(page).to have_link 'Profile'
@@ -28,11 +28,11 @@ describe 'user signup' do
   end
 
   context 'as an existing, logged in user' do
-    it 'redirects from /signup to root' do
+    it 'redirects from /signup to dashboard' do
       u = User.create(first_name: 'Raa', last_name: 'Zzz', email: 'email@raa.zzz', password: 'passpass')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(u)
       visit signup_path
-      expect(current_path).to eq root_path
+      expect(current_path).to eq dashboard_path
     end
   end
 end

@@ -65,10 +65,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def own_profile?(current_user, user_profile_id)
-    current_user.id == user_profile_id.to_i
-  end
-
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation)
   end

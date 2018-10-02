@@ -12,5 +12,6 @@ class ListsController < ApplicationController
     @user = @list.user
     @group = Group.find(params[:group_id])
     @items = Item.where(['lists_id = :list_id', { list_id: @list.id }])
+    @authorized_user = authorized_user(@user)
   end
 end

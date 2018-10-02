@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item_owner = item_owner?(current_user, @user)
+    @authorized_user = authorized_user(@user)
   end
 
   def edit
@@ -62,9 +62,5 @@ class ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:name, :description, :note, :size)
-  end
-
-  def item_owner?(current_user, user)
-    current_user.id == user.id
   end
 end

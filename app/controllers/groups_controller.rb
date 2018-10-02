@@ -14,7 +14,7 @@ class GroupsController < ApplicationController
     @group.owner_id = current_user.id # Add user as owner
     # CREATE THE WISHLIST HERE! SET IT AS THE OWNER'S LIST
     if @group.save
-      redirect_to group_path(@group) # Find the group page
+      redirect_to group_path(@group)
     else
       flash[:notice] = 'The group name is already taken. Please choose another name.'
       redirect_to new_group_path(@group)
@@ -24,6 +24,8 @@ class GroupsController < ApplicationController
   def show
     @user_list = @group.lists.where(['user_id = :user_id and group_id = :group_id',
                                     { user_id: current_user.id, group_id: @group.id }])
+    @authorized_user = authorized_user(User.find(@group.owner_id))
+    @belonging_user = belonging_user(@user_list)
   end
 
   def edit
@@ -54,5 +56,11 @@ class GroupsController < ApplicationController
 
   def group_params
     params.require(:group).permit(:name, :description, :owner_id)
+  end
+
+  def belonging_user(user_list)
+    user_list.any? do |user|
+      user.user_id == current_user.id
+    end
   end
 end

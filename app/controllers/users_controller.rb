@@ -21,7 +21,7 @@ class UsersController < ApplicationController
 
   def profile
     if @user
-      @own_profile = true
+      @authorized_user = true
       render 'show'
     else
       redirect_to root_url
@@ -31,17 +31,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-
-    # if params[:id] && current_user
-      @own_profile = own_profile?(current_user, params[:id])
-    #   @user = User.find(params[:id])
-    # elsif current_user
-    #   @own_profile = true
-    #   set_user
-    # else
-    #   redirect_to root_url
-    #   flash[:warning] = 'You must be logged in first.'
-    # end
+    @authorized_user = authorized_user(@user)
   end
 
   def edit

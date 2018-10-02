@@ -2,13 +2,15 @@
 <%= @group.description %>
 <br>
 <br>
-<%= link_to 'Edit Group', edit_group_path %>
-<%= link_to 'Delete Group', group_path, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' } %>
-<br>
-<br>
+<% if @authorized_user %>
+  <%= link_to 'Edit Group', edit_group_path %>
+  <%= link_to 'Delete Group', group_path, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' } %>
+  <br>
+  <br>
+<% end %>
 <% if !@user_list.empty? %>
   <%= link_to 'View your Wish List', group_list_path(@group, @user_list[0]) %>
-<% else %>
+<% elsif @user_list.empty? && @belonging_user %>
   <%= link_to 'Create a Wish List', group_lists_path(@group), method: :post %>
 <% end %>
 

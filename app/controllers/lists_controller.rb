@@ -1,5 +1,6 @@
 class ListsController < ApplicationController
   def create
+    # REMOVE THIS METHOD?!?
     @list = List.new
     @list.user_id = current_user.id
     @list.group_id = params[:group_id]

@@ -12,8 +12,8 @@ class GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.user_ids = current_user.id # Add user as a user
     @group.owner_id = current_user.id # Add user as owner
-    # CREATE THE WISHLIST HERE! SET IT AS THE OWNER'S LIST
     if @group.save
+      create_list
       redirect_to group_path(@group)
     else
       flash[:notice] = 'The group name is already taken. Please choose another name.'
@@ -49,6 +49,13 @@ class GroupsController < ApplicationController
   end
 
   private
+
+  def create_list
+    @list = List.new
+    @list.user_id = current_user.id
+    @list.group_id = @group.id
+    @list.save
+  end
 
   def set_group
     @group = Group.find(params[:id])

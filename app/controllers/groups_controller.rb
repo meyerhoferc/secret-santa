@@ -17,7 +17,7 @@ class GroupsController < ApplicationController
       redirect_to group_path(@group)
     else
       flash[:notice] = 'The group name is already taken. Please choose another name.'
-      redirect_to new_group_path(@group)
+      redirect_to new_group_path
     end
   end
 

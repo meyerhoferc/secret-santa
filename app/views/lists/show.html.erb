@@ -1,6 +1,6 @@
 <h1><%= "#{@user.first_name} #{@user.last_name}'s wishlist for the #{@group.name} group" %></h1>
 
-<%= link_to "#{@user.first_name} #{@user.last_name}'s list", user_path(@user) %>
+<%= link_to "#{@user.first_name} #{@user.last_name}'s profile", user_path(@user) %>
 <br>
 <% if @authorized_user %>
   <%= link_to 'Create a new Wish list item', new_group_list_item_path(@group, @list) %>

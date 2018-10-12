@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_01_004651) do
+ActiveRecord::Schema.define(version: 2018_10_12_174839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,24 @@ ActiveRecord::Schema.define(version: 2018_10_01_004651) do
     t.text "name"
     t.string "description"
     t.bigint "owner_id"
+    t.date "gift_due_date"
+    t.date "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["owner_id"], name: "index_groups_on_owner_id"
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.bigint "group_id"
+    t.bigint "receiver_id"
+    t.bigint "sender_id"
+    t.text "comment"
+    t.boolean "accepted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_invitations_on_group_id"
+    t.index ["receiver_id"], name: "index_invitations_on_receiver_id"
+    t.index ["sender_id"], name: "index_invitations_on_sender_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -51,9 +68,14 @@ ActiveRecord::Schema.define(version: 2018_10_01_004651) do
     t.string "email"
     t.string "password_digest"
     t.string "password_confirmation"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_foreign_key "groups", "users", column: "owner_id"
+  add_foreign_key "invitations", "groups"
+  add_foreign_key "invitations", "users", column: "receiver_id"
+  add_foreign_key "invitations", "users", column: "sender_id"
   add_foreign_key "items", "lists", column: "lists_id"
   add_foreign_key "lists", "groups"
   add_foreign_key "lists", "users"

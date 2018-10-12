@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
 
-  def index
+  def index # Delete for the future?
     @groups = Group.all
   end
   def new

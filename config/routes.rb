@@ -14,7 +14,10 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new', as: 'login'
   delete '/logout' => 'sessions#destroy', as: 'logout'
 
-  resources :users, only: [:show, :create, :edit, :update]
+  resources :users, only: [:show, :create, :edit, :update] do
+    resources :invitations, only: [:show, :create]
+  end
+
   resources :groups do
     resources :lists do
       resources :items

@@ -32,6 +32,10 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @authorized_user = authorized_user(@user)
+    if @invitable = invitable?(current_user, @user)
+      @invitation = Invitation.new
+      @current_user_owned_groups = Group.where("owner_id = ?", current_user.id)
+    end
   end
 
   def edit
@@ -49,6 +53,20 @@ class UsersController < ApplicationController
   end
 
   private
+
+
+  def invitable?(logged_in_user, user_profile)
+
+    # Group.joins(:users).where(id: [25, 28]).where(users: { id: 12 })
+
+    # byebug
+    if logged_in_user == user_profile
+      return false
+    elsif !Group.joins(:users).where(id: user_profile.groups.ids).where(users: {id: logged_in_user.id}).empty?
+      return false
+    end
+    return true
+  end
 
   def set_user
     @user = current_user

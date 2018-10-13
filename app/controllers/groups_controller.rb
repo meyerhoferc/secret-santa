@@ -10,8 +10,9 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
-    @group.user_ids = current_user.id # Add user as a user
+    @group.user_ids << current_user.id # Add user as a user
     @group.owner_id = current_user.id # Add user as owner
+    current_user.groups << @group
     if @group.save
       create_list
       redirect_to group_path(@group)
@@ -26,6 +27,7 @@ class GroupsController < ApplicationController
                                     { user_id: current_user.id, group_id: @group.id }])
     @authorized_user = authorized_user(User.find(@group.owner_id))
     @belonging_user = belonging_user(@user_list)
+    # byebug
   end
 
   def edit

@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :create, :edit, :update] do
     resources :invitations, only: [:show, :create]
+    get '/accept/:id' => 'invitations#edit', as: 'accept'
+    get '/decline/:id' => 'invitations#destroy', as: 'decline'
   end
 
   resources :groups do

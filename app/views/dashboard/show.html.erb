@@ -3,6 +3,22 @@
   <%= link_to 'Profile', profile_path %>
   <%= link_to 'Sign Out', logout_path, method: :delete %>
 
+  <% if @invitations %>
+  <h2>Invitations</h2>
+    <% @invitations.each do |invitation| %>
+      <% if invitation.accepted.nil? %>
+        <p>
+          <%= "#{User.find(invitation.sender_id).first_name} has invited you to join #{Group.find(invitation.group_id).name}!" %>
+        </p>
+        <p>
+          <%= invitation.comment %>
+        </p>
+        <p>
+          <%= link_to "Accept", user_accept_path(@user.id, invitation.id)%> <%= link_to "Decline", user_decline_path(@user.id, invitation.id)%>
+        </p>
+      <% end %>
+    <% end %>
+  <% end %>
   <h2>My Groups</h2>
   <%= link_to "Create a Group", new_group_path %>
   <br>

@@ -4,6 +4,7 @@ class GroupsController < ApplicationController
   def index # Delete for the future?
     @groups = Group.all
   end
+  
   def new
     @group = Group.new
   end
@@ -23,11 +24,11 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @user_list = @group.lists.where(['user_id = :user_id and group_id = :group_id',
-                                    { user_id: current_user.id, group_id: @group.id }])
+    @user_list = @group.lists.where(
+      [ 'user_id = :user_id and group_id = :group_id',
+      { user_id: current_user.id, group_id: @group.id } ] )
     @authorized_user = authorized_user(User.find(@group.owner_id))
     @belonging_user = belonging_user(@user_list)
-    # byebug
   end
 
   def edit
@@ -44,7 +45,22 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    # Destroy not working. Delete lists associated with group first.
+    @lists = List.where("group_id = :group_id", {group_id: @group.id})
+    if !@lists.empty?
+      @lists.each do |list|
+        items = Item.where("lists_id = :list_id", {list_id: list.id})
+        items.each { |item| item.destroy }
+        list.destroy
+      end
+    end
+
+    @invitations = Invitation.where("group_id = :group_id", {group_id: @group.id})
+    if !@invitations.empty?
+      @invitations.each do |invitation|
+        invitation.destroy
+      end
+    end
+
     @group.destroy
     flash[:notice] = "Group Deleted!"
     redirect_to dashboard_path
@@ -64,7 +80,7 @@ class GroupsController < ApplicationController
   end
 
   def group_params
-    params.require(:group).permit(:name, :description, :owner_id)
+    params.require(:group).permit(:name, :description, :owner_id, :gift_due_date)
   end
 
   def belonging_user(user_list)

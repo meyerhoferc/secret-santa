@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   def index # Delete for the future?
     @groups = Group.all
   end
-  
+
   def new
     @group = Group.new
   end
@@ -13,12 +13,13 @@ class GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.user_ids << current_user.id # Add user as a user
     @group.owner_id = current_user.id # Add user as owner
-    current_user.groups << @group
-    if @group.save
+    if @group.valid?
+      current_user.groups << @group
+      @group.save
       create_list
       redirect_to group_path(@group)
     else
-      flash[:notice] = 'The group name is already taken. Please choose another name.'
+      flash[:warning] = "The Gift Due Date can't be blank, or the Group Name is already taken."
       redirect_to new_group_path
     end
   end

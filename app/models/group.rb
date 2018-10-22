@@ -7,4 +7,5 @@ class Group < ApplicationRecord
   validates_uniqueness_of :name
   validates :description, presence: true
   validates :owner_id, presence: true
+  validates :gift_due_date, presence: true
 end

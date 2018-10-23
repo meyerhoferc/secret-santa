@@ -1,7 +1,6 @@
 class InvitationsController < ApplicationController
   def create
     @invitation = Invitation.new(invitation_params)
-    # byebug
     @invitation.sender_id = current_user.id
     @invitation.receiver_id = params[:user_id]
     @invitation.save
@@ -9,7 +8,6 @@ class InvitationsController < ApplicationController
   end
 
   def edit # Accept route
-    # byebug
     @user = User.find(params[:user_id])
     @group = Group.find(Invitation.find(params[:id]).group_id)
     @invitation = Invitation.find(params[:id])

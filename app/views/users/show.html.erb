@@ -4,10 +4,8 @@ Name: <%= "#{@user.first_name} #{@user.last_name}" %>
 Email: <%= @user.email %>
 <br>
 
-<% if @invitable %>
-  
+<% if @group_invitations %>
     <%= render partial: 'invitations/form' %>
-
 <% end %>
 
 <% if @authorized_user %>

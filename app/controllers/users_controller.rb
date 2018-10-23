@@ -32,9 +32,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @authorized_user = authorized_user(@user)
-    if @invitable = invitable?(current_user, @user)
+    @user_invitable_groups = invitable_groups
+    @group_invitations = !@user_invitable_groups.empty? && !@authorized_user
+    # Groups owned by the current user && it is not the current user's profile
+    if @group_invitations
       @invitation = Invitation.new
-      @current_user_owned_groups = Group.where("owner_id = ?", current_user.id)
     end
   end
 
@@ -54,18 +56,17 @@ class UsersController < ApplicationController
 
   private
 
-
-  def invitable?(logged_in_user, user_profile)
-
-    # Group.joins(:users).where(id: [25, 28]).where(users: { id: 12 })
-
-    # byebug
-    if logged_in_user == user_profile
-      return false
-    elsif !Group.joins(:users).where(id: user_profile.groups.ids).where(users: {id: logged_in_user.id}).empty?
-      return false
+  def invitable_groups
+    Group.where("owner_id = ?", current_user.id).select do |group|
+      user_does_not_belong_to_group = !group.users.ids.include?(@user.id)
+      no_pending_user_invitations = user_invitations("group_id = ? AND receiver_id = ? AND accepted IS NULL", group.id, @user.id)
+      no_declined_user_invitations = user_invitations("group_id = ? AND receiver_id = ? AND accepted = false", group.id, @user.id)
+      user_does_not_belong_to_group && no_pending_user_invitations && no_declined_user_invitations
     end
-    return true
+  end
+
+  def user_invitations(accepted_string, group, user)
+    Invitation.joins(:group).where([accepted_string, group, user,]).empty?
   end
 
   def set_user

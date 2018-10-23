@@ -1,7 +1,10 @@
 class GroupsController < ApplicationController
+  before_action :set_group, only: [:show, :edit, :update, :destroy]
+
   def index
     @groups = Group.all
   end
+
   def new
     @group = Group.new
   end
@@ -17,28 +20,32 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group = Group.find(params[:id])
   end
 
   def edit
-    @group = Group.find(params[:id])
   end
 
   def update
-    @group = Group.find(params[:id])
-    @group.update(group_params)
-    flash.notice = "Group '#{@group.name}' updated!"
-    redirect_to group_path(@group)
+    if @group.update(group_params)
+      flash[:notice] = "Group '#{@group.name}' updated!"
+      redirect_to group_path(@group)
+    else
+      flash[:warning] = 'An error occurred, please try again.'
+      render 'edit'
+    end
   end
 
   def destroy
-    @group = Group.find(params[:id])
     @group.destroy
-    flash.notice = "Group Deleted!"
+    flash[:notice] = 'Group Deleted!'
     redirect_to dashboard_path
   end
 
   private
+
+  def set_group
+   @group = Group.find(params[:id])
+  end
 
   def group_params
     params.require(:group).permit(:name, :description)

@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      flash[:notice] = "Account successfully created."
       redirect_to login_path
     else
       render 'new'
@@ -19,13 +20,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    if params[:id] && current_user
-      @own_profile = own_profile?(current_user, params[:id])
-      @user = User.find(params[:id])
-    elsif current_user
-      @own_profile = true
-      set_user
-    else
+    @user = params[:id] ? User.find(params[:id]) : current_user
+    if !current_user
       redirect_to root_url
       flash[:warning] = 'You must be logged in first.'
     end
@@ -60,10 +56,6 @@ class UsersController < ApplicationController
     when 'Password'
       return params.require(:user).permit(:password, :password_confirmation)
     end
-  end
-
-  def own_profile?(current_user, user_profile_id)
-    current_user.id == user_profile_id.to_i
   end
 
   def user_params

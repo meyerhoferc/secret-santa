@@ -1,6 +1,6 @@
 <%= form_for [ @user, @invitation ] do |f| %>
   <p>
-    <%= f.collection_select(:group_id, @current_user_owned_groups, :id, :name,
+    <%= f.collection_select(:group_id, @user_invitable_groups, :id, :name,
                              { prompt: 'Select Group' }) %>
   </p>
   <p>

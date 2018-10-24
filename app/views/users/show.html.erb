@@ -4,7 +4,7 @@ Name: <%= "#{@user.first_name} #{@user.last_name}" %>
 Email: <%= @user.email %>
 <br>
 
-<% if @authorized_user %>
+<% if authorized_user(@user) %>
   <%= link_to 'Update Your Information', edit_user_path(@user.id) %>
 <% end %>
 <br>

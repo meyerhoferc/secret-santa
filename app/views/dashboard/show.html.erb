@@ -15,7 +15,7 @@
           <%= invitation.comment %>
         </p>
         <p>
-          <%= link_to "Accept", user_accept_path(@user.id, invitation.id)%> <%= link_to "Decline", user_decline_path(@user.id, invitation.id)%>
+          <%= link_to "Accept", accept_path(invitation.id)%> <%= link_to "Decline", decline_path(invitation.id)%>
         </p>
       <% end %>
     <% end %>

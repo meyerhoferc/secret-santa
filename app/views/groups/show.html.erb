@@ -19,6 +19,14 @@ Gift Exchange Year: <%= @group.gift_due_date.year if @group.gift_due_date %>
 <% elsif @user_list.empty? && @belonging_user %>
   <%= link_to 'Create a Wish List', group_lists_path(@group), method: :post %>
 <% end %>
+<br>
+<br>
+
+<% if @group_owner %>
+<h2>Send an invitation</h2>
+<%= render partial: 'groups/invitation_form' %>
+
+<% end %>
 
 <br>
 <br>

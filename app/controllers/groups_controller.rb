@@ -30,6 +30,9 @@ class GroupsController < ApplicationController
       { user_id: current_user.id, group_id: @group.id } ] )
     @authorized_user = authorized_user(User.find(@group.owner_id))
     @belonging_user = belonging_user(@user_list)
+    if @group_owner = current_user.id == @group.owner_id
+      @invitation = Invitation.new
+    end
   end
 
   def edit

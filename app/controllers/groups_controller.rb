@@ -25,13 +25,18 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @user_list = @group.lists.where(
-      [ 'user_id = :user_id and group_id = :group_id',
-      { user_id: current_user.id, group_id: @group.id } ] )
-    @authorized_user = authorized_user(User.find(@group.owner_id))
-    @belonging_user = belonging_user(@user_list)
-    if @group_owner = current_user.id == @group.owner_id
-      @invitation = Invitation.new
+    if !current_user
+      flash[:warning] = "You need to be logged in first."
+      redirect_to root_path
+    else
+      @user_list = @group.lists.where(
+        [ 'user_id = :user_id and group_id = :group_id',
+        { user_id: current_user.id, group_id: @group.id } ] )
+      @authorized_user = authorized_user(User.find(@group.owner_id))
+      @belonging_user = belonging_user(@user_list)
+      if @group_owner = current_user.id == @group.owner_id
+        @invitation = Invitation.new
+      end
     end
   end
 

@@ -16,11 +16,13 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :create, :edit, :update] do
     resources :invitations, only: [:show, :create]
-    get '/accept/:id' => 'invitations#edit', as: 'accept'
-    get '/decline/:id' => 'invitations#destroy', as: 'decline'
   end
+  get '/accept/:id' => 'invitations#accept', as: 'accept'
+  get '/decline/:id' => 'invitations#decline', as: 'decline'
+
 
   resources :groups do
+    post '/invite' => 'invitations#invite', as: 'invite'
     resources :lists do
       resources :items
     end

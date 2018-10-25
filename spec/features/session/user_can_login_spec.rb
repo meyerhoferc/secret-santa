@@ -17,6 +17,15 @@ describe "user login" do
       expect(current_path).to eq dashboard_path
       expect(page).to have_content 'Welcome, Test.'
     end
+    it 'but wrong case' do
+      visit new_session_path
+      fill_in('email', with: user.email.upcase)
+      fill_in('password', with: user.password)
+      click_on 'Log In'
+
+      expect(current_path). to eq dashboard_path
+      expect(page).to have_content 'Welcome, Test.'
+    end
   end
   context 'with incorrect login information' do
     it 'rejects login' do

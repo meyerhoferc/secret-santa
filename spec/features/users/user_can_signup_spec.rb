@@ -1,25 +1,245 @@
 require 'rails_helper'
 
 describe 'user signup' do
-  context 'with a new user' do
-    it 'they can create an account' do
+  context 'a new user' do
+    before { @user = {first_name: 'Joey', last_name: 'Ralf', email: 'emati@l.com', password: 'pass', password_confirmation: 'pass' }}
+    it 'can create an account' do
       visit root_path
       click_on 'Sign Up'
       expect(current_path).to eq signup_path
-      fill_in('user[first_name]', with: 'Ra')
-      fill_in('user[last_name]', with: 'Zz')
-      fill_in('user[email]', with: 'email@email.email')
-      fill_in('user[password]', with: 'passpass')
-      fill_in('user[password_confirmation]', with: 'passpass')
+      fill_in('user[first_name]', with: @user[:first_name])
+      fill_in('user[last_name]', with: @user[:last_name])
+      fill_in('user[email]', with: @user[:email]);
+      fill_in('user[password]', with: @user[:password])
+      fill_in('user[password_confirmation]', with: @user[:password])
       click_on 'Create User'
 
       expect(current_path).to eq login_path
-      fill_in('email', with: 'email@email.email')
-      fill_in('password', with: 'passpass')
+      fill_in('Email', with: @user[:email])
+      fill_in('Password', with: @user[:password])
       click_on 'Log In'
 
       expect(current_path).to eq dashboard_path
-      expect(page).to have_content 'Welcome, Ra.'
+      expect(page).to have_content "Welcome, #{@user[:first_name]}."
+      expect(page).to have_link 'Sign Out'
+      expect(page).to have_link 'Profile'
+      expect(page).not_to have_link 'Log In'
+      expect(page).not_to have_link 'Sign Up'
+    end
+  end
+
+  context 'with an email' do
+    let(:user) { User.create(first_name: 'Joey', last_name: 'Ralf', email: 'eMaIl@EmAiL.emaILE', password: 'pass', password_confirmation: 'pass') }
+    it 'signup uppercase, login mixed-case' do
+      visit root_path
+      click_on 'Sign Up'
+      expect(current_path).to eq signup_path
+      fill_in('user[first_name]', with: user.first_name)
+      fill_in('user[last_name]', with: user.last_name)
+      fill_in('user[email]', with: user.email.upcase)
+      fill_in('user[password]', with: user.password)
+      fill_in('user[password_confirmation]', with: user.password)
+      click_on 'Create User'
+
+      expect(current_path).to eq login_path
+      fill_in('email', with: user.email)
+      fill_in('password', with: user.password)
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      expect(page).to have_content "Welcome, #{user.first_name}."
+      expect(page).to have_link 'Sign Out'
+      expect(page).to have_link 'Profile'
+      expect(page).not_to have_link 'Log In'
+      expect(page).not_to have_link 'Sign Up'
+    end
+
+    it 'signup uppercase, login uppercase' do
+      visit root_path
+      click_on 'Sign Up'
+      expect(current_path).to eq signup_path
+      fill_in('user[first_name]', with: user.first_name)
+      fill_in('user[last_name]', with: user.last_name)
+      fill_in('user[email]', with: user.email.upcase)
+      fill_in('user[password]', with: user.password)
+      fill_in('user[password_confirmation]', with: user.password)
+      click_on 'Create User'
+
+      expect(current_path).to eq login_path
+      fill_in('email', with: user.email.upcase)
+      fill_in('password', with: user.password)
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      expect(page).to have_content "Welcome, #{user.first_name}."
+      expect(page).to have_link 'Sign Out'
+      expect(page).to have_link 'Profile'
+      expect(page).not_to have_link 'Log In'
+      expect(page).not_to have_link 'Sign Up'
+    end
+
+    it 'signup uppercase, login downcase' do
+      visit root_path
+      click_on 'Sign Up'
+      expect(current_path).to eq signup_path
+      fill_in('user[first_name]', with: user.first_name)
+      fill_in('user[last_name]', with: user.last_name)
+      fill_in('user[email]', with: user.email.upcase)
+      fill_in('user[password]', with: user.password)
+      fill_in('user[password_confirmation]', with: user.password)
+      click_on 'Create User'
+
+      expect(current_path).to eq login_path
+      fill_in('email', with: user.email.downcase)
+      fill_in('password', with: user.password)
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      expect(page).to have_content "Welcome, #{user.first_name}."
+      expect(page).to have_link 'Sign Out'
+      expect(page).to have_link 'Profile'
+      expect(page).not_to have_link 'Log In'
+      expect(page).not_to have_link 'Sign Up'
+    end
+
+    it 'signup mixed-case, login mixed-case' do
+      visit root_path
+      click_on 'Sign Up'
+      expect(current_path).to eq signup_path
+      fill_in('user[first_name]', with: user.first_name)
+      fill_in('user[last_name]', with: user.last_name)
+      fill_in('user[email]', with: user.email)
+      fill_in('user[password]', with: user.password)
+      fill_in('user[password_confirmation]', with: user.password)
+      click_on 'Create User'
+
+      expect(current_path).to eq login_path
+      fill_in('email', with: user.email)
+      fill_in('password', with: user.password)
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      expect(page).to have_content "Welcome, #{user.first_name}."
+      expect(page).to have_link 'Sign Out'
+      expect(page).to have_link 'Profile'
+      expect(page).not_to have_link 'Log In'
+      expect(page).not_to have_link 'Sign Up'
+    end
+
+    it 'signup mixed-case, login uppercase' do
+      visit root_path
+      click_on 'Sign Up'
+      expect(current_path).to eq signup_path
+      fill_in('user[first_name]', with: user.first_name)
+      fill_in('user[last_name]', with: user.last_name)
+      fill_in('user[email]', with: user.email)
+      fill_in('user[password]', with: user.password)
+      fill_in('user[password_confirmation]', with: user.password)
+      click_on 'Create User'
+
+      expect(current_path).to eq login_path
+      fill_in('email', with: user.email.upcase)
+      fill_in('password', with: user.password)
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      expect(page).to have_content "Welcome, #{user.first_name}."
+      expect(page).to have_link 'Sign Out'
+      expect(page).to have_link 'Profile'
+      expect(page).not_to have_link 'Log In'
+      expect(page).not_to have_link 'Sign Up'
+    end
+
+    it 'signup mixed-case, login downcase' do
+      visit root_path
+      click_on 'Sign Up'
+      expect(current_path).to eq signup_path
+      fill_in('user[first_name]', with: user.first_name)
+      fill_in('user[last_name]', with: user.last_name)
+      fill_in('user[email]', with: user.email)
+      fill_in('user[password]', with: user.password)
+      fill_in('user[password_confirmation]', with: user.password)
+      click_on 'Create User'
+
+      expect(current_path).to eq login_path
+      fill_in('email', with: user.email.downcase)
+      fill_in('password', with: user.password)
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      expect(page).to have_content "Welcome, #{user.first_name}."
+      expect(page).to have_link 'Sign Out'
+      expect(page).to have_link 'Profile'
+      expect(page).not_to have_link 'Log In'
+      expect(page).not_to have_link 'Sign Up'
+    end
+
+    it 'signup downcase, login mixed-case' do
+      visit root_path
+      click_on 'Sign Up'
+      expect(current_path).to eq signup_path
+      fill_in('user[first_name]', with: user.first_name)
+      fill_in('user[last_name]', with: user.last_name)
+      fill_in('user[email]', with: user.email.downcase)
+      fill_in('user[password]', with: user.password)
+      fill_in('user[password_confirmation]', with: user.password)
+      click_on 'Create User'
+
+      expect(current_path).to eq login_path
+      fill_in('email', with: user.email)
+      fill_in('password', with: user.password)
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      expect(page).to have_content "Welcome, #{user.first_name}."
+      expect(page).to have_link 'Sign Out'
+      expect(page).to have_link 'Profile'
+      expect(page).not_to have_link 'Log In'
+      expect(page).not_to have_link 'Sign Up'
+    end
+
+    it 'signup downcase, login uppercase' do
+      visit root_path
+      click_on 'Sign Up'
+      expect(current_path).to eq signup_path
+      fill_in('user[first_name]', with: user.first_name)
+      fill_in('user[last_name]', with: user.last_name)
+      fill_in('user[email]', with: user.email.downcase)
+      fill_in('user[password]', with: user.password)
+      fill_in('user[password_confirmation]', with: user.password)
+      click_on 'Create User'
+
+      expect(current_path).to eq login_path
+      fill_in('email', with: user.email.upcase)
+      fill_in('password', with: user.password)
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      expect(page).to have_content "Welcome, #{user.first_name}."
+      expect(page).to have_link 'Sign Out'
+      expect(page).to have_link 'Profile'
+      expect(page).not_to have_link 'Log In'
+      expect(page).not_to have_link 'Sign Up'
+    end
+
+    it 'signup downcase, login downcase' do
+      visit root_path
+      click_on 'Sign Up'
+      expect(current_path).to eq signup_path
+      fill_in('user[first_name]', with: user.first_name)
+      fill_in('user[last_name]', with: user.last_name)
+      fill_in('user[email]', with: user.email.downcase)
+      fill_in('user[password]', with: user.password)
+      fill_in('user[password_confirmation]', with: user.password)
+      click_on 'Create User'
+
+      expect(current_path).to eq login_path
+      fill_in('email', with: user.email.downcase)
+      fill_in('password', with: user.password)
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      expect(page).to have_content "Welcome, #{user.first_name}."
       expect(page).to have_link 'Sign Out'
       expect(page).to have_link 'Profile'
       expect(page).not_to have_link 'Log In'

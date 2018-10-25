@@ -29,7 +29,7 @@ class InvitationsController < ApplicationController
     # sent from the groups page, by the group owner
 
     # params[:invitation][:receiver_id] is a string for an email
-    receiver = User.where("email = :email_addr", { email_addr: params[:invitation][:receiver_id]})[0]
+    receiver = User.find_by(email: params[:invitation][:receiver_id])
     group = Group.find(params[:group_id])
     if receiver
       no_pending_user_invitations = user_invitations("group_id = ? AND receiver_id = ? AND accepted IS NULL", group.id, receiver.id)

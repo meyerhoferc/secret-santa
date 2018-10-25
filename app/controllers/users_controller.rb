@@ -12,10 +12,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.email.downcase!
     if @user.save
       redirect_to login_path
     else
-      render 'new'
+      flash[:warning] = "Please enter valid credentials."
+      redirect_to signup_path
     end
   end
 
@@ -78,6 +80,7 @@ class UsersController < ApplicationController
     when 'Name'
       return params.require(:user).permit(:first_name, :last_name)
     when 'Email'
+      downcase_email_param!
       return params.require(:user).permit(:email)
     when 'Password'
       return params.require(:user).permit(:password, :password_confirmation)
@@ -86,5 +89,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation)
+  end
+
+  def downcase_email_param!
+    params[:user][:email].downcase!
   end
 end

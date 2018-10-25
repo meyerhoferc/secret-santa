@@ -10,7 +10,7 @@
   last_name = Faker::Name.last_name
   user = User.create!(first_name: first_name,
                last_name: last_name,
-               email: "#{first_name}@#{last_name}.com",
+               email: "#{first_name.downcase}@#{last_name.downcase}.com".gsub(' ', ''),
                password: 'pass',
                password_confirmation: 'pass')
 

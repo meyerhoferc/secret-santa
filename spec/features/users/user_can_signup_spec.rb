@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'user signup' do
   context 'a new user' do
-    before { @user = {first_name: 'Joey', last_name: 'Ralf', email: 'emati@l.com', password: 'pass', password_confirmation: 'pass' }}
+    before { @user = {first_name: 'Joey', last_name: 'Ralf', email: 'emati@l.com', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs' }}
     it 'can create an account' do
       visit root_path
       click_on 'Sign Up'
@@ -43,7 +43,7 @@ describe 'user signup' do
   end
 
   context 'with an email' do
-    let(:user) { User.create(first_name: 'Joey', last_name: 'Ralf', email: 'eMaIl@EmAiL.emaILE', password: 'pass', password_confirmation: 'pass') }
+    let(:user) { User.create(first_name: 'Joey', last_name: 'Ralf', email: 'eMaIl@EmAiL.emaILE', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs') }
     it 'signup uppercase, login mixed-case' do
       visit root_path
       click_on 'Sign Up'
@@ -197,7 +197,7 @@ describe 'user signup' do
 
   context 'as an existing, logged in user' do
     it 'redirects from /signup to dashboard' do
-      u = User.create(first_name: 'Raa', last_name: 'Zzz', email: 'email@raa.zzz', password: 'passpass')
+      u = User.create(first_name: 'Raa', last_name: 'Zzz', email: 'email@raa.zzz', password: 'pa1203489y132809hssp1203489y132809hass')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(u)
       visit signup_path
       expect(current_path).to eq dashboard_path

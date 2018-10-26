@@ -47,7 +47,10 @@ class UsersController < ApplicationController
 
   def update
     segment_string = params[:commit].split(' ')[1]
-    if @user.update(validate_params(segment_string))
+    if password_change(segment_string) && @user.update(user_params)
+      flash[:notice] = 'Password successfully updated.'
+      redirect_to profile_path
+    elsif @user.update(user_params)
       flash[:notice] = "#{segment_string} successfully updated."
       redirect_to profile_path
     else
@@ -57,6 +60,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def password_change(string)
+    string == 'Password' && @user.authenticate(params[:current_password])
+  end
 
   def invitable_groups
     Group.where("owner_id = ?", current_user.id).select do |group|
@@ -73,18 +80,6 @@ class UsersController < ApplicationController
 
   def set_user
     @user = current_user
-  end
-
-  def validate_params(string)
-    case string
-    when 'Name'
-      return params.require(:user).permit(:first_name, :last_name)
-    when 'Email'
-      downcase_email_param!
-      return params.require(:user).permit(:email)
-    when 'Password'
-      return params.require(:user).permit(:password, :password_confirmation)
-    end
   end
 
   def user_params

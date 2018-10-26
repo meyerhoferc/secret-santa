@@ -48,7 +48,7 @@ class GroupsController < ApplicationController
       flash[:notice] = "Group '#{@group.name}' updated!"
       redirect_to group_path(@group)
     else
-      flash[:warning] = 'An error occurred, please try again.'
+      flash[:warning] = 'Please enter valid information.'
       redirect_to edit_group_path(@group)
     end
   end

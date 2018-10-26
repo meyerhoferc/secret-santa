@@ -28,13 +28,11 @@ class InvitationsController < ApplicationController
   def invite
     # sent from the groups page, by the group owner
 
-    # params[:invitation][:receiver_id] is a string for an email
-    # email = params[:invitation][:receiver_id].downcase
     receiver = User.find_by(email: downcase_email_param)
     group = Group.find(params[:group_id])
     if receiver
-      no_pending_user_invitations = user_invitations("group_id = ? AND receiver_id = ? AND accepted IS NULL", group.id, receiver.id)
-      no_declined_user_invitations = user_invitations("group_id = ? AND receiver_id = ? AND accepted = false", group.id, receiver.id)
+      no_pending_user_invitations = user_invitations('group_id = ? AND receiver_id = ? AND accepted IS NULL', group.id, receiver.id)
+      no_declined_user_invitations = user_invitations('group_id = ? AND receiver_id = ? AND accepted = false', group.id, receiver.id)
       not_inviting_self = (group.owner_id != receiver.id)
     end
 
@@ -75,6 +73,7 @@ class InvitationsController < ApplicationController
   end
 
   def downcase_email_param
+    # params[:invitation][:receiver_id] is a string for an email
     params[:invitation][:receiver_id].downcase
   end
 end

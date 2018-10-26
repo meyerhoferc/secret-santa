@@ -1,11 +1,50 @@
 require 'rails_helper'
 
 describe User do
-  it 'has a secure password' do
-    # this test is for K's benefit to see an example and some of the basics of what comes with bcrypt + has_secure_password
-    u = User.create!(first_name: 'Raz', last_name: 'Z', email: '123@mail.com', password: 'passw1203489y132809hord123')
-    expect(u.authenticate('notthepassword')).to be_falsey
-    expect(u.authenticate('passw1203489y132809hord123')).to eq u
+  context 'password is' do
+    let(:user) { User.create(first_name: 'Raz', last_name: 'Z', email: '123@mail.com', password: 'passw1203489y132809hord123') }
+    it 'secure' do
+      expect(user.authenticate('notthepassword')).to be_falsey
+      expect(user.authenticate(user.password)).to eq user
+    end
+
+    it 'strong' do
+      u = User.new(first_name: 'Any', last_name: 'Y', email: 'eamail@email.email', password: 'pa1203489y1328sdfadsf09hsspa1a203489y132809hss')
+      expect(u.valid?).to eq true
+    end
+
+    it 'weak' do
+      u = User.new(first_name: 'Any', last_name: 'Y', email: 'eamail@email.email', password: 'pa12aa')
+      expect(u.valid?).to eq false
+    end
+
+    context 'common password:' do
+      it 'qwerty' do
+        u = User.new(first_name: 'Any', last_name: 'Y', email: 'eamail@email.email', password: 'qwerty')
+        expect(u.valid?).to eq false
+      end
+
+      it 'password' do
+      u = User.new(first_name: 'Any', last_name: 'Y', email: 'eamail@email.email', password: 'password')
+      expect(u.valid?).to eq false
+      end
+
+      it 'qwertyuiop' do
+      u = User.new(first_name: 'Any', last_name: 'Y', email: 'eamail@email.email', password: 'qwertyuiop')
+      expect(u.valid?).to eq false
+      end
+
+      it '1234567890' do
+      u = User.new(first_name: 'Any', last_name: 'Y', email: 'eamail@email.email', password: '1234567890')
+      expect(u.valid?).to eq false
+      end
+
+      it 'pass' do
+        u = User.new(first_name: 'Any', last_name: 'Y', email: 'eamail@email.email', password: 'pass')
+        expect(u.valid?).to eq false
+      end
+    end
+
   end
 
   context 'validations' do

@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-  before_action :set_group, only: [:new, :create, :show, :edit, :destroy]
-  before_action :set_list, only: [:new, :create, :show, :edit, :destroy]
+  before_action :set_group
+  before_action :set_list
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:create, :show] # check if needed in `show`
 
@@ -14,7 +14,7 @@ class ItemsController < ApplicationController
     if @item.save
       redirect_to group_list_path(@group, @list)
     else
-      flash[:warning] = 'Invalid entry.'
+      flash[:warning] = 'Please enter valid information.'
       render 'new'
     end
   end
@@ -28,7 +28,7 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
-      redirect_to group_list_item_path(@item)
+      redirect_to group_list_item_path(@group, @list, @item)
       flash[:notice] = "Item, #{@item.name}, updated."
     else
       flash[:warning] = 'An error occurred, please try again.'

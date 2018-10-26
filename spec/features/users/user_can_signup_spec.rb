@@ -27,6 +27,20 @@ describe 'user signup' do
       expect(page).not_to have_link 'Sign Up'
     end
   end
+  context 'incorrectly with' do
+    it 'blank credentials' do
+      visit root_path
+      click_on 'Sign Up'
+      expect(current_path).to eq signup_path
+
+      click_on 'Create User'
+
+      expect(page).to have_content 'Please enter valid credentials.'
+      expect(current_path).to eq signup_path
+    end
+
+    it 'invalid email format'
+  end
 
   context 'with an email' do
     let(:user) { User.create(first_name: 'Joey', last_name: 'Ralf', email: 'eMaIl@EmAiL.emaILE', password: 'pass', password_confirmation: 'pass') }

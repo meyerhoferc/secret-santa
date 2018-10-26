@@ -6,7 +6,7 @@ describe "user login" do
   # let(:user) { User.create() }
   # let!(:user) { User.create() }
   # before { @user = User.create(first_name: 'Test', last_name: 'Ing', email: 'test@ing.com', password: 'password') }
-  let(:user) { User.create(first_name: 'Test', last_name: 'Ing', email: 'test@ing.com', password: 'password') }
+  let(:user) { User.create(first_name: 'Test', last_name: 'Ing', email: 'test@ing.com', password: 'pas1203489y132809hswo1203489y132809hrd') }
   context 'with correct login information' do
     it 'can login' do
       visit new_session_path

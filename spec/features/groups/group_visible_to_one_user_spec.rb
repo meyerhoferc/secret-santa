@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'a group is' do
   context 'visible only' do
-    let(:user_one) { User.create(first_name: 'Johnny', last_name: 'Jy', email: 'johanna@test.com', password: 'pass') }
-    let(:user_two) { User.create(first_name: 'Johanna', last_name: 'Ja', email: 'johnny@test.com', password: 'pass') }
+    let(:user_one) { User.create(first_name: 'Johnny', last_name: 'Jy', email: 'johanna@test.com', password: 'p1203489y132809has1203489y132809hs') }
+    let(:user_two) { User.create(first_name: 'Johanna', last_name: 'Ja', email: 'johnny@test.com', password: 'p1203489y132809ha1203489y132809hss') }
     let(:group_one) { Group.create(name: 'My first group creation', description: 'Whoever wants to join', gift_due_date: '2018/12/31') }
     let(:group_two) { Group.create(name: 'My second group creation', description: 'Whoever wants to join', gift_due_date: '2019/12/31') }
     it 'to one user' do

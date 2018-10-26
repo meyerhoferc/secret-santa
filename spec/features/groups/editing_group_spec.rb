@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'editing a group' do
   context 'with' do
-    let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', email: 'email@raa.zzz', password: 'passpass') }
+    let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', email: 'email@raa.zzz', password: 'pa1203489y132809hsspa1203489y132809hss') }
     let(:group) { Group.create(name: 'My first group creation', description: 'Whoever wants to join', gift_due_date: '2018/12/31') }
 
     it 'correct information' do

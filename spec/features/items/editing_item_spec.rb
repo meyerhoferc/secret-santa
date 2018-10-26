@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'editing an item' do
   context 'with' do
-    let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', email: 'emaiil@raa.zzz', password: 'passpass') }
+    let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', email: 'emaiil@raa.zzz', password: 'pass1203489y132809hsfduhpass') }
     let(:group) { Group.create(name: 'The best group there is', description: 'Whoever wants to join', gift_due_date: '2018/12/31') }
     let(:item_one) { Item.create(name: 'Wallet', description: 'So pretty', size: 'XL', note: 'I would like many of these.') }
     let(:item_two) { Item.create(name: 'Shoes', description: 'So pretty!', size: 'L', note: 'I would like many of these please.') }

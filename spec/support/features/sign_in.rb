@@ -1,6 +1,6 @@
 module Features
   def sign_in
-    @user = User.create(first_name: 'Raa', last_name: 'Zzz', email: 'email@raa.zzz', password: 'passpass')
+    @user = User.create(first_name: 'Raa', last_name: 'Zzz', email: 'email@raa.zzz', password: 'passp1203489y132809hass')
     sign_in_as(@user)
   end
 

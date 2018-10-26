@@ -11,8 +11,8 @@
   user = User.create!(first_name: first_name,
                last_name: last_name,
                email: "#{first_name.downcase}@#{last_name.downcase}.com".gsub(' ', ''),
-               password: 'pass',
-               password_confirmation: 'pass')
+               password: 'asdf;lkjpoiuqwer',
+               password_confirmation: 'asdf;lkjpoiuqwer')
 
   group = Group.create!(name: Faker::MostInterestingManInTheWorld.unique.quote,
                 description: Faker::GameOfThrones.quote,

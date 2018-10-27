@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.email.downcase!
     if @user.save
+      flash[:notice] = "Account successfully created."
       redirect_to login_path
     else
       flash[:warning] = "Please enter valid credentials."

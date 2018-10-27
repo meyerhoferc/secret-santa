@@ -1,13 +1,13 @@
 <%= form_for :invitation, { url: group_invite_path(@group.id) } do |f| %>
-  <p>
-    <%= f.label :receiver_id, 'Email' %>
-    <%= f.text_field :receiver_id %>
-  </p>
-  <p>
+  <div>
+    <%= label_tag 'Email' %>
+    <%= email_field_tag 'email' %>
+  </div>
+  <div>
     <%= f.label :comment, "Message" %><br/>
     <%= f.text_field :comment %>
-  </p>
-  <p>
+  </div>
+  <div>
     <%= f.submit 'Submit' %>
-  </p>
+  </div>
 <% end %>

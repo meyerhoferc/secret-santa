@@ -4,6 +4,7 @@ class InvitationsController < ApplicationController
     @invitation.sender_id = current_user.id
     @invitation.receiver_id = params[:user_id]
     @invitation.save
+    flash[:notice] = 'Invitation sent.'
     redirect_to user_path(@invitation.receiver_id)
   end
 
@@ -15,6 +16,7 @@ class InvitationsController < ApplicationController
     @invitation.save
     @user.groups << @group
     create_list
+    flash[:notice] = 'Invitation accepted.'
     redirect_to dashboard_path
   end
 
@@ -22,12 +24,12 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.find(params[:id])
     @invitation.accepted = false
     @invitation.save
+    flash[:notice] = 'Invitation declined.'
     redirect_to dashboard_path
   end
 
   def invite
     # sent from the groups page, by the group owner
-
     receiver = User.find_by(email: downcase_email_param)
     group = Group.find(params[:group_id])
     if receiver
@@ -73,7 +75,6 @@ class InvitationsController < ApplicationController
   end
 
   def downcase_email_param
-    # params[:invitation][:receiver_id] is a string for an email
-    params[:invitation][:receiver_id].downcase
+    params[:email].downcase
   end
 end

@@ -20,6 +20,16 @@ describe 'creating an invitation' do
       expect(page).to have_content 'Invitation sent.'
     end
 
+    it 'inviting from group owner user profile' do
+      sign_in_as(owner)
+      click_on 'Create a Group'
+      create_group(group)
+      click_on 'Create Group'
+
+      visit user_path(owner.id)
+      expect(page).to have_no_content "Invite #{owner.first_name} #{owner.last_name} to a Group", 'Submit'
+    end
+
     it 'inviting from group page' do
       sign_in_as(owner)
       click_on 'Create a Group'
@@ -31,6 +41,20 @@ describe 'creating an invitation' do
       click_on 'Submit'
 
       expect(page).to have_content 'Invitation sent.'
+    end
+
+    it 'inviting self from group page' do
+      sign_in_as(owner)
+      click_on 'Create a Group'
+      create_group(group)
+      click_on 'Create Group'
+
+      fill_in 'email', with: owner.email
+      fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
+      click_on 'Submit'
+
+      expect(page).to have_content "#{owner.first_name} #{owner.last_name}:"
+      expect(page).to have_content "Invitation sent to user's email." # Failing conditional branch
     end
   end
 
@@ -55,13 +79,11 @@ describe 'creating an invitation' do
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
       expect(page).to have_content 'Invitation sent.'
-      visit dashboard_path
-      click_on 'Sign Out'
+      sign_out
 
       sign_in_as(invitee)
       click_on 'Accept'
       expect(page).to have_no_content 'Send an invitation', 'Submit'
-
     end
   end
 end

@@ -2,12 +2,12 @@ require 'rails_helper'
 
 describe 'creating an invitation' do
   let(:group) { Group.create(name: 'Gift giving', description: 'We love gifts', gift_due_date: '2019-01-01') }
-  let(:owner) { User.create(first_name: 'Ray', last_name: 'Lee', email: 'email@ray.lee', password: 'hspa1203489y132809hss12034pas1203489y13280989y132809h') }
-  let(:invitee) { User.create!(first_name: 'Lee', last_name: 'Ray', email: 'lee@ray.com', password: 'pas1203489y132809h132809hss1203489y132spa1203489y809h') }
+  let(:owner) { User.create(first_name: 'Ray', last_name: 'Lee', username: 'LeeRay', email: 'email@ray.lee', password: 'hspa1203489y132809hss12034pas1203489y13280989y132809h') }
+  let(:invitee) { User.create!(first_name: 'Lee', last_name: 'Ray', username: 'RayLee', email: 'lee@ray.com', password: 'pas1203489y132809h132809hss1203489y132spa1203489y809h') }
 
   context 'as a group owner' do
     it 'inviting from user profile' do
-      sign_in_as(owner)
+      sign_in(owner)
       click_on 'Create a Group'
       create_group(group)
       click_on 'Create Group'
@@ -21,7 +21,7 @@ describe 'creating an invitation' do
     end
 
     it 'inviting from group owner user profile' do
-      sign_in_as(owner)
+      sign_in(owner)
       click_on 'Create a Group'
       create_group(group)
       click_on 'Create Group'
@@ -31,7 +31,7 @@ describe 'creating an invitation' do
     end
 
     it 'inviting from group page' do
-      sign_in_as(owner)
+      sign_in(owner)
       click_on 'Create a Group'
       create_group(group)
       click_on 'Create Group'
@@ -44,7 +44,7 @@ describe 'creating an invitation' do
     end
 
     it 'inviting self from group page' do
-      sign_in_as(owner)
+      sign_in(owner)
       click_on 'Create a Group'
       create_group(group)
       click_on 'Create Group'
@@ -59,19 +59,19 @@ describe 'creating an invitation' do
   end
 
   let(:group) { Group.create(name: 'Gift giving', description: 'We love gifts', gift_due_date: '2019-01-01') }
-  let(:owner) { User.create(first_name: 'Ray', last_name: 'Lee', email: 'email@ray.lee', password: 'hspa1203489y132809hss12034pas1203489y13280989y132809h') }
-  let(:invitee) { User.create!(first_name: 'Lee', last_name: 'Ray', email: 'lee@ray.com', password: 'pas1203489y132809h132809hss1203489y132spa1203489y809h') }
+  let(:owner) { User.create(first_name: 'Ray', last_name: 'Lee', username: 'LeeRay', email: 'email@ray.lee', password: 'hspa1203489y132809hss12034pas1203489y13280989y132809h') }
+  let(:invitee) { User.create!(first_name: 'Lee', last_name: 'Ray', username: 'RayLee', email: 'lee@ray.com', password: 'pas1203489y132809h132809hss1203489y132spa1203489y809h') }
 
   context 'not as a group owner' do
     it 'from user profile' do
-      sign_in_as(invitee)
+      sign_in(invitee)
 
       visit user_path(owner.id)
       expect(page).to have_no_content "Invite #{owner.first_name} #{owner.last_name} to a Group", 'Submit'
     end
 
     it 'from group page' do
-      sign_in_as(owner)
+      sign_in(owner)
       click_on 'Create a Group'
       create_group(group)
       click_on 'Create Group'
@@ -81,7 +81,7 @@ describe 'creating an invitation' do
       expect(page).to have_content 'Invitation sent.'
       sign_out
 
-      sign_in_as(invitee)
+      sign_in(invitee)
       click_on 'Accept'
       expect(page).to have_no_content 'Send an invitation', 'Submit'
     end

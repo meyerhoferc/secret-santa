@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe 'editing a user' do
   context 'with a correct current password and a' do
-    let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', email: 'emmmaiil@raa.zzz', password: '8930nc89fadsfhhdufdasdfshi4sa') }
+    let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', username: 'Hi', email: 'emmmaiil@raa.zzz', password: '8930nc89fadsfhhdufdasdfshi4sa') }
     it 'valid first and last name' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Profile'
       expect(page).to have_link 'Update Your Information'
       click_on 'Update Your Information'
@@ -20,7 +20,7 @@ describe 'editing a user' do
     end
 
     it 'valid email' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Profile'
       expect(page).to have_link 'Update Your Information'
       click_on 'Update Your Information'
@@ -35,7 +35,7 @@ describe 'editing a user' do
     end
 
     it 'valid new password and confirmation' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Profile'
       expect(page).to have_link 'Update Your Information'
       click_on 'Update Your Information'
@@ -58,9 +58,9 @@ describe 'editing a user' do
   end
 
   context 'with a correct current password and a blank' do
-    let(:user) { User.create(first_name: 'Ra', last_name: 'Zz', email: 'mmmaiil@raa.zzz', password: '8930nc89fhhdufdshi6hgs') }
+    let(:user) { User.create(first_name: 'Ra', last_name: 'Zz', username: 'zzRa', email: 'mmmaiil@raa.zzz', password: '8930nc89fhhdufdshi6hgs') }
     it 'first and last name' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Profile'
       expect(page).to have_link 'Update Your Information'
       click_on 'Update Your Information'
@@ -75,7 +75,7 @@ describe 'editing a user' do
     end
 
     it 'email' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Profile'
       expect(page).to have_link 'Update Your Information'
       click_on 'Update Your Information'
@@ -89,7 +89,7 @@ describe 'editing a user' do
     end
 
     it 'new password and confirmation' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Profile'
       expect(page).to have_link 'Update Your Information'
       click_on 'Update Your Information'
@@ -104,9 +104,9 @@ describe 'editing a user' do
   end
 
   context 'with an incorrect current password and a' do
-    let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', email: 'emmmaiil@raa.zzz', password: '8930nc89fhhdufdshi4sa') }
+    let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', username: 'zzzRaa', email: 'emmmaiil@raa.zzz', password: '8930nc89fhhdufdshi4sa') }
     it 'valid first and last name' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Profile'
       expect(page).to have_link 'Update Your Information'
       click_on 'Update Your Information'
@@ -123,7 +123,7 @@ describe 'editing a user' do
     end
 
     it 'valid email' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Profile'
       expect(page).to have_link 'Update Your Information'
       click_on 'Update Your Information'
@@ -139,7 +139,7 @@ describe 'editing a user' do
     end
 
     it 'valid new password and confirmation' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Profile'
       expect(page).to have_link 'Update Your Information'
       click_on 'Update Your Information'
@@ -161,7 +161,11 @@ describe 'editing a user' do
       click_on 'Log In'
 
       expect(page).to have_content "Welcome, #{user.first_name}."
-
     end
+  end
+
+  context 'when another user has' do
+    it 'the same email address'
+
   end
 end

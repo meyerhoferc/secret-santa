@@ -2,16 +2,18 @@ require 'rails_helper'
 
 describe 'user signup' do
   context 'a new user' do
-    before { @user = {first_name: 'Joey', last_name: 'Ralf', email: 'emati@l.com', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs' }}
+    before { @user = {first_name: 'Joey', last_name: 'Ralf', username: 'jraasdflf', email: 'emati@l.com', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs' }}
     it 'can create an account' do
       visit root_path
       click_on 'Sign Up'
       expect(current_path).to eq signup_path
       fill_in('user[first_name]', with: @user[:first_name])
       fill_in('user[last_name]', with: @user[:last_name])
-      fill_in('user[email]', with: @user[:email]);
+      fill_in('user[username]', with: @user[:username])
+      fill_in('user[email]', with: @user[:email])
       fill_in('user[password]', with: @user[:password])
       fill_in('user[password_confirmation]', with: @user[:password])
+      expect(page).to have_link 'Back to Homepage'
       click_on 'Create User'
 
       expect(current_path).to eq login_path
@@ -43,16 +45,17 @@ describe 'user signup' do
   end
 
   context 'with an email' do
-    let(:user) { User.create(first_name: 'Joey', last_name: 'Ralf', email: 'eMaIl@EmAiL.emaILE', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs') }
+    let!(:user) { {first_name: 'Joey', last_name: 'Ralf', username: 'jradf4sdflff', email: 'eMaIl@EmAiL.emaILE', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs'} }
     it 'signup uppercase, login mixed-case' do
       visit root_path
       click_on 'Sign Up'
 
       expect(current_path).to eq signup_path
       fill_out_user_signup_no_email(user)
-      fill_in 'user[email]', with: user.email.upcase
+      fill_in 'user[email]', with: user[:email].upcase
       click_on 'Create User'
 
+      expect(page).to have_content 'Account successfully created.'
       expect(current_path).to eq login_path
       sign_in_as(user)
 
@@ -66,12 +69,12 @@ describe 'user signup' do
 
       expect(current_path).to eq signup_path
       fill_out_user_signup_no_email(user)
-      fill_in 'user[email]', with: user.email.upcase
+      fill_in 'user[email]', with: user[:email].upcase
       click_on 'Create User'
 
       expect(current_path).to eq login_path
-      fill_in 'email', with: user.email.upcase
-      fill_in 'password', with: user.password
+      fill_in 'email', with: user[:email].upcase
+      fill_in 'password', with: user[:password]
       click_on 'Log In'
 
       expect(current_path).to eq dashboard_path
@@ -84,12 +87,12 @@ describe 'user signup' do
 
       expect(current_path).to eq signup_path
       fill_out_user_signup_no_email(user)
-      fill_in('user[email]', with: user.email.upcase)
+      fill_in('user[email]', with: user[:email].upcase)
       click_on 'Create User'
 
       expect(current_path).to eq login_path
-      fill_in('email', with: user.email.downcase)
-      fill_in('password', with: user.password)
+      fill_in('email', with: user[:email].downcase)
+      fill_in('password', with: user[:password])
       click_on 'Log In'
 
       expect(current_path).to eq dashboard_path
@@ -101,7 +104,7 @@ describe 'user signup' do
       click_on 'Sign Up'
       expect(current_path).to eq signup_path
       fill_out_user_signup_no_email(user)
-      fill_in('user[email]', with: user.email)
+      fill_in('user[email]', with: user[:email])
       click_on 'Create User'
 
       expect(current_path).to eq login_path
@@ -116,12 +119,12 @@ describe 'user signup' do
       click_on 'Sign Up'
       expect(current_path).to eq signup_path
       fill_out_user_signup_no_email(user)
-      fill_in('user[email]', with: user.email)
+      fill_in('user[email]', with: user[:email])
       click_on 'Create User'
 
       expect(current_path).to eq login_path
-      fill_in('email', with: user.email.upcase)
-      fill_in('password', with: user.password)
+      fill_in('email', with: user[:email].upcase)
+      fill_in('password', with: user[:password])
       click_on 'Log In'
 
       expect(current_path).to eq dashboard_path
@@ -133,12 +136,12 @@ describe 'user signup' do
       click_on 'Sign Up'
       expect(current_path).to eq signup_path
       fill_out_user_signup_no_email(user)
-      fill_in('user[email]', with: user.email)
+      fill_in('user[email]', with: user[:email])
       click_on 'Create User'
 
       expect(current_path).to eq login_path
-      fill_in('email', with: user.email.downcase)
-      fill_in('password', with: user.password)
+      fill_in('email', with: user[:email].downcase)
+      fill_in('password', with: user[:password])
       click_on 'Log In'
 
       expect(current_path).to eq dashboard_path
@@ -150,7 +153,7 @@ describe 'user signup' do
       click_on 'Sign Up'
       expect(current_path).to eq signup_path
       fill_out_user_signup_no_email(user)
-      fill_in('user[email]', with: user.email.downcase)
+      fill_in('user[email]', with: user[:email].downcase)
       click_on 'Create User'
 
       expect(current_path).to eq login_path
@@ -165,12 +168,12 @@ describe 'user signup' do
       click_on 'Sign Up'
       expect(current_path).to eq signup_path
       fill_out_user_signup_no_email(user)
-      fill_in('user[email]', with: user.email.downcase)
+      fill_in('user[email]', with: user[:email].downcase)
       click_on 'Create User'
 
       expect(current_path).to eq login_path
-      fill_in('email', with: user.email.upcase)
-      fill_in('password', with: user.password)
+      fill_in('email', with: user[:email].upcase)
+      fill_in('password', with: user[:password])
       click_on 'Log In'
 
       expect(current_path).to eq dashboard_path
@@ -182,12 +185,12 @@ describe 'user signup' do
       click_on 'Sign Up'
       expect(current_path).to eq signup_path
       fill_out_user_signup_no_email(user)
-      fill_in('user[email]', with: user.email.downcase)
+      fill_in('user[email]', with: user[:email].downcase)
       click_on 'Create User'
 
       expect(current_path).to eq login_path
-      fill_in('email', with: user.email.downcase)
-      fill_in('password', with: user.password)
+      fill_in('email', with: user[:email].downcase)
+      fill_in('password', with: user[:password])
       click_on 'Log In'
 
       expect(current_path).to eq dashboard_path
@@ -197,7 +200,7 @@ describe 'user signup' do
 
   context 'as an existing, logged in user' do
     it 'redirects from /signup to dashboard' do
-      u = User.create(first_name: 'Raa', last_name: 'Zzz', email: 'email@raa.zzz', password: 'pa1203489y132809hssp1203489y132809hass')
+      u = User.create(first_name: 'Raa', last_name: 'Zzz', username: 'rasdfzzz', email: 'email@raa.zzz', password: 'pa1203489y132809hssp1203489y132809hass')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(u)
       visit signup_path
       expect(current_path).to eq dashboard_path

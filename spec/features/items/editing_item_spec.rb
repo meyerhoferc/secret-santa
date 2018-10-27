@@ -2,13 +2,13 @@ require 'rails_helper'
 
 describe 'editing an item' do
   context 'with' do
-    let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', email: 'emaiil@raa.zzz', password: 'pass1203489y132809hsfduhpass') }
+    let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', username: 'ZzzRaa', email: 'emaiil@raa.zzz', password: 'pass1203489y132809hsfduhpass') }
     let(:group) { Group.create(name: 'The best group there is', description: 'Whoever wants to join', gift_due_date: '2018/12/31') }
     let(:item_one) { Item.create(name: 'Wallet', description: 'So pretty', size: 'XL', note: 'I would like many of these.') }
     let(:item_two) { Item.create(name: 'Shoes', description: 'So pretty!', size: 'L', note: 'I would like many of these please.') }
 
     it 'correct information' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Create a Group'
       create_group(group)
       click_on 'Create Group'
@@ -33,7 +33,7 @@ describe 'editing an item' do
     end
 
     it 'blank information' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Create a Group'
       create_group(group)
       click_on 'Create Group'
@@ -47,7 +47,7 @@ describe 'editing an item' do
     end
 
     it 'multiple items' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Create a Group'
       create_group(group)
       click_on 'Create Group'

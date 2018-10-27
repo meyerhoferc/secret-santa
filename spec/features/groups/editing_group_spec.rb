@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe 'editing a group' do
   context 'with' do
-    let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', email: 'email@raa.zzz', password: 'pa1203489y132809hsspa1203489y132809hss') }
+    let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', username: 'ZzzRaa', email: 'email@raa.zzz', password: 'pa1203489y132809hsspa1203489y132809hss') }
     let(:group) { Group.create(name: 'My first group creation', description: 'Whoever wants to join', gift_due_date: '2018/12/31') }
 
     it 'correct information' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Create a Group'
       create_group(group)
       click_on 'Create Group'
@@ -28,7 +28,7 @@ describe 'editing a group' do
     end
 
     it 'blank information' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Create a Group'
       create_group(group)
       click_on 'Create Group'

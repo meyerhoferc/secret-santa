@@ -10,7 +10,6 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :username, presence: true
   validates_uniqueness_of :username
-  validates :email, presence: true
   validates_uniqueness_of :email
   has_secure_password
   validates :password, password_strength: {use_dictionary: true}

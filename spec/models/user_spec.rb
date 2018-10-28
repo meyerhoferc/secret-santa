@@ -67,10 +67,10 @@ describe User do
       expect(u.save).to eq false
     end
 
-    it 'validates email needs to be present' do
+    it 'email is optional' do
       u = User.new(first_name: 'Raz', last_name: 'Z', username: 'YAny', email: '', password: 'pa1203489y132809hsspa1203489y132809hss')
-      expect(u.valid?).to eq false
-      expect(u.save).to eq false
+      expect(u.valid?).to eq true
+      expect(u.save).to eq true
     end
 
     it 'validates email is unique' do

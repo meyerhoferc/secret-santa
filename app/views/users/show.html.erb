@@ -3,8 +3,10 @@ Name: <%= "#{@user.first_name} #{@user.last_name}" %>
 <br>
 Username: <%= @user.username %>
 <br>
+<% if authorized_user(@user) %>
 Email: <%= @user.email %>
 <br>
+<% end %>
 
 <% if @group_invitations %>
   <h2>Invite <%= "#{@user.first_name} #{@user.last_name}" %> to a Group</h2>

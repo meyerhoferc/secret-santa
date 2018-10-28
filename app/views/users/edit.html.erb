@@ -1,4 +1,4 @@
-<h1>Sign Up</h1>
+<h1>Edit Profile</h1>
 
 <%= form_for @user do |f| %>
   <div>
@@ -10,9 +10,21 @@
     <%= f.text_field :last_name %>
   </div>
   <div>
+    <%= f.submit 'Update Name' %>
+  </div>
+<% end %>
+
+<%= form_for @user do |f| %>
+  <div>
     <%= f.label :email %>
     <%= f.text_field :email %>
   </div>
+  <div>
+    <%= f.submit 'Update Email' %>
+  </div>
+<% end %>
+
+<%= form_for @user do |f| %>
   <div>
     <%= f.label :password %>
     <%= f.password_field :password %>
@@ -22,6 +34,6 @@
     <%= f.password_field :password_confirmation %>
   </div>
   <div>
-    <%= f.submit %>
+    <%= f.submit 'Update Password' %>
   </div>
 <% end %>

@@ -150,6 +150,185 @@ describe 'user signup' do
       expect(page).to have_content 'Account successfully created.'
     end
 
+    it 'signup uppercase, login mixed-case' do
+      visit root_path
+      click_on 'Sign Up'
+
+      expect(current_path).to eq signup_path
+      fill_out_user_signup_no_email(user_one)
+      fill_in 'user[username]', with: user_one[:username].upcase
+      click_on 'Create User'
+
+      expect(page).to have_content 'Account successfully created.'
+      expect(current_path).to eq login_path
+      visit login_path
+      fill_in 'Username or email', with: 'jRaDf4SdFlFf'
+      fill_in 'Password', with: user_one[:password]
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      dashboard_path_content(user_one)
+    end
+
+    it 'signup uppercase, login uppercase' do
+      visit root_path
+      click_on 'Sign Up'
+
+      expect(current_path).to eq signup_path
+      fill_out_user_signup_no_email(user_one)
+      fill_in 'user[username]', with: user_one[:username].upcase
+      click_on 'Create User'
+
+      expect(page).to have_content 'Account successfully created.'
+      expect(current_path).to eq login_path
+      visit login_path
+      fill_in 'Username or email', with: user_one[:username].upcase
+      fill_in 'Password', with: user_one[:password]
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      dashboard_path_content(user_one)
+    end
+
+    it 'signup uppercase, login downcase' do
+      visit root_path
+      click_on 'Sign Up'
+
+      expect(current_path).to eq signup_path
+      fill_out_user_signup_no_email(user_one)
+      fill_in 'user[username]', with: user_one[:username].upcase
+      click_on 'Create User'
+
+      expect(page).to have_content 'Account successfully created.'
+      expect(current_path).to eq login_path
+      visit login_path
+      fill_in 'Username or email', with: user_one[:username].downcase
+      fill_in 'Password', with: user_one[:password]
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      dashboard_path_content(user_one)
+    end
+
+    it 'signup mixed-case, login mixed-case' do
+      visit root_path
+      click_on 'Sign Up'
+
+      expect(current_path).to eq signup_path
+      fill_out_user_signup_no_email(user_one)
+      fill_in 'user[username]', with: 'jRAdf4SDFlFf'
+      click_on 'Create User'
+
+      expect(page).to have_content 'Account successfully created.'
+      expect(current_path).to eq login_path
+      visit login_path
+      fill_in 'Username or email', with: 'jRAdf4SDFlFf'
+      fill_in 'Password', with: user_one[:password]
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      dashboard_path_content(user_one)
+    end
+
+    it 'signup mixed-case, login uppercase' do
+      visit root_path
+      click_on 'Sign Up'
+
+      expect(current_path).to eq signup_path
+      fill_out_user_signup_no_email(user_one)
+      fill_in 'user[username]', with: 'jRAdf4SDFlFf'
+      click_on 'Create User'
+
+      expect(page).to have_content 'Account successfully created.'
+      expect(current_path).to eq login_path
+      visit login_path
+      fill_in 'Username or email', with: user_one[:username].upcase
+      fill_in 'Password', with: user_one[:password]
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      dashboard_path_content(user_one)
+    end
+
+    it 'signup mixed-case, login downcase' do
+      visit root_path
+      click_on 'Sign Up'
+
+      expect(current_path).to eq signup_path
+      fill_out_user_signup_no_email(user_one)
+      fill_in 'user[username]', with: 'jRAdf4SDFlFf'
+      click_on 'Create User'
+
+      expect(page).to have_content 'Account successfully created.'
+      expect(current_path).to eq login_path
+      visit login_path
+      fill_in 'Username or email', with: user_one[:username].downcase
+      fill_in 'Password', with: user_one[:password]
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      dashboard_path_content(user_one)
+    end
+
+    it 'signup downcase, login mixed-case' do
+      visit root_path
+      click_on 'Sign Up'
+
+      expect(current_path).to eq signup_path
+      fill_out_user_signup_no_email(user_one)
+      fill_in 'user[username]', with: user_one[:username].downcase
+      click_on 'Create User'
+
+      expect(page).to have_content 'Account successfully created.'
+      expect(current_path).to eq login_path
+      visit login_path
+      fill_in 'Username or email', with: 'jRAdf4SDfLfF'
+      fill_in 'Password', with: user_one[:password]
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      dashboard_path_content(user_one)
+    end
+
+    it 'signup downcase, login uppercase' do
+      visit root_path
+      click_on 'Sign Up'
+
+      expect(current_path).to eq signup_path
+      fill_out_user_signup_no_email(user_one)
+      fill_in 'user[username]', with: user_one[:username].downcase
+      click_on 'Create User'
+
+      expect(page).to have_content 'Account successfully created.'
+      expect(current_path).to eq login_path
+      visit login_path
+      fill_in 'Username or email', with: user_one[:username].upcase
+      fill_in 'Password', with: user_one[:password]
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      dashboard_path_content(user_one)
+    end
+
+    it 'signup downcase, login downcase' do
+      visit root_path
+      click_on 'Sign Up'
+
+      expect(current_path).to eq signup_path
+      fill_out_user_signup_no_email(user_one)
+      fill_in 'user[username]', with: user_one[:username].downcase
+      click_on 'Create User'
+
+      expect(page).to have_content 'Account successfully created.'
+      expect(current_path).to eq login_path
+      visit login_path
+      fill_in 'Username or email', with: user_one[:username].downcase
+      fill_in 'Password', with: user_one[:password]
+      click_on 'Log In'
+
+      expect(current_path).to eq dashboard_path
+      dashboard_path_content(user_one)
+    end
   end
 
   context 'with an email' do

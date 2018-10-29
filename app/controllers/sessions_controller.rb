@@ -3,12 +3,12 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: downcase_email)
+    user = User.find_by(username: login_credential) || User.find_by(email: login_credential)
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to dashboard_path
     else
-      flash[:warning] = 'Email or password is invalid'
+      flash[:warning] = 'Username, Email or password invalid.'
       render 'new'
     end
   end
@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
 
   private
 
-  def downcase_email
-    params[:email].downcase
+  def login_credential
+    params[:username_email].downcase
   end
 end

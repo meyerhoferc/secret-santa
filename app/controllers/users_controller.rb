@@ -12,7 +12,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.email.downcase!
+    @user.email.downcase! if @user.email
+    @user.username.downcase!
     if @user.save
       flash[:notice] = "Account successfully created."
       redirect_to login_path
@@ -24,7 +25,6 @@ class UsersController < ApplicationController
 
   def profile
     if @user
-      @authorized_user = true
       render 'show'
     else
       redirect_to root_url
@@ -34,9 +34,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @authorized_user = authorized_user(@user)
     @user_invitable_groups = invitable_groups
-    @group_invitations = !@user_invitable_groups.empty? && !@authorized_user
+    @group_invitations = !@user_invitable_groups.empty? && !authorized_user(@user)
     # Groups owned by the current user && it is not the current user's profile
     if @group_invitations
       @invitation = Invitation.new
@@ -94,7 +93,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :username, :email, :password, :password_confirmation)
   end
 
   def downcase_email_param!

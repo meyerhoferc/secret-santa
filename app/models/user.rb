@@ -10,7 +10,8 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :username, presence: true
   validates_uniqueness_of :username
-  validates_uniqueness_of :email
+  validates :email, presence: true, on: :update, if: Proc.new { |user| user.email.blank? }
+  validates_uniqueness_of :email, allow_blank: true, case_sensitive: false
   has_secure_password
   validates :password, password_strength: {use_dictionary: true}
 end

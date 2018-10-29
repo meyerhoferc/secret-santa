@@ -1,14 +1,21 @@
 module Features
   def sign_in(user)
     visit login_path
-    fill_in 'Email', with: user.email
+    fill_in 'Username or email', with: user.email
+    fill_in 'Password', with: user.password
+    click_on 'Log In'
+  end
+
+  def sign_in_username(user)
+    visit login_path
+    fill_in 'Username or email', with: user.username
     fill_in 'Password', with: user.password
     click_on 'Log In'
   end
 
   def sign_in_as(user)
     visit login_path
-    fill_in 'Email', with: user[:email]
+    fill_in 'Username or email', with: user[:email]
     fill_in 'Password', with: user[:password]
     click_on 'Log In'
   end

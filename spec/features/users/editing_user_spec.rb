@@ -49,7 +49,7 @@ describe 'editing a user' do
       click_on 'Back to Dashboard'
       click_on 'Sign Out'
       click_on 'Log In'
-      fill_in 'Email', with: user.email
+      fill_in 'Username or email', with: user.email
       fill_in 'Password', with: user.password + 't34fa'
       click_on 'Log In'
 
@@ -98,6 +98,61 @@ describe 'editing a user' do
       fill_in 'password_new_confirmation', with: ''
       fill_in 'current_password', with: user.password
       click_on 'Update Password'
+
+      expect(page).to have_content 'An error occurred, please try again.'
+    end
+  end
+
+  context 'with a blank signup email and a' do
+    let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', username: 'Hi', email: '', password: '8930nc89fadsfhhdufdasdfshi4sa') }
+    it 'blank entered email' do
+      sign_in(user)
+      click_on 'Profile'
+      expect(page).to have_link 'Update Your Information'
+      click_on 'Update Your Information'
+
+      fill_in 'Email', with: ''
+      # Finds the 'Current Password' field within the email_edit_user form
+      find("[id^=email_edit_user]").fill_in 'Current Password', with: user.password
+      click_on 'Update Email'
+
+      expect(page).to have_content 'An error occurred, please try again.'
+    end
+
+    it 'valid entered email' do
+      sign_in(user)
+      click_on 'Profile'
+      expect(page).to have_link 'Update Your Information'
+      click_on 'Update Your Information'
+
+      fill_in 'Email', with: 'my@email.com'
+      # Finds the 'Current Password' field within the email_edit_user form
+      find("[id^=email_edit_user]").fill_in 'Current Password', with: user.password
+      click_on 'Update Email'
+
+      expect(page).to have_content 'Email successfully updated.'
+      expect(page).to have_content 'Email: my@email.com'
+    end
+
+    it 'valid entered email then a blank entered email' do
+      sign_in(user)
+      click_on 'Profile'
+      expect(page).to have_link 'Update Your Information'
+      click_on 'Update Your Information'
+
+      fill_in 'Email', with: 'my@email.com'
+      # Finds the 'Current Password' field within the email_edit_user form
+      find("[id^=email_edit_user]").fill_in 'Current Password', with: user.password
+      click_on 'Update Email'
+
+      expect(page).to have_content 'Email successfully updated.'
+      expect(page).to have_content 'Email: my@email.com'
+
+      click_on 'Update Your Information'
+      fill_in 'Email', with: ''
+      # Finds the 'Current Password' field within the email_edit_user form
+      find("[id^=email_edit_user]").fill_in 'Current Password', with: user.password
+      click_on 'Update Email'
 
       expect(page).to have_content 'An error occurred, please try again.'
     end
@@ -156,16 +211,32 @@ describe 'editing a user' do
       click_on 'Back to Dashboard'
       click_on 'Sign Out'
       click_on 'Log In'
-      fill_in 'Email', with: user.email
-      fill_in 'Password', with: user.password
-      click_on 'Log In'
 
+      sign_in(user)
       expect(page).to have_content "Welcome, #{user.first_name}."
     end
   end
 
   context 'when another user has' do
-    it 'the same email address'
+    let(:user_one) { User.create(first_name: 'Raa', last_name: 'Zzz', username: 'zzzRaa', email: '', password: '8930nc89fhhdufdshi4sa') }
+    let(:user_two) { User.create(first_name: 'Raa', last_name: 'Zzz', username: 'RaaZzz', email: 'emmmaiil@raa.zzz', password: '8930nc89fhhdufdshi4sa') }
+    it 'the same email address case insensitive' do
+      sign_in(user_one)
+      click_on 'Profile'
+      expect(page).to have_link 'Update Your Information'
+      click_on 'Update Your Information'
 
+      fill_in 'Email', with: user_two.email.upcase
+      # Finds the 'Current Password' field within the email_edit_user form
+      find("[id^=email_edit_user]").fill_in 'Current Password', with: user_one.password
+      click_on 'Update Email'
+      expect(page).to have_content 'An error occurred, please try again.'
+
+      fill_in 'Email', with: 'My@email.comm'
+      # Finds the 'Current Password' field within the email_edit_user form
+      find("[id^=email_edit_user]").fill_in 'Current Password', with: user_one.password
+      click_on 'Update Email'
+      expect(page).to have_content 'Email successfully updated.'
+    end
   end
 end

@@ -2,34 +2,40 @@ require 'rails_helper'
 
 describe 'user signup' do
   context 'a new user' do
-    before { @user = {first_name: 'Joey', last_name: 'Ralf', username: 'jraasdflf', email: 'emati@l.com', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs' }}
+    let(:user) { {first_name: 'Joey', last_name: 'Ralf', username: 'jraasdflf', email: 'emati@l.com', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs' } }
     it 'can create an account' do
       visit root_path
       click_on 'Sign Up'
       expect(current_path).to eq signup_path
-      fill_in('user[first_name]', with: @user[:first_name])
-      fill_in('user[last_name]', with: @user[:last_name])
-      fill_in('user[username]', with: @user[:username])
-      fill_in('user[email]', with: @user[:email])
-      fill_in('user[password]', with: @user[:password])
-      fill_in('user[password_confirmation]', with: @user[:password])
+      fill_in('user[first_name]', with: user[:first_name])
+      fill_in('user[last_name]', with: user[:last_name])
+      fill_in('user[username]', with: user[:username])
+      fill_in('user[email]', with: user[:email])
+      fill_in('user[password]', with: user[:password])
+      fill_in('user[password_confirmation]', with: user[:password])
       expect(page).to have_link 'Back to Homepage'
       click_on 'Create User'
 
       expect(current_path).to eq login_path
-      fill_in('Email', with: @user[:email])
-      fill_in('Password', with: @user[:password])
+      fill_in('Username or email', with: user[:email])
+      fill_in('Password', with: user[:password])
       click_on 'Log In'
 
       expect(current_path).to eq dashboard_path
-      expect(page).to have_content "Welcome, #{@user[:first_name]}."
+      expect(page).to have_content "Welcome, #{user[:first_name]}."
       expect(page).to have_link 'Sign Out'
       expect(page).to have_link 'Profile'
       expect(page).not_to have_link 'Log In'
       expect(page).not_to have_link 'Sign Up'
     end
   end
+
   context 'incorrectly with' do
+    let(:user_one) { {first_name: 'Joey', last_name: 'Ralf', username: 'jrsdflff', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs'} }
+    let(:user_two) { User.create(first_name: 'Joey', last_name: 'Ralf', username: 'jrsdflff', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs') }
+    let(:user_three) { {first_name: 'Joey', last_name: 'Ralf', username: 'jrsdflff', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs'} }
+    let(:user_four) { User.create(first_name: 'Joey', last_name: 'Ralf', email: 'My@test.com', username: 'jrsdflff', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs') }
+
     it 'blank credentials' do
       visit root_path
       click_on 'Sign Up'
@@ -41,11 +47,113 @@ describe 'user signup' do
       expect(current_path).to eq signup_path
     end
 
+    it 'blank username' do
+      visit root_path
+      click_on 'Sign Up'
+      fill_in('user[first_name]', with: user_one[:first_name])
+      fill_in('user[last_name]', with: user_one[:last_name])
+      fill_in('user[email]', with: user_one[:email])
+      fill_in('user[password]', with: user_one[:password])
+      fill_in('user[password_confirmation]', with: user_one[:password])
+      click_on 'Create User'
+
+      expect(page).to have_content 'Please enter valid credentials.'
+    end
+
+    it 'same username' do
+      user_two
+      visit root_path
+      click_on 'Sign Up'
+      fill_in('user[first_name]', with: user_one[:first_name])
+      fill_in('user[last_name]', with: user_one[:last_name])
+      fill_in('user[username]', with: user_one[:username])
+      fill_in('user[email]', with: user_one[:email])
+      fill_in('user[password]', with: user_one[:password])
+      fill_in('user[password_confirmation]', with: user_one[:password])
+      click_on 'Create User'
+
+      expect(page).to have_content 'Please enter valid credentials.'
+    end
+
+    it 'same email' do
+      user_four
+      visit root_path
+      click_on 'Sign Up'
+      fill_in('user[first_name]', with: user_three[:first_name])
+      fill_in('user[last_name]', with: user_three[:last_name])
+      fill_in('user[email]', with: user_four[:email])
+      fill_in('user[password]', with: user_three[:password])
+      fill_in('user[password_confirmation]', with: user_three[:password])
+      click_on 'Create User'
+
+      expect(page).to have_content 'Please enter valid credentials.'
+    end
+
+    it 'same email case insensitive' do
+      user_four
+      visit root_path
+      click_on 'Sign Up'
+      fill_in('user[first_name]', with: user_three[:first_name])
+      fill_in('user[last_name]', with: user_three[:last_name])
+      fill_in('user[email]', with: user_four[:email].upcase)
+      fill_in('user[password]', with: user_three[:password])
+      fill_in('user[password_confirmation]', with: user_three[:password])
+      click_on 'Create User'
+
+      expect(page).to have_content 'Please enter valid credentials.'
+    end
+
     it 'invalid email format'
   end
 
+  context 'with a username' do
+    let(:user_one) { {first_name: 'Joey', last_name: 'Ralf', username: 'jradf4sdflff', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs'} }
+    let(:user_two) { User.create(first_name: 'Joey', last_name: 'Ralf', username: 'jrsdflff', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs') }
+    it 'and no email' do
+      visit root_path
+      click_on 'Sign Up'
+      fill_in('user[first_name]', with: user_one[:first_name])
+      fill_in('user[last_name]', with: user_one[:last_name])
+      fill_in('user[username]', with: user_one[:username])
+      fill_in('user[password]', with: user_one[:password])
+      fill_in('user[password_confirmation]', with: user_one[:password])
+      click_on 'Create User'
+
+      expect(page).to have_content 'Account successfully created.'
+    end
+
+    it 'and an email' do
+      visit root_path
+      click_on 'Sign Up'
+      fill_in('user[first_name]', with: user_one[:first_name])
+      fill_in('user[last_name]', with: user_one[:last_name])
+      fill_in('user[username]', with: user_one[:username])
+      fill_in('user[email]', with: 'email@my.com')
+      fill_in('user[password]', with: user_one[:password])
+      fill_in('user[password_confirmation]', with: user_one[:password])
+      click_on 'Create User'
+
+      expect(page).to have_content 'Account successfully created.'
+    end
+
+    it 'multiple users blank emails' do
+      user_two
+      visit root_path
+      click_on 'Sign Up'
+      fill_in('user[first_name]', with: user_one[:first_name])
+      fill_in('user[last_name]', with: user_one[:last_name])
+      fill_in('user[username]', with: user_one[:username])
+      fill_in('user[password]', with: user_one[:password])
+      fill_in('user[password_confirmation]', with: user_one[:password])
+      click_on 'Create User'
+
+      expect(page).to have_content 'Account successfully created.'
+    end
+
+  end
+
   context 'with an email' do
-    let!(:user) { {first_name: 'Joey', last_name: 'Ralf', username: 'jradf4sdflff', email: 'eMaIl@EmAiL.emaILE', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs'} }
+    let(:user) { {first_name: 'Joey', last_name: 'Ralf', username: 'jradf4sdflff', email: 'eMaIl@EmAiL.emaILE', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs'} }
     it 'signup uppercase, login mixed-case' do
       visit root_path
       click_on 'Sign Up'

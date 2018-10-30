@@ -2,8 +2,8 @@
 
 <%= link_to "#{@user.first_name} #{@user.last_name}'s list", user_path(@user) %>
 <br>
-<% if @authorized_user %>
-  <%= link_to 'Create a new Wish list item', new_group_list_item_path(@group, @list) %>
+<% if authorized_user(@user) %>
+  <%= link_to 'Add an item to your wish list', new_group_list_item_path(@group, @list) %>
 <% end %>
 <ul>
   <% @items.each do |item| %>

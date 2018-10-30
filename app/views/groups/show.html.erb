@@ -24,7 +24,7 @@ Gift Exchange Year: <%= @group.gift_due_date.year if @group.gift_due_date %>
 
 <% if @group_owner %>
 <h2>Send an invitation</h2>
-<%= render partial: 'groups/invitation_form' %>
+<%= render partial: 'invitations/group_form' %>
 
 <% end %>
 

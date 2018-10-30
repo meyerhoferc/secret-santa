@@ -10,7 +10,7 @@ Email: <%= @user.email %>
 
 <% if @group_invitations %>
   <h2>Invite <%= "#{@user.first_name} #{@user.last_name}" %> to a Group</h2>
-  <%= render partial: 'invitations/form' %>
+  <%= render partial: 'invitations/user_profile_form' %>
 <% end %>
 
 <% if authorized_user(@user) %>

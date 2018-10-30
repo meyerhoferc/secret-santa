@@ -103,7 +103,20 @@ describe 'user signup' do
       expect(page).to have_content 'Please enter valid credentials.'
     end
 
-    it 'invalid email format'
+    it 'invalid email format' do
+      u = User.create(first_name: 'Josh', last_name: 'Flaf', email: 'test@email@email', username: 'jrsdf43lff', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs')
+      expect(u.valid?).to eq false
+      v = User.create(first_name: 'Josh', last_name: 'Flaf', email: 'test@email.email', username: 'jrsdff78lff', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs')
+      expect(v.valid?).to eq true
+      w = User.create(first_name: 'Josh', last_name: 'Flaf', email: 't@e.em', username: 'jrsdfa123sdflff', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs')
+      expect(w.valid?).to eq true
+      x = User.create(first_name: 'Josh', last_name: 'Flaf', email: 'testing@email.c0m', username: 'jrsdffdsa67lff', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs')
+      expect(x.valid?).to eq false
+      y = User.create(first_name: 'Josh', last_name: 'Flaf', email: 'te234st@emadds45il.email', username: 'jrasdfsd4445flff', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs')
+      expect(y.valid?).to eq true
+      z = User.create(first_name: 'Josh', last_name: 'Flaf', email: 'test@email-me-today.co.uk', username: 'jrsd545flfdaff', password: 'p1203489y132809has1203489y132809hs', password_confirmation: 'p1203489y132809has1203489y132809hs')
+      expect(z.valid?).to eq true
+    end
   end
 
   context 'with a username' do

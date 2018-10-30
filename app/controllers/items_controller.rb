@@ -2,7 +2,8 @@ class ItemsController < ApplicationController
   before_action :set_group
   before_action :set_list
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, only: [:create, :show]
+  before_action :set_user, except: :index
+  before_action -> { unauthorized_user(@user) }, except: [:show]
 
   def new
     @item = Item.new
@@ -11,7 +12,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.list_id = @list.id
-    if @item.save
+    if authorized_user(@user) && @item.save
       redirect_to group_list_path(@group, @list)
     else
       flash[:warning] = 'Invalid entry.'
@@ -26,7 +27,7 @@ class ItemsController < ApplicationController
   end
 
   def update
-    if @item.update(item_params)
+    if authorized_user(@user) && @item.update(item_params)
       flash[:notice] = "Item, #{@item.name}, updated."
       redirect_to group_list_item_path(@group, @list, @item)
     else

@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
-  before_action :set_group, only: [:new, :create, :show, :edit, :destroy]
-  before_action :set_list, only: [:new, :create, :show, :edit, :destroy]
+  before_action :set_group
+  before_action :set_list
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, only: [:create, :show] # check if needed in `show`
+  before_action :set_user, only: [:create, :show]
 
   def new
     @item = Item.new
@@ -10,7 +10,7 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    @item.lists_id = @list.id
+    @item.list_id = @list.id
     if @item.save
       redirect_to group_list_path(@group, @list)
     else
@@ -20,7 +20,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @authorized_user = authorized_user(@user)
   end
 
   def edit
@@ -28,8 +27,8 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
-      redirect_to group_list_item_path(@item)
       flash[:notice] = "Item, #{@item.name}, updated."
+      redirect_to group_list_item_path(@group, @list, @item)
     else
       flash[:warning] = 'An error occurred, please try again.'
       render 'edit'

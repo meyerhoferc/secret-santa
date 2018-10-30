@@ -15,18 +15,16 @@ class GroupsController < ApplicationController
     @group.owner_id = current_user.id # Add user as owner
     if @group.save
       create_list
+      flash[:notice] = 'Group created successfully.'
       redirect_to group_path(@group)
     else
       flash[:notice] = 'The group name is already taken. Please choose another name.'
-      redirect_to new_group_path
+      render 'new'
     end
   end
 
   def show
-    @user_list = @group.lists.where(['user_id = :user_id and group_id = :group_id',
-                                    { user_id: current_user.id, group_id: @group.id }])
-    @authorized_user = authorized_user(User.find(@group.owner_id))
-    @belonging_user = belonging_user(@user_list)
+    @user_wish_list = @group.user_wish_list(current_user)
   end
 
   def edit

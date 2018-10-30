@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :authorized_user
+  helper_method :current_user, :authorized_user, :unauthorized_user
   before_action :root_path_if_not_logged_in
 
   def current_user
@@ -15,7 +15,16 @@ class ApplicationController < ActionController::Base
   end
 
   def root_path_if_not_logged_in
-    flash[:warning] = 'You need to be logged in first.' unless logged_in?
-    redirect_to root_path unless logged_in?
+    if !logged_in?
+      flash[:warning] = 'You need to be logged in first.'
+      redirect_to root_path
+    end
+  end
+
+  def unauthorized_user(user)
+    if !authorized_user(user)
+      flash[:warning] = 'This action is unauthorized.'
+      redirect_to root_path
+    end
   end
 end

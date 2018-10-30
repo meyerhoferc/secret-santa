@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action -> { unauthorized_user(@group.owner) }, only: [:update, :edit, :destroy]
 
   def index
     @groups = Group.all
@@ -13,7 +14,7 @@ class GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.user_ids = current_user.id # Add user as a user
     @group.owner_id = current_user.id # Add user as owner
-    if @group.save
+    if authorized_user(@group.owner) && @group.save
       create_list
       flash[:notice] = 'Group created successfully.'
       redirect_to group_path(@group)
@@ -31,7 +32,7 @@ class GroupsController < ApplicationController
   end
 
   def update
-    if @group.update(group_params)
+    if authorized_user(@group.owner) && @group.update(group_params)
       flash[:notice] = "Group '#{@group.name}' updated!"
       redirect_to group_path(@group)
     else

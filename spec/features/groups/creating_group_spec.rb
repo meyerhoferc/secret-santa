@@ -57,7 +57,7 @@ describe 'group creation' do
     it 'not logged in' do
       visit profile_path
       expect(current_path).to eq root_path
-      expect(page).to have_content 'You must be logged in first.'
+      expect(page).to have_content 'You need to be logged in first.'
     end
   end
 end

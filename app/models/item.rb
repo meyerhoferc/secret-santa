@@ -1,5 +1,5 @@
 class Item < ApplicationRecord
-  has_one :list
+  belongs_to :list
   validates :name, presence: true
   validates :description, presence: true
 end

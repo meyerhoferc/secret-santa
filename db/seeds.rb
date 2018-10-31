@@ -11,7 +11,7 @@
   user = User.create!(first_name: first_name,
                last_name: last_name,
                email: "#{first_name.downcase}@#{last_name.downcase}.com".gsub(' ', ''),
-               username: "#{last_name.downcase}#{first_name.upcase}",
+               username: "#{last_name.downcase}#{first_name.downcase}",
                password: 'asdf;lkjpoiuqwer',
                password_confirmation: 'asdf;lkjpoiuqwer')
 
@@ -29,6 +29,6 @@
                       description: Faker::FamousLastWords.last_words,
                       note: Faker::Myst.quote,
                       size: Faker::Measurement.weight,
-                      lists_id: list.id)
+                      list_id: list.id)
   end
 end

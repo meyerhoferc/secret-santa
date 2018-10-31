@@ -2,7 +2,8 @@ class ItemsController < ApplicationController
   before_action :set_group
   before_action :set_list
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, only: [:create, :show] # check if needed in `show`
+  before_action :set_user, except: :index
+  before_action -> { unauthorized_user(@user) }, except: [:show]
 
   def new
     @item = Item.new
@@ -10,8 +11,8 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    @item.lists_id = @list.id
-    if @item.save
+    @item.list_id = @list.id
+    if authorized_user(@user) && @item.save
       redirect_to group_list_path(@group, @list)
     else
       flash[:warning] = 'Please enter valid information.'
@@ -20,16 +21,15 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @authorized_user = authorized_user(@user)
   end
 
   def edit
   end
 
   def update
-    if @item.update(item_params)
-      redirect_to group_list_item_path(@group, @list, @item)
+    if authorized_user(@user) && @item.update(item_params)
       flash[:notice] = "Item, #{@item.name}, updated."
+      redirect_to group_list_item_path(@group, @list, @item)
     else
       flash[:warning] = 'An error occurred, please try again.'
       render 'edit'

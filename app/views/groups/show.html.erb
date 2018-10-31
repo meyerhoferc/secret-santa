@@ -8,21 +8,19 @@ Gift Due Date: <%= @group.gift_due_date %>
 Gift Exchange Year: <%= @group.gift_due_date.year if @group.gift_due_date %>
 <br>
 <br>
-<% if @authorized_user %>
+<% if authorized_user(@group.owner) %>
   <%= link_to 'Edit Group', edit_group_path %>
   <%= link_to 'Delete Group', group_path, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' } %>
   <br>
   <br>
 <% end %>
-<% if !@user_list.empty? %>
-  <%= link_to 'View your Wish List', group_list_path(@group, @user_list[0]) %>
-<% elsif @user_list.empty? && @belonging_user %>
-  <%= link_to 'Create a Wish List', group_lists_path(@group), method: :post %>
+<% if @user_wish_list %>
+  <%= link_to 'View your Wish List', group_list_path(@group, @user_wish_list.id) %>
 <% end %>
 <br>
 <br>
 
-<% if @group_owner %>
+<% if authorized_user(@group.owner) %>
 <h2>Send an invitation</h2>
 <%= render partial: 'invitations/group_form' %>
 
@@ -33,12 +31,11 @@ Gift Exchange Year: <%= @group.gift_due_date.year if @group.gift_due_date %>
 Users in this group:
 <ul>
   <% @group.users.each do |user| %>
-  <% wish_list = user.lists.where(['user_id = :user_id and group_id = :group_id', { user_id: user.id, group_id: @group.id }]) %>
   <li>
     <%= "#{user.first_name} #{user.last_name}: " %>
     <%= link_to 'Profile', user_path(user.id) %>
-    <%= link_to "Wish List", group_list_path(@group.id, wish_list[0].id) unless wish_list.empty? %>
-    <%= "(Group Owner)" if @group.owner_id == user.id %>
+    <%= link_to "Wish List", group_list_path(@group.id, @group.user_wish_list(user).id) %>
+    <%= "(Group Owner)" if @group.owner.id == user.id %>
   </li>
   <% end %>
 </ul>

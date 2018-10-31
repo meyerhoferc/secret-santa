@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action -> { unauthorized_user(@group.owner) }, only: [:update, :edit, :destroy]
 
   def index # Delete for the future?
     @groups = Group.all
@@ -13,30 +14,21 @@ class GroupsController < ApplicationController
     @group = Group.new(group_params)
     @group.user_ids << current_user.id # Add user as a user
     @group.owner_id = current_user.id # Add user as owner
-    if @group.valid?
+    if authorized_user(@group.owner) && @group.save
       current_user.groups << @group
-      @group.save
       create_list
+      flash[:notice] = 'Group created successfully.'
       redirect_to group_path(@group)
     else
       flash[:warning] = "The Gift Due Date can't be blank, or the Group Name is already taken."
-      redirect_to new_group_path
+      render 'new'
     end
   end
 
   def show
-    if !current_user
-      flash[:warning] = "You need to be logged in first."
-      redirect_to root_path
-    else
-      @user_list = @group.lists.where(
-        [ 'user_id = :user_id and group_id = :group_id',
-        { user_id: current_user.id, group_id: @group.id } ] )
-      @authorized_user = authorized_user(User.find(@group.owner_id))
-      @belonging_user = belonging_user(@user_list)
-      if @group_owner = current_user.id == @group.owner_id
-        @invitation = Invitation.new
-      end
+    @user_wish_list = @group.user_wish_list(current_user)
+    if authorized_user(@group.owner)
+      @invitation = Invitation.new
     end
   end
 
@@ -44,7 +36,7 @@ class GroupsController < ApplicationController
   end
 
   def update
-    if @group.update(group_params)
+    if authorized_user(@group.owner) && @group.update(group_params)
       flash[:notice] = "Group '#{@group.name}' updated!"
       redirect_to group_path(@group)
     else
@@ -57,7 +49,7 @@ class GroupsController < ApplicationController
     @lists = List.where("group_id = :group_id", {group_id: @group.id})
     if !@lists.empty?
       @lists.each do |list|
-        items = Item.where("lists_id = :list_id", {list_id: list.id})
+        items = Item.where("list_id = :list_id", {list_id: list.id})
         items.each { |item| item.destroy }
         list.destroy
       end

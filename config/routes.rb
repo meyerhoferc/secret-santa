@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   resources :groups do
     post '/invite' => 'invitations#invite', as: 'invite'
-    resources :lists do
+    resources :lists, only: [:show] do
       resources :items
     end
   end

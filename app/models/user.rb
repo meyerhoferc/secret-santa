@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validates :username, presence: true
   validates_uniqueness_of :username
   validates :email, presence: true, on: :update, if: Proc.new { |user| user.email.blank? }
+  validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, unless: Proc.new { |user| user.email.blank? }
   validates_uniqueness_of :email, allow_blank: true, case_sensitive: false
   has_secure_password
   validates :password, password_strength: {use_dictionary: true}

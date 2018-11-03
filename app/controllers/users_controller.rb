@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update]
+  skip_before_action :root_path_if_not_logged_in, only: [:new, :create]
+  before_action :set_user, only: [:edit, :update, :profile]
+
   def new
     @user = User.new
     if current_user
@@ -19,12 +21,19 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-    @user = params[:id] ? User.find(params[:id]) : current_user
-    if !current_user
+  def profile
+    if @user
+      @authorized_user = true
+      render 'show'
+    else
       redirect_to root_url
       flash[:warning] = 'You must be logged in first.'
     end
+  end
+
+  def show
+    @user = User.find(params[:id])
+    @authorized_user = authorized_user(@user)
   end
 
   def edit

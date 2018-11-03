@@ -41,7 +41,7 @@ describe 'editing a group' do
       fill_in 'Gift Due Date', with: ''
       click_on 'Update Group'
 
-      expect(page).to have_content 'Please enter valid information.'
+      expect(page).to have_content "Name can't be blank, Description can't be blank, and Gift due date can't be blank"
     end
   end
 end

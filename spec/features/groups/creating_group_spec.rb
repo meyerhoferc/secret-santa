@@ -24,7 +24,7 @@ describe 'group creation' do
       fill_in('group_description', with: '')
       click_on 'Create Group'
 
-      expect(page).to have_content "The Gift Due Date can't be blank, or the Group Name is already taken."
+      expect(page).to have_content "Name can't be blank, Description can't be blank, and Gift due date can't be blank"
     end
   end
 

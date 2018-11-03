@@ -43,7 +43,7 @@ describe 'editing an item' do
       click_on 'Add an item to your wish list'
       click_on 'Create Item'
 
-      expect(page).to have_content 'Please enter valid information.'
+      expect(page).to have_content "Name can't be blank and Description can't be blank"
     end
 
     it 'multiple items' do

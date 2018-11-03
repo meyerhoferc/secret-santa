@@ -43,7 +43,7 @@ describe 'user signup' do
 
       click_on 'Create User'
 
-      expect(page).to have_content 'Please enter valid credentials.'
+      expect(page).to have_content "First name can't be blank, Last name can't be blank, Username can't be blank, Username must contain only letters, numbers or underscores"
       expect(current_path).to eq signup_path
     end
 
@@ -57,7 +57,7 @@ describe 'user signup' do
       fill_in('user[password_confirmation]', with: user_one[:password])
       click_on 'Create User'
 
-      expect(page).to have_content 'Please enter valid credentials.'
+      expect(page).to have_content "Username can't be blank and Username must contain only letters, numbers or underscores"
     end
 
     it 'same username' do
@@ -72,7 +72,7 @@ describe 'user signup' do
       fill_in('user[password_confirmation]', with: user_one[:password])
       click_on 'Create User'
 
-      expect(page).to have_content 'Please enter valid credentials.'
+      expect(page).to have_content "Username has already been taken"
     end
 
     it 'same email' do
@@ -86,7 +86,7 @@ describe 'user signup' do
       fill_in('user[password_confirmation]', with: user_three[:password])
       click_on 'Create User'
 
-      expect(page).to have_content 'Please enter valid credentials.'
+      expect(page).to have_content "Username can't be blank, Username must contain only letters, numbers or underscores, and Email has already been taken"
     end
 
     it 'same email case insensitive' do
@@ -100,7 +100,7 @@ describe 'user signup' do
       fill_in('user[password_confirmation]', with: user_three[:password])
       click_on 'Create User'
 
-      expect(page).to have_content 'Please enter valid credentials.'
+      expect(page).to have_content "Username can't be blank, Username must contain only letters, numbers or underscores, and Email has already been taken"
     end
 
     it 'invalid email format' do

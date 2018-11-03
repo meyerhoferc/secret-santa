@@ -17,8 +17,8 @@ describe 'deleting a group' do
       click_on group.name
       click_on 'Delete Group'
 
-      expect(page).to have_content 'Group Deleted!'
-      expect(page).to have_no_content group.name
+      expect(page).to have_content "Group #{group.name} deleted!"
+      expect(page).to have_no_link group.name
     end
 
     it 'one user items' do
@@ -35,8 +35,8 @@ describe 'deleting a group' do
       click_on 'Back to Group'
 
       click_on 'Delete Group'
-      expect(page).to have_content 'Group Deleted!'
-      expect(page).to have_no_content group.name
+      expect(page).to have_content"Group #{group.name} deleted!"
+      expect(page).to have_no_link group.name
     end
 
     it 'many user items' do
@@ -57,8 +57,8 @@ describe 'deleting a group' do
       click_on 'Back to Group'
 
       click_on 'Delete Group'
-      expect(page).to have_content 'Group Deleted!'
-      expect(page).to have_no_content group.name
+      expect(page).to have_content "Group #{group.name} deleted!"
+      expect(page).to have_no_link group.name
     end
   end
 end

@@ -88,7 +88,7 @@ describe 'owner sending multiple invites' do
       fill_in 'Username or email', with: invitee.email
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
-      expect(page).to have_content 'This user already has an invitation.'
+      expect(page).to have_content 'Receiver has already been invited to this group'
 
       sign_out
       sign_in(invitee)
@@ -120,7 +120,7 @@ describe 'owner sending multiple invites' do
       fill_in 'Username or email', with: invitee.email
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
-      expect(page).to have_content 'This user already has an invitation.'
+      expect(page).to have_content 'Receiver has already been invited to this group'
 
       sign_out
       sign_in(invitee)
@@ -154,7 +154,7 @@ describe 'owner sending multiple invites' do
       fill_in 'email', with: invitee.email
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
-      expect(page).to have_content 'This user already has an invitation.'
+      expect(page).to have_content 'Receiver has already been invited to this group'
 
       sign_out
       sign_in(invitee)
@@ -187,7 +187,7 @@ describe 'owner sending multiple invites' do
       fill_in 'email', with: invitee.email
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
-      expect(page).to have_content 'This user already has an invitation.'
+      expect(page).to have_content 'Receiver has already been invited to this group'
 
       sign_out
       sign_in(invitee)

@@ -21,7 +21,7 @@ describe 'deleting' do
     click_on item_one.name
     click_on 'Delete Item'
 
-    expect(page).to have_content "Item, #{item_one.name}, Deleted!"
+    expect(page).to have_content "#{item_one.name}, deleted!"
     expect(page).to have_no_content item_one.description
     expect(page).to have_no_content item_one.size
     expect(page).to have_no_content item_one.note

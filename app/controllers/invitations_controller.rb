@@ -32,7 +32,6 @@ class InvitationsController < ApplicationController
     # sent from the groups page, by the group owner
     receiver = User.find_by(username: login_credential) || User.find_by(email: login_credential)
     group = Group.find(params[:group_id])
-
     if receiver
       invitation = Invitation.new
       invitation.group_id = group.id
@@ -42,12 +41,11 @@ class InvitationsController < ApplicationController
       if invitation.save
         flash[:notice] = 'Invitation sent.'
       else
-        # look at invitation.errors.messages
-        flash[:warning] = 'This user already has an invitation.'
+        flash[:warning] = invitation.errors.full_messages.to_sentence
       end
+    elsif !params[:username_email].blank?
     else
-      flash[:notice] = "Invitation sent to user."
-      # Default failure behavior to not give away user's email
+      flash[:notice] = "Please enter a username or email."
       # Create a new user with this email address, eventually sending them an invitation email.
     end
     redirect_to group_path(group.id)

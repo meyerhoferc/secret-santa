@@ -20,7 +20,7 @@ class GroupsController < ApplicationController
       flash[:notice] = 'Group created successfully.'
       redirect_to group_path(@group)
     else
-      flash[:warning] = "The Gift Due Date can't be blank, or the Group Name is already taken."
+      flash[:warning] = @group.errors.full_messages.to_sentence
       render 'new'
     end
   end
@@ -40,7 +40,7 @@ class GroupsController < ApplicationController
       flash[:notice] = "Group '#{@group.name}' updated!"
       redirect_to group_path(@group)
     else
-      flash[:warning] = 'Please enter valid information.'
+      flash[:warning] = @group.errors.full_messages.to_sentence
       redirect_to edit_group_path(@group)
     end
   end
@@ -62,8 +62,8 @@ class GroupsController < ApplicationController
       end
     end
 
+    flash[:notice] = "Group #{@group.name} deleted!"
     @group.destroy
-    flash[:notice] = "Group Deleted!"
     redirect_to dashboard_path
   end
 

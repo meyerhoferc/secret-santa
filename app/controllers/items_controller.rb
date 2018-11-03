@@ -13,9 +13,10 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
     @item.list_id = @list.id
     if authorized_user(@user) && @item.save
+      flash[:notice] = "Item created successfully."
       redirect_to group_list_path(@group, @list)
     else
-      flash[:warning] = 'Please enter valid information.'
+      flash[:warning] = @item.errors.full_messages.to_sentence
       render 'new'
     end
   end
@@ -28,16 +29,16 @@ class ItemsController < ApplicationController
 
   def update
     if authorized_user(@user) && @item.update(item_params)
-      flash[:notice] = "Item, #{@item.name}, updated."
+      flash[:notice] = "#{@item.name}, updated."
       redirect_to group_list_item_path(@group, @list, @item)
     else
-      flash[:warning] = 'An error occurred, please try again.'
+      flash[:warning] = @item.errors.full_messages.to_sentence
       render 'edit'
     end
   end
 
   def destroy
-    flash.notice = "Item, #{@item.name}, Deleted!"
+    flash.notice = "#{@item.name}, deleted!"
     @item.destroy
     redirect_to group_list_path(@group, @list)
   end

@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Account successfully created."
       redirect_to login_path
     else
-      flash[:warning] = "Please enter valid credentials."
+      flash[:warning] = @user.errors.full_messages.to_sentence
       redirect_to signup_path
     end
   end
@@ -35,6 +35,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    #set this in the model. user.invitable_groups
     @user_invitable_groups = invitable_groups
     @group_invitations = !@user_invitable_groups.empty? && !authorized_user(@user)
     # Groups owned by the current user && it is not the current user's profile
@@ -47,13 +48,16 @@ class UsersController < ApplicationController
   end
 
   def update
-    segment_string = params[:commit].split(' ')[1]
-    current_pass = params[:current_password] || params[:user][:password]
-    if authenticate_user(current_pass) && @user.update(validate_params(segment_string))
+    segment_string = params[:commit].split(' ').last
+    current_pass = params[:user][:current_password] || params[:current_password]
+    @user.skip_pass_strength = true unless segment_string == 'Password'
+    # byebug
+    if authenticate_user(current_pass) && @user.valid?(validate_params(segment_string))
+      @user.update(validate_params(segment_string))
       flash[:notice] = "#{segment_string} successfully updated."
       redirect_to profile_path
     else
-      flash[:warning] = "An error occurred, please try again."
+      flash[:warning] = @user.errors.full_messages.to_sentence
       render 'edit'
     end
   end
@@ -61,7 +65,12 @@ class UsersController < ApplicationController
   private
 
   def authenticate_user(current_pass)
-    !!@user.authenticate(current_pass)
+    if @user.authenticate(current_pass)
+      true
+    else
+      @user.errors.add(:password, 'is incorrect.')
+      false
+    end
   end
 
   def validate_params(string)
@@ -77,6 +86,7 @@ class UsersController < ApplicationController
   end
 
   def invitable_groups
+    #move to user model!
     Group.where("owner_id = ?", current_user.id).select do |group|
       user_does_not_belong_to_group = !group.users.ids.include?(@user.id)
       no_pending_user_invitations = user_invitations("group_id = ? AND receiver_id = ? AND accepted IS NULL", group.id, @user.id)

@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_action :root_path_if_not_logged_in, only: [:new, :create]
   before_action :set_user, only: [:edit, :update, :profile]
 
   def new
@@ -14,6 +15,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.email.downcase!
     if @user.save
+      flash[:notice] = "Account successfully created."
       redirect_to login_path
     else
       flash[:warning] = "Please enter valid credentials."

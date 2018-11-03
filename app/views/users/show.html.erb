@@ -9,7 +9,7 @@ Email: <%= @user.email %>
   <%= render partial: 'invitations/form' %>
 <% end %>
 
-<% if @authorized_user %>
+<% if authorized_user(@user) %>
   <%= link_to 'Update Your Information', edit_user_path(@user.id) %>
 <% end %>
 <br>

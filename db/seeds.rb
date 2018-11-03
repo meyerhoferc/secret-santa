@@ -28,6 +28,6 @@
                       description: Faker::FamousLastWords.last_words,
                       note: Faker::Myst.quote,
                       size: Faker::Measurement.weight,
-                      lists_id: list.id)
+                      list_id: list.id)
   end
 end

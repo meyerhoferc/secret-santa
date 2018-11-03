@@ -24,7 +24,7 @@
   <%= link_to "Create a Group", new_group_path %>
   <br>
   <br>
-  <% if !current_user.groups.nil? %>
+  <% if !current_user.groups.empty? %>
     <%= render partial: 'users/groups', collection: current_user.groups %>
   <% else %>
     You are not part of any groups.

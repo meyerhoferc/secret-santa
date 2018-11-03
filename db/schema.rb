@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 2018_10_12_174839) do
     t.text "description"
     t.text "note"
     t.text "size"
-    t.bigint "lists_id"
-    t.index ["lists_id"], name: "index_items_on_lists_id"
+    t.bigint "list_id"
+    t.index ["list_id"], name: "index_items_on_list_id"
   end
 
   create_table "lists", force: :cascade do |t|
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2018_10_12_174839) do
   add_foreign_key "invitations", "groups"
   add_foreign_key "invitations", "users", column: "receiver_id"
   add_foreign_key "invitations", "users", column: "sender_id"
-  add_foreign_key "items", "lists", column: "lists_id"
+  add_foreign_key "items", "lists"
   add_foreign_key "lists", "groups"
   add_foreign_key "lists", "users"
 end

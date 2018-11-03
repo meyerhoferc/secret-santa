@@ -9,7 +9,9 @@
 
 <% if authorized_user(@user) %>
 <%= link_to 'Edit Item', edit_group_list_item_path(@group, @list, @item) %>
-<%= link_to 'Delete Item', group_list_item_path(@group, @list, @item), method: :delete, data: { confirm: "Are you sure you want to delete item: #{@item.name}?" } %>
+<%= link_to 'Delete Item', group_list_item_path(@group, @list, @item),
+                          method: :delete,
+    data: { confirm: "Are you sure you want to delete item #{@item.name}?" } %>
 <% end %>
 <br>
 <%= link_to 'Back to List', group_list_path(@group, @list) %>

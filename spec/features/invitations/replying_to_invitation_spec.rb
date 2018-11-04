@@ -14,7 +14,7 @@ describe 'replying to an invitation' do
     page.select group.name, from: 'invitation[group_id]'
     fill_in 'invitation[comment]', with: 'Would you like to join?'
     click_on 'Submit'
-    expect(page).to have_content 'Invitation sent.'
+    expect(page).to have_content 'Invitation sent'
     sign_out
 
     visit root_path
@@ -24,7 +24,7 @@ describe 'replying to an invitation' do
     expect(page).to have_content 'Accept', 'Decline'
     click_on 'Accept'
 
-    expect(page).to have_content 'Invitation accepted.'
+    expect(page).to have_content 'Invitation accepted'
     expect(page).to have_link group.name
     expect(page).to have_content group.description
     click_on group.name
@@ -43,7 +43,7 @@ describe 'replying to an invitation' do
     fill_in 'email', with: invitee.email
     fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
     click_on 'Submit'
-    expect(page).to have_content 'Invitation sent.'
+    expect(page).to have_content 'Invitation sent'
     sign_out
 
     sign_in(invitee)
@@ -52,7 +52,7 @@ describe 'replying to an invitation' do
     expect(page).to have_content 'Accept', 'Decline'
     click_on 'Decline'
 
-    expect(page).to have_content 'Invitation declined.'
+    expect(page).to have_content 'Invitation declined'
     expect(page).to have_no_content group.name
   end
 end
@@ -71,7 +71,7 @@ describe 'owner sending multiple invites' do
       fill_in 'Username or email', with: invitee.email
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
-      expect(page).to have_content 'Invitation sent.'
+      expect(page).to have_content 'Invitation sent'
       sign_out
 
       sign_in(invitee)
@@ -79,7 +79,7 @@ describe 'owner sending multiple invites' do
       expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
       expect(page).to have_content 'Accept', 'Decline'
       click_on 'Decline'
-      expect(page).to have_content 'Invitation declined.'
+      expect(page).to have_content 'Invitation declined'
       expect(page).to have_no_content group.name
       sign_out
 
@@ -103,7 +103,7 @@ describe 'owner sending multiple invites' do
       fill_in 'Username or email', with: invitee.email
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
-      expect(page).to have_content 'Invitation sent.'
+      expect(page).to have_content 'Invitation sent'
       sign_out
 
       sign_in(invitee)
@@ -111,7 +111,7 @@ describe 'owner sending multiple invites' do
       expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
       expect(page).to have_content 'Accept', 'Decline'
       click_on 'Accept'
-      expect(page).to have_content 'Invitation accepted.'
+      expect(page).to have_content 'Invitation accepted'
       expect(page).to have_content group.name
       sign_out
 
@@ -137,7 +137,7 @@ describe 'owner sending multiple invites' do
       fill_in 'Username or email', with: invitee.username
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
-      expect(page).to have_content 'Invitation sent.'
+      expect(page).to have_content 'Invitation sent'
       sign_out
 
       sign_in(invitee)
@@ -145,7 +145,7 @@ describe 'owner sending multiple invites' do
       expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
       expect(page).to have_content 'Accept', 'Decline'
       click_on 'Decline'
-      expect(page).to have_content 'Invitation declined.'
+      expect(page).to have_content 'Invitation declined'
       expect(page).to have_no_content group.name
       sign_out
 
@@ -169,7 +169,7 @@ describe 'owner sending multiple invites' do
       fill_in 'email', with: invitee.username
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
-      expect(page).to have_content 'Invitation sent.'
+      expect(page).to have_content 'Invitation sent'
       sign_out
 
       sign_in(invitee)
@@ -177,7 +177,7 @@ describe 'owner sending multiple invites' do
       expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
       expect(page).to have_content 'Accept', 'Decline'
       click_on 'Accept'
-      expect(page).to have_content 'Invitation accepted.'
+      expect(page).to have_content 'Invitation accepted'
       expect(page).to have_no_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
 
       sign_out

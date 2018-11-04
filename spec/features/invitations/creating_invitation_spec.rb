@@ -17,7 +17,7 @@ describe 'creating an invitation' do
       fill_in 'invitation[comment]', with: 'Would you like to join?'
       click_on 'Submit'
 
-      expect(page).to have_content 'Invitation sent.'
+      expect(page).to have_content 'Invitation sent'
     end
 
     it 'inviting from group owner user profile' do
@@ -41,7 +41,7 @@ describe 'creating an invitation' do
         fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
         click_on 'Submit'
 
-        expect(page).to have_content 'Invitation sent.'
+        expect(page).to have_content 'Invitation sent'
       end
 
       it 'inviting self from group page' do
@@ -70,7 +70,7 @@ describe 'creating an invitation' do
         fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
         click_on 'Submit'
 
-        expect(page).to have_content 'Invitation sent.'
+        expect(page).to have_content 'Invitation sent'
       end
 
       it 'inviting self from group page' do
@@ -87,7 +87,7 @@ describe 'creating an invitation' do
         expect(page).to have_content "Sender cannot send yourself an invitation"
       end
 
-      xit 'incorrect username' do
+      it 'incorrect username' do
         sign_in(owner)
         click_on 'Create a Group'
         create_group(group)
@@ -97,7 +97,7 @@ describe 'creating an invitation' do
         fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
         click_on 'Submit'
 
-        expect(page).to have_content "Sender cannot send yourself an invitation"
+        expect(page).to have_content "Please enter a username or email"
       end
     end
   end
@@ -123,7 +123,7 @@ describe 'creating an invitation' do
         fill_in 'email', with: invitee.email
         fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
         click_on 'Submit'
-        expect(page).to have_content 'Invitation sent.'
+        expect(page).to have_content 'Invitation sent'
         sign_out
 
         sign_in(invitee)
@@ -140,7 +140,7 @@ describe 'creating an invitation' do
        fill_in 'email', with: invitee.username
        fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
        click_on 'Submit'
-       expect(page).to have_content 'Invitation sent.'
+       expect(page).to have_content 'Invitation sent'
        sign_out
 
        sign_in(invitee)

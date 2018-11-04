@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-xdescribe 'editing a user' do
+describe 'editing a user' do
   context 'with a correct current password and a' do
     let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', username: 'Hi', email: 'emmmaiil@raa.zzz', password: '8930nc89fadsfhhdufdasdfshi4sa') }
     it 'valid first and last name' do
@@ -57,9 +57,9 @@ xdescribe 'editing a user' do
     end
   end
 
-  context 'with a correct current password and a blank' do
+  context 'with a correct current password and' do
     let(:user) { User.create(first_name: 'Ra', last_name: 'Zz', username: 'zzRa', email: 'mmmaiil@raa.zzz', password: '8930nc89fhhdufdshi6hgs') }
-    it 'first and last name' do
+    it 'a blank first and last name' do
       sign_in(user)
       click_on 'Profile'
       expect(page).to have_link 'Update Your Information'
@@ -71,10 +71,10 @@ xdescribe 'editing a user' do
       find("[id^=name_edit_user]").fill_in 'Current password', with: user.password
       click_on 'Update Name'
 
-      expect(page).to have_content 'An error occurred, please try again.'
+      expect(page).to have_content "First name can't be blank and Last name can't be blank"
     end
 
-    it 'email' do
+    it 'a blank email' do
       sign_in(user)
       click_on 'Profile'
       expect(page).to have_link 'Update Your Information'
@@ -85,10 +85,10 @@ xdescribe 'editing a user' do
       find("[id^=email_edit_user]").fill_in 'Current password', with: user.password
       click_on 'Update Email'
 
-      expect(page).to have_content 'An error occurred, please try again.'
+      expect(page).to have_content "Email can't be blank"
     end
 
-    it 'new password and confirmation' do
+    it 'a blank new password and confirmation' do
       sign_in(user)
       click_on 'Profile'
       expect(page).to have_link 'Update Your Information'
@@ -99,7 +99,7 @@ xdescribe 'editing a user' do
       fill_in 'current_password', with: user.password
       click_on 'Update Password'
 
-      expect(page).to have_content 'An error occurred, please try again.'
+      expect(page).to have_content 'Password is too weak'
     end
   end
 
@@ -116,7 +116,7 @@ xdescribe 'editing a user' do
       find("[id^=email_edit_user]").fill_in 'Current password', with: user.password
       click_on 'Update Email'
 
-      expect(page).to have_content 'An error occurred, please try again.'
+      expect(page).to have_content "Email can't be blank"
     end
 
     it 'valid entered email' do
@@ -154,7 +154,7 @@ xdescribe 'editing a user' do
       find("[id^=email_edit_user]").fill_in 'Current password', with: user.password
       click_on 'Update Email'
 
-      expect(page).to have_content 'An error occurred, please try again.'
+      expect(page).to have_content "Email can't be blank"
     end
   end
 
@@ -174,7 +174,7 @@ xdescribe 'editing a user' do
 
       expect(page).to have_no_content 'Name successfully updated.'
       expect(page).to have_no_content "Name: #{user.first_name + 't'} #{user.last_name + 'a'}"
-      expect(page).to have_content 'An error occurred, please try again.'
+      expect(page).to have_content 'Password is incorrect'
     end
 
     it 'valid email' do
@@ -190,7 +190,7 @@ xdescribe 'editing a user' do
 
       expect(page).to have_no_content 'Email successfully updated.'
       expect(page).to have_no_content "Email: #{user.email + 't'}"
-      expect(page).to have_content 'An error occurred, please try again.'
+      expect(page).to have_content 'Password is incorrect'
     end
 
     it 'valid new password and confirmation' do
@@ -204,7 +204,7 @@ xdescribe 'editing a user' do
       fill_in 'current_password', with: user.password + 'asjdhfash'
       click_on 'Update Password'
 
-      expect(page).to have_content 'An error occurred, please try again.'
+      expect(page).to have_content 'Password is incorrect'
       expect(page).to have_no_content 'Password successfully updated.'
 
       click_on 'Back to Profile'
@@ -230,13 +230,13 @@ xdescribe 'editing a user' do
       # Finds the 'Current password' field within the email_edit_user form
       find("[id^=email_edit_user]").fill_in 'Current password', with: user_one.password
       click_on 'Update Email'
-      expect(page).to have_content 'An error occurred, please try again.'
+      expect(page).to have_content 'Email has already been taken'
 
       fill_in 'Email', with: 'My@email.comm'
       # Finds the 'Current password' field within the email_edit_user form
       find("[id^=email_edit_user]").fill_in 'Current password', with: user_one.password
       click_on 'Update Email'
-      expect(page).to have_content 'Email successfully updated.'
+      expect(page).to have_content 'Email successfully updated'
     end
   end
 end

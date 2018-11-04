@@ -4,7 +4,7 @@ class InvitationsController < ApplicationController
     @invitation.sender_id = current_user.id
     @invitation.receiver_id = params[:user_id]
     @invitation.save
-    flash[:notice] = 'Invitation sent.'
+    flash[:notice] = 'Invitation sent'
     redirect_to user_path(@invitation.receiver_id)
   end
 
@@ -16,7 +16,7 @@ class InvitationsController < ApplicationController
     @invitation.save
     @user.groups << @group
     create_list
-    flash[:notice] = 'Invitation accepted.'
+    flash[:notice] = 'Invitation accepted'
     redirect_to dashboard_path
   end
 
@@ -24,7 +24,7 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.find(params[:id])
     @invitation.accepted = false
     @invitation.save
-    flash[:notice] = 'Invitation declined.'
+    flash[:notice] = 'Invitation declined'
     redirect_to dashboard_path
   end
 
@@ -39,13 +39,14 @@ class InvitationsController < ApplicationController
       invitation.sender_id = group.owner_id
       invitation.comment = params[:invitation][:comment]
       if invitation.save
-        flash[:notice] = 'Invitation sent.'
+        flash[:notice] = 'Invitation sent'
       else
         flash[:warning] = invitation.errors.full_messages.to_sentence
       end
-    elsif !params[:username_email].blank?
+    elsif params[:username_email].blank?
+      flash[:warning] = "Username or email can't be blank"
     else
-      flash[:notice] = "Please enter a username or email."
+      flash[:notice] = "Please enter a username or email"
       # Create a new user with this email address, eventually sending them an invitation email.
     end
     redirect_to group_path(group.id)

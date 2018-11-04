@@ -51,9 +51,7 @@ class UsersController < ApplicationController
     segment_string = params[:commit].split(' ').last
     current_pass = params[:user][:current_password] || params[:current_password]
     @user.skip_pass_strength = true unless segment_string == 'Password'
-    # byebug
-    if authenticate_user(current_pass) && @user.valid?(validate_params(segment_string))
-      @user.update(validate_params(segment_string))
+    if authenticate_user(current_pass) && @user.update(validate_params(segment_string))
       flash[:notice] = "#{segment_string} successfully updated."
       redirect_to profile_path
     else
@@ -76,10 +74,10 @@ class UsersController < ApplicationController
   def validate_params(string)
     case string
     when 'Name'
-      return params.require(:user).permit(:first_name, :last_name, :password)
+      return user_params
     when 'Email'
       downcase_email_param!
-      return params.require(:user).permit(:email, :password)
+      return user_params
     when 'Password'
       return params.require(:user).permit(:password, :password_confirmation)
     end
@@ -87,6 +85,8 @@ class UsersController < ApplicationController
 
   def invitable_groups
     #move to user model!
+    # invitations.accepted
+    # create activerecord scope
     Group.where("owner_id = ?", current_user.id).select do |group|
       user_does_not_belong_to_group = !group.users.ids.include?(@user.id)
       no_pending_user_invitations = user_invitations("group_id = ? AND receiver_id = ? AND accepted IS NULL", group.id, @user.id)

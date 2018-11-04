@@ -1,8 +1,4 @@
 class User < ApplicationRecord
-  include ActiveModel::Validations
-  include ActiveModel::Dirty
-  attr_accessor :skip_pass_strength
-
   has_many :user_groups
   has_many :groups, through: :user_groups
   has_many :lists
@@ -17,21 +13,17 @@ class User < ApplicationRecord
   validates_format_of :username, with: /\A\w{1,}\z/i, message: 'must contain only letters, numbers or underscores'
   validates_uniqueness_of :email, allow_blank: true, case_sensitive: false
   has_secure_password
-  validates :password, password_strength: { use_dictionary: true, min_entropy: 20 }, unless: :skip_pass_strength
-                                    # if: Proc.new { |u| !u.password.blank? },
-                                    # on: :update do |model, attribute, value|
-                                    #   byebug
-                                    # end
+  validates :password, password_strength: { use_dictionary: true, min_entropy: 20 }, if: :should_validate_password?
 
-  # def skip_pass_strength
-  #   @skip_pass_strength
-  # end
-  #
-  # def skip_pass_strength=(value)
-  #   @skip_pass_strength = (value)
-  # end
-  # def should_validate_password?
-  #   byebug
-  #   skip_pass_strength || new_record?
-  # end
+  def should_validate_password?
+    new_record? || !skip_pass_strength
+  end
+
+  def skip_pass_strength
+    @skip_pass_strength
+  end
+
+  def skip_pass_strength=(value)
+    @skip_pass_strength = value
+  end
 end

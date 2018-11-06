@@ -49,7 +49,7 @@ class GroupsController < ApplicationController
     @lists = List.where("group_id = :group_id", {group_id: @group.id})
     if !@lists.empty?
       @lists.each do |list|
-        items = Item.where("lists_id = :list_id", {list_id: list.id})
+        items = Item.where("list_id = :list_id", {list_id: list.id})
         items.each { |item| item.destroy }
         list.destroy
       end

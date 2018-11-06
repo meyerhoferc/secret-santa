@@ -13,7 +13,7 @@ describe 'deleting' do
     visit dashboard_path
     click_on group.name
     click_on 'View your Wish List'
-    click_on 'Create a new Wish list item'
+    click_on 'Add an item to your wish list'
     create_item(item_one)
     click_on 'Create Item'
 

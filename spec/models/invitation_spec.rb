@@ -24,8 +24,13 @@ describe Invitation do
   end
 
   context 'associations' do
-    it 'belongs to user' do
-      assc = Invitation.reflect_on_association(:user)
+    it 'belongs to receiver' do
+      assc = Invitation.reflect_on_association(:receiver)
+      expect(assc.macro).to eq :belongs_to
+    end
+
+    it 'belongs to receiver' do
+      assc = Invitation.reflect_on_association(:sender)
       expect(assc.macro).to eq :belongs_to
     end
 

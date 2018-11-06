@@ -24,7 +24,7 @@ describe 'group creation' do
       fill_in('group_description', with: '')
       click_on 'Create Group'
 
-      expect(page).to have_content "The Gift Due Date can't be blank, or the Group Name is already taken."
+      expect(page).to have_content "The group name is already taken. Please choose another name."
     end
   end
 
@@ -57,7 +57,7 @@ describe 'group creation' do
     it 'not logged in' do
       visit profile_path
       expect(current_path).to eq root_path
-      expect(page).to have_content 'You must be logged in first.'
+      expect(page).to have_content 'You need to be logged in first.'
     end
   end
 end

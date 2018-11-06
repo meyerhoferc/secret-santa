@@ -12,11 +12,11 @@ class InvitationsController < ApplicationController
     invitation = Invitation.find(params[:id])
     user = User.find(invitation.receiver_id)
     if authorized_user(user)
-      group = Group.find(invitation.group_id)
+      @group = Group.find(invitation.group_id)
       invitation.accepted = true
       invitation.save
-      if !user.groups.include?(group)
-        user.groups << group
+      if !user.groups.include?(@group)
+        user.groups << @group
         create_list
         flash[:notice] = 'Invitation accepted.'
         redirect_to dashboard_path

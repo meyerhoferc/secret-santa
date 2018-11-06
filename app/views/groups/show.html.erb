@@ -20,10 +20,9 @@ Gift Exchange Year: <%= @group.gift_due_date.year if @group.gift_due_date %>
 <br>
 <br>
 
-<% if @group_owner %>
+<% if authorized_user(@group.owner) %>
 <h2>Send an invitation</h2>
 <%= render partial: 'groups/invitation_form' %>
-
 <% end %>
 
 <br>
@@ -35,6 +34,7 @@ Users in this group:
     <%= "#{user.first_name} #{user.last_name}: " %>
     <%= link_to 'Profile', user_path(user.id) %>
     <%= link_to "Wish List", group_list_path(@group.id, @group.user_wish_list(user).id) %>
+    <%= "(Group Owner)" if @group.owner.id == user.id %>
   </li>
   <% end %>
 </ul>

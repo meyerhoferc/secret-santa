@@ -11,7 +11,6 @@ class InvitationsController < ApplicationController
   def accept
     invitation = Invitation.find(params[:id])
     user = User.find(invitation.receiver_id)
-    byebug
     if authorized_user(user)
       group = Group.find(invitation.group_id)
       invitation.accepted = true

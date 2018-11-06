@@ -1,0 +1,35 @@
+:root {
+  --background-primary: #9cb6d9;
+  --background-secondary: #a7e4f2;/* gradient to */
+  --background-text-primary: #1f5aa6;
+  --background-text-secondary: #3b74bf; /* gradient to */
+  --button-background: #2da7c7;
+  --button-background-hover: #037f8c;
+  --button-border: #56acba;
+  --text: #e9ebf2;
+  --link: #bdf2ed;
+  --border: #a3a19f;
+}
+
+html, body {
+  height: 100%;
+}
+
+html {
+  font: 20px sans-serif;
+}
+
+body {
+  background: linear-gradient(to top, var(--background-primary) 15%, var(--background-secondary)) fixed;
+  background-repeat: no-repeat;
+  color: var(--text);
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text);
+}

@@ -61,6 +61,7 @@ describe 'replying to an invitation' do
   let(:group) { Group.create(name: 'Gift giving', description: 'We love gifts', gift_due_date: '2019-01-01') }
   let(:owner) { User.create(first_name: 'Ray', last_name: 'Lee', email: 'email@ray.lee', password: 'hspa1203489y132809hss12034pas1203489y13280989y132809h') }
   let(:invitee) { User.create!(first_name: 'Lee', last_name: 'Ray', email: 'lee@ray.com', password: 'pas1203489y132809h132809hss1203489y132spa1203489y809h') }
+  let(:user) { User.create!(first_name: 'Lee', last_name: 'Ray', email: 'leasdfe@ray.com', password: 'pas1203489y132809h13280dsfsdsdf9hss1203489y132spa1203489y809h') }
 
   context 'by declining' do
     it 'and the owner submitting another invitation' do
@@ -93,6 +94,47 @@ describe 'replying to an invitation' do
       sign_out
       sign_in_as(invitee)
       expect(page).to have_no_content group.name
+    end
+  end
+
+  context 'for another user' do
+    it 'accepting' do
+      sign_in_as(owner)
+      click_on 'Create a Group'
+      create_group(group)
+      click_on 'Create Group'
+      fill_in 'email', with: invitee.email
+      fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
+      click_on 'Submit'
+      expect(page).to have_content 'Invitation sent.'
+      sign_out
+
+      sign_in_as(user)
+      expect(current_path).to eq dashboard_path
+      expect(page).to have_no_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+      expect(page).to have_no_content 'Accept', 'Decline'
+      visit "/accept/#{invitee.received.first.id}"
+      expect(page).to have_content 'Action is unauthorized'
+
+    end
+
+    it 'declining' do
+      sign_in_as(owner)
+      click_on 'Create a Group'
+      create_group(group)
+      click_on 'Create Group'
+      fill_in 'email', with: invitee.email
+      fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
+      click_on 'Submit'
+      expect(page).to have_content 'Invitation sent.'
+      sign_out
+
+      sign_in_as(user)
+      expect(current_path).to eq dashboard_path
+      expect(page).to have_no_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+      expect(page).to have_no_content 'Accept', 'Decline'
+      visit "/decline/#{invitee.received.first.id}"
+      expect(page).to have_content 'Action is unauthorized'
     end
   end
 end

@@ -56,6 +56,31 @@ describe 'creating an invitation' do
       expect(page).to have_content "#{owner.first_name} #{owner.last_name}:"
       expect(page).to have_content "Invitation sent to user's email." # Failing conditional branch
     end
+
+    it 'inviting with a blank comment' do
+      sign_in_as(owner)
+      click_on 'Create a Group'
+      create_group(group)
+      click_on 'Create Group'
+
+      fill_in 'email', with: owner.email
+      click_on 'Submit'
+
+      expect(page).to have_content "Invitation sent to user's email." # Failing conditional branch
+    end
+
+    it 'inviting with a blank email' do
+      sign_in_as(owner)
+      click_on 'Create a Group'
+      create_group(group)
+      click_on 'Create Group'
+
+      # fill_in 'email', with: owner.email
+      fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
+      click_on 'Submit'
+
+      expect(page).to have_content "Invitation sent to user's email." # Failing conditional branch
+    end
   end
 
   let(:group) { Group.create(name: 'Gift giving', description: 'We love gifts', gift_due_date: '2019-01-01') }

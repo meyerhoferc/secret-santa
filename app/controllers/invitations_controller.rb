@@ -9,23 +9,40 @@ class InvitationsController < ApplicationController
   end
 
   def accept
-    @invitation = Invitation.find(params[:id])
-    @user = User.find(@invitation.receiver_id)
-    @group = Group.find(@invitation.group_id)
-    @invitation.accepted = true
-    @invitation.save
-    @user.groups << @group
-    create_list
-    flash[:notice] = 'Invitation accepted.'
-    redirect_to dashboard_path
+    invitation = Invitation.find(params[:id])
+    user = User.find(invitation.receiver_id)
+    byebug
+    if authorized_user(user)
+      group = Group.find(invitation.group_id)
+      invitation.accepted = true
+      invitation.save
+      if !user.groups.include?(group)
+        user.groups << group
+        create_list
+        flash[:notice] = 'Invitation accepted.'
+        redirect_to dashboard_path
+      else
+        flash[:warning] = 'You already belongs to this group.'
+        redirect_to dashboard_path
+      end
+    else
+      flash[:warning] = 'Action is unauthorized.'
+      redirect_to root_path
+    end
   end
 
   def decline
-    @invitation = Invitation.find(params[:id])
-    @invitation.accepted = false
-    @invitation.save
-    flash[:notice] = 'Invitation declined.'
-    redirect_to dashboard_path
+    invitation = Invitation.find(params[:id])
+    user = User.find(invitation.receiver_id)
+    if authorized_user(user)
+      invitation.accepted = false
+      invitation.save
+      flash[:notice] = 'Invitation declined.'
+      redirect_to dashboard_path
+    else
+      flash[:warning] = 'Action is unauthorized.'
+      redirect_to root_path
+    end
   end
 
   def invite
@@ -68,10 +85,10 @@ class InvitationsController < ApplicationController
   end
 
   def create_list
-    @list = List.new
-    @list.user_id = current_user.id
-    @list.group_id = @group.id
-    @list.save
+    list = List.new
+    list.user_id = current_user.id
+    list.group_id = @group.id
+    list.save
   end
 
   def downcase_email_param

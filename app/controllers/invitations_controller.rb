@@ -10,7 +10,7 @@ class InvitationsController < ApplicationController
 
   def accept
     invitation = Invitation.find(params[:id])
-    user = User.find(invitation.receiver_id)
+    user = invitation.receiver
     if authorized_user(user)
       @group = Group.find(invitation.group_id)
       invitation.accepted = true
@@ -32,7 +32,7 @@ class InvitationsController < ApplicationController
 
   def decline
     invitation = Invitation.find(params[:id])
-    user = User.find(invitation.receiver_id)
+    user = invitation.receiver
     if authorized_user(user)
       invitation.accepted = false
       invitation.save

@@ -9,11 +9,7 @@
   </div>
   <div>
     <%= f.label 'group', 'Gift Due Date' %>
-    <% if action_name == 'new' %>
-      <%= date_field 'group', 'gift_due_date', min: Date.today %>
-    <% else %>
-      <%= date_field 'group', 'gift_due_date', min: @group.created_at %>
-    <% end %>
+    <%= date_field 'group', 'gift_due_date', min: (action_name == 'new' ? Date.today : @group.created_at) %>
   </div>
   <div>
     <%= f.submit %>

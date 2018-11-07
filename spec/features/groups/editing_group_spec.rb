@@ -18,7 +18,7 @@ describe 'editing a group' do
 
       fill_in 'Name', with: group.name + '!!'
       fill_in 'Description', with: group.description + '!!'
-      fill_in 'Gift Due Date', with: group.gift_due_date.next.to_default_s
+      fill_in 'group_gift_due_date', with: group.gift_due_date.next.to_default_s
       click_on 'Update Group'
 
       expect(page).to have_content group.name + '!!'
@@ -38,7 +38,7 @@ describe 'editing a group' do
 
       fill_in 'Name', with: ''
       fill_in 'Description', with: ''
-      fill_in 'Gift Due Date', with: ''
+      fill_in 'group_gift_due_date', with: ''
       click_on 'Update Group'
 
       expect(page).to have_content 'Please enter valid information.'

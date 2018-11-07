@@ -1,7 +1,7 @@
 <h1><%= @group.name %></h1>
 <%= @group.description %>
 <br>
-Created on: <%= @group.created_at %>
+<span title="<%= time_ago_in_words(@group.created_at) %> ago">Created on: <%= @group.created_at %></span>
 <br>
 Gift Due Date: <%= @group.gift_due_date %>
 <br>

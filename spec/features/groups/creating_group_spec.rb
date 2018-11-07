@@ -42,7 +42,7 @@ describe 'group creation' do
       expect(current_path).to eq new_group_path
       fill_in('Name', with: group.name)
       fill_in('Description', with: group.description)
-      fill_in('Gift Due Date', with: group.gift_due_date.to_default_s)
+      fill_in('group_gift_due_date', with: group.gift_due_date.to_default_s)
       click_on 'Create Group'
 
       expect(page).to have_content group.name

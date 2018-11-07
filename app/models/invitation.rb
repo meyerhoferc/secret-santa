@@ -1,6 +1,6 @@
 class Invitation < ApplicationRecord
-  belongs_to :user, foreign_key: :sender_id
-  belongs_to :user, foreign_key: :receiver_id
+  belongs_to :sender, foreign_key: :sender_id, class_name: 'User'
+  belongs_to :receiver, foreign_key: :receiver_id, class_name: 'User'
   belongs_to :group
   validates :comment, presence: true
   validates_uniqueness_of :receiver_id, scope: :group_id,

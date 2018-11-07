@@ -3,9 +3,9 @@
   <%= link_to 'Profile', profile_path %>
   <%= link_to 'Sign Out', logout_path, method: :delete %>
 
-  <% if @invitations %>
+  <% if !current_user.outstanding_invitations.empty? %>
   <h2>Invitations</h2>
-    <% @invitations.each do |invitation| %>
+    <% current_user.outstanding_invitations.each do |invitation| %>
       <% if invitation.accepted.nil? %>
         <p>
           <% user = User.find(invitation.sender_id) %>

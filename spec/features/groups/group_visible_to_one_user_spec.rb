@@ -13,7 +13,7 @@ describe 'a group is' do
       expect(current_path).to eq new_group_path
       fill_in('Name', with: group_one.name)
       fill_in('Description', with: group_one.description)
-      fill_in('Gift Due Date', with: group_one.gift_due_date.to_default_s)
+      fill_in('group_gift_due_date', with: group_one.gift_due_date.to_default_s)
       click_on 'Create Group'
 
       sign_in(user_two)
@@ -22,7 +22,7 @@ describe 'a group is' do
       expect(current_path).to eq new_group_path
       fill_in('Name', with: group_two.name)
       fill_in('Description', with: group_two.description)
-      fill_in('Gift Due Date', with: group_two.gift_due_date.to_default_s)
+      fill_in('group_gift_due_date', with: group_two.gift_due_date.to_default_s)
       click_on 'Create Group'
 
       visit dashboard_path

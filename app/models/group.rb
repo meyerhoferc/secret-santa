@@ -3,8 +3,8 @@ class Group < ApplicationRecord
   has_many :users, through: :user_groups
   has_many :lists
   has_many :invitations
-  validates_uniqueness_of :name, message: 'Choose a different group name, this name is already in use.'
   validates :name, presence: true
+  validates_uniqueness_of :name, message: 'Choose a different group name, this name is already in use.'
   validates :description, presence: true
   belongs_to :owner, foreign_key: :owner_id, class_name: 'User'
   validates :owner_id, presence: true

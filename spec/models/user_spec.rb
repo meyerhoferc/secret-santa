@@ -98,8 +98,13 @@ describe User do
       expect(assc.macro).to eq :has_many
     end
 
-    it 'has many invitations' do
-      assc = User.reflect_on_association(:invitations)
+    it 'has many received invitations' do
+      assc = User.reflect_on_association(:received)
+      expect(assc.macro).to eq :has_many
+    end
+
+    it 'has many sent invitations' do
+      assc = User.reflect_on_association(:sent)
       expect(assc.macro).to eq :has_many
     end
 

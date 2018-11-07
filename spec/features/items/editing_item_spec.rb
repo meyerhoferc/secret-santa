@@ -72,4 +72,17 @@ describe 'editing an item' do
       item_page_content(item_two)
     end
   end
+
+  context 'attempt for' do
+    let(:user_one) { User.create!(first_name: 'Raa', last_name: 'Zzz', email: 'email@raa.zzz', password: 'pas1203489y132809hspas1203489y132809hs') }
+    let(:user_two) { User.create!(first_name: 'A', last_name: 'Zzrz', email: 'emaaaail@raa.zzz', password: 'pas1203489y132809hspas1203489y132809hs') }
+    let(:group) { Group.create!(name: 'My first group creation', description: 'Whoever wants to join', gift_due_date: '2018/12/31', owner_id: user_one.id) }
+    let(:list) { List.create!(user_id: user_one.id, group_id: group.id) }
+    let(:item) { Item.create!(name: 'Wallet', description: 'So pretty', size: 'XL', note: 'I would like many of these.', list_id: list.id) }
+    it 'another user' do
+      sign_in_as(user_two)
+      visit "/groups/#{group.id}/lists/#{list.id}/items/#{item.id}/edit"
+      expect(page).to have_content "Action is unauthorized."
+    end
+  end
 end

@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def unauthorized_user(user)
     if !authorized_user(user)
-      flash[:warning] = 'This action is unauthorized.'
+      flash[:warning] = 'Action is unauthorized.'
       redirect_to root_path
     end
   end

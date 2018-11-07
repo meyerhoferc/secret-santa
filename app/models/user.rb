@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_many :lists
   has_many :invitations
 
+  has_many :received, foreign_key: :receiver_id, class_name: 'Invitation'
+  has_many :sent, foreign_key: :sender_id, class_name: 'Invitation'
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :username, presence: true
@@ -25,5 +27,8 @@ class User < ApplicationRecord
 
   def skip_pass_strength=(value)
     @skip_pass_strength = value
+
+  def outstanding_invitations
+    Invitation.where('receiver_id = ? AND accepted IS NULL', id)
   end
 end

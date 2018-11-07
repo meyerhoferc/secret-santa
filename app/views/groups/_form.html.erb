@@ -1,17 +1,17 @@
-<%= form_for @group do |f| %>
-  <div>
+<%= form_for @group, html: { class: 'form-fields-container' } do |f| %>
+  <div class="form-field">
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
-  <div>
+  <div class="form-field">
     <%= f.label :description %>
     <%= f.text_area :description %>
   </div>
-  <div>
+  <div class="form-field">
     <%= f.label :gift_due_date, 'Gift Due Date (YYYY/MM/DD)' %>
     <%= f.text_field :gift_due_date %>
   </div>
-  <div>
+  <div class="form-submit">
     <%= f.submit %>
   </div>
 <% end %>

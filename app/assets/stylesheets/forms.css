@@ -1,0 +1,119 @@
+.user-update-form-container,
+.form-container {
+  display: grid;
+  padding: 20px;
+  min-width: 320px;
+  max-width: 850px;
+  min-height: 400px;
+  margin: 50px auto 0 auto;
+  background: linear-gradient(to top, var(--background-text-primary) 25%, var(--background-text-secondary));
+  background-repeat: no-repeat;
+  border: 6px solid var(--border);
+  border-radius: 3px;
+}
+
+.form-container {
+  grid-template-columns: auto;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+  "title"
+  "fields";
+}
+
+.user-update-form-container {
+  grid-template-columns: auto;
+  grid-template-rows: auto, auto, auto, auto;
+  grid-template-areas:
+  "title"
+  "name"
+  "email"
+  "pass";
+}
+
+.form-fields-container-pass,
+.form-fields-container-name,
+.form-fields-container-email {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: auto;
+  height: 100%;
+}
+
+.form-fields-container-pass {
+  grid-area: pass;
+  margin-bottom: 25px;
+}
+
+.form-fields-container-name {
+  grid-area: name;
+  margin-bottom: 25px;
+  
+}
+
+.form-fields-container-name {
+  grid-area: email;
+}
+
+.form-title {
+  grid-area: title;
+  place-self: center;
+  font-size: 3rem;
+  height: 60px;
+}
+
+.form-fields-container {
+  grid-area: fields;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: auto;
+  height: 100%;
+}
+
+.form-field {
+  flex: 1 0 auto;
+  align-self: center;
+  font-size: 1.25rem;
+}
+
+.form-submit {
+  align-self: center;
+  margin-bottom: 10px;
+}
+
+.form-field,
+.form-submit {
+  margin: 5px;
+  min-height: auto;
+}
+
+.form-field textarea,
+.form-field input {
+  font-size: 1.25rem;
+  color: var(--form-input);
+  background-color: var(--form-background);
+  height: 40px;
+  border: none;
+  border-radius: 3px;
+  padding: 4px 8px;
+}
+
+.form-field textarea {
+  height: 350px;
+  width: 65%;
+}
+
+.form-submit input {
+  font-size: 1.25rem;
+  color: var(--text);
+  background-color: var(--button-background);
+  border: 4px solid var(--button-background);
+  padding: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.form-submit input:hover {
+  background-color: var(--button-background-hover);
+}

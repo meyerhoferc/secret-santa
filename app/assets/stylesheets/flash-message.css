@@ -1,0 +1,14 @@
+.warning,
+.notice {
+  background: var(--background-text-primary);
+  display: block;
+  text-align: center;
+  padding: 15px;
+  font-size: 1.25rem;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  border-radius: 3px;
+}

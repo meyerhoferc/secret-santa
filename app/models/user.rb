@@ -9,7 +9,10 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true
-
   has_secure_password
   validates :password, password_strength: {use_dictionary: true}
+
+  def outstanding_invitations
+    Invitation.where('receiver_id = ? AND accepted IS NULL', id)
+  end
 end

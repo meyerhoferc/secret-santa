@@ -89,11 +89,11 @@ describe 'owner sending multiple invites' do
       fill_in 'Username or email', with: invitee.email
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
-      expect(page).to have_content 'Receiver has already been invited to this group'
+      expect(page).to have_content 'Invitation sent'
 
       sign_out
       sign_in(invitee)
-      expect(page).to have_no_content group.name
+      expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}"
     end
 
     it 'user accepting' do
@@ -155,11 +155,11 @@ describe 'owner sending multiple invites' do
       fill_in 'email', with: invitee.email
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
-      expect(page).to have_content 'Receiver has already been invited to this group'
+      expect(page).to have_content 'Invitation sent'
 
       sign_out
       sign_in(invitee)
-      expect(page).to have_no_content group.name
+      expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}"
     end
 
     it 'user accepting' do

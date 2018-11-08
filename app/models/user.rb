@@ -39,6 +39,7 @@ class User < ApplicationRecord
     .where("owner_id = #{current_user.id}").distinct
     user_invited_groups = Group.joins(:invitations)
     .where("receiver_id = #{id}")
+    .where('accepted IS true OR accepted IS NULL')
     .where("group_id = groups.id")
     current_user_owned_groups - user_invited_groups
   end

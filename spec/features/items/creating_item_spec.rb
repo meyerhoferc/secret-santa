@@ -71,12 +71,12 @@ describe 'item creation' do
   end
 
   context 'attempt for' do
-    let(:user_one) { User.create!(first_name: 'Raa', last_name: 'Zzz', email: 'email@raa.zzz', password: 'pas1203489y132809hspas1203489y132809hs') }
-    let(:user_two) { User.create!(first_name: 'A', last_name: 'Zzrz', email: 'emaaaail@raa.zzz', password: 'pas1203489y132809hspas1203489y132809hs') }
+    let(:user_one) { User.create!(first_name: 'Raa', last_name: 'Zzz', username: 'adsdf', email: 'email@raa.zzz', password: 'pas1203489y132809hspas1203489y132809hs') }
+    let(:user_two) { User.create!(first_name: 'A', last_name: 'Zzrz', username: 'adsf', email: 'emaaaail@raa.zzz', password: 'pas1203489y132809hspas1203489y132809hs') }
     let(:group) { Group.create!(name: 'My first group creation', description: 'Whoever wants to join', gift_due_date: '2018/12/31', owner_id: user_one.id) }
     let(:list) { List.create!(user_id: user_one.id, group_id: group.id) }
     it 'another user' do
-      sign_in_as(user_two)
+      sign_in(user_two)
       visit "/groups/#{group.id}/lists/#{list.id}/items/new"
       expect(page).to have_content "Action is unauthorized."
     end

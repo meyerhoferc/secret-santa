@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Item do
   context 'validations' do
-    let(:owner) { User.create!(first_name: 'Henry', last_name: 'Pgg', email: 'hpgg', password: '10893420yoiudfs', password_confirmation: '10893420yoiudfs') }
+    let(:owner) { User.create!(first_name: 'Henry', last_name: 'Pgg', username: 'pgghenry', email: 'hpgg@email.org', password: '10893420yoiudfs', password_confirmation: '10893420yoiudfs') }
     let(:group) { Group.create!(name: 'Testing!', description: 'Wow', owner_id: owner.id, gift_due_date: '2018-12-13') }
     let(:list) { List.create!(group_id: group.id, user_id: owner.id) }
     it 'validates name needs to be present' do

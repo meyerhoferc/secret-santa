@@ -102,7 +102,7 @@ describe 'creating an invitation' do
     end
 
     it 'inviting with a blank comment' do
-      sign_in_as(owner)
+      sign_in(owner)
       click_on 'Create a Group'
       create_group(group)
       click_on 'Create Group'
@@ -110,20 +110,19 @@ describe 'creating an invitation' do
       fill_in 'email', with: owner.email
       click_on 'Submit'
 
-      expect(page).to have_content "Invitation sent to user's email." # Failing conditional branch
+      expect(page).to have_content "Comment can't be blank and Sender cannot send yourself an invitation"
     end
 
     it 'inviting with a blank email' do
-      sign_in_as(owner)
+      sign_in(owner)
       click_on 'Create a Group'
       create_group(group)
       click_on 'Create Group'
 
-      # fill_in 'email', with: owner.email
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
 
-      expect(page).to have_content "Invitation sent to user's email." # Failing conditional branch
+      expect(page).to have_content "Username or email can't be blank"
     end
   end
 

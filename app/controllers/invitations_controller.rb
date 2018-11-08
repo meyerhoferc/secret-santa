@@ -3,9 +3,13 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.new(invitation_params)
     @invitation.sender_id = current_user.id
     @invitation.receiver_id = params[:user_id]
-    @invitation.save
-    flash[:notice] = 'Invitation sent'
-    redirect_to user_path(@invitation.receiver_id)
+    if @invitation.save
+      flash[:notice] = 'Invitation sent'
+      redirect_to user_path(@invitation.receiver_id)
+    else
+      flash[:warning] = @invitation.errors.full_messages.to_sentence
+      redirect_to user_path(@invitation.receiver_id)
+    end
   end
 
   def accept

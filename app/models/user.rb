@@ -27,8 +27,19 @@ class User < ApplicationRecord
 
   def skip_pass_strength=(value)
     @skip_pass_strength = value
+  end
 
   def outstanding_invitations
     Invitation.where('receiver_id = ? AND accepted IS NULL', id)
+  end
+
+  def invitable_groups(current_user)
+    current_user_owned_groups = Group.joins(:users)
+    .where.not("users.id = #{id}")
+    .where("owner_id = #{current_user.id}").distinct
+    user_invited_groups = Group.joins(:invitations)
+    .where("receiver_id = #{id}")
+    .where("group_id = groups.id")
+    current_user_owned_groups - user_invited_groups
   end
 end

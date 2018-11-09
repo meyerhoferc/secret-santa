@@ -35,13 +35,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    #set this in the model. user.invitable_groups
-    @user_invitable_groups = invitable_groups
-    @group_invitations = !@user_invitable_groups.empty? && !authorized_user(@user)
-    # Groups owned by the current user && it is not the current user's profile
-    if @group_invitations
-      @invitation = Invitation.new
-    end
+    @invitable_groups = @user.invitable_groups(current_user)
+    @invitation = Invitation.new
   end
 
   def edit
@@ -81,22 +76,6 @@ class UsersController < ApplicationController
     when 'Password'
       return params.require(:user).permit(:password, :password_confirmation)
     end
-  end
-
-  def invitable_groups
-    #move to user model!
-    # invitations.accepted
-    # create activerecord scope
-    Group.where("owner_id = ?", current_user.id).select do |group|
-      user_does_not_belong_to_group = !group.users.ids.include?(@user.id)
-      no_pending_user_invitations = user_invitations("group_id = ? AND receiver_id = ? AND accepted IS NULL", group.id, @user.id)
-      no_declined_user_invitations = user_invitations("group_id = ? AND receiver_id = ? AND accepted = false", group.id, @user.id)
-      user_does_not_belong_to_group && no_pending_user_invitations && no_declined_user_invitations
-    end
-  end
-
-  def user_invitations(accepted_string, group, user)
-    Invitation.joins(:group).where([accepted_string, group, user,]).empty?
   end
 
   def set_user

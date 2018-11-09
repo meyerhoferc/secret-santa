@@ -2,14 +2,14 @@ require 'rails_helper'
 
 describe User do
   context 'password is' do
-    let(:user) { User.create(first_name: 'Raz', last_name: 'Z', username: 'zraZ', email: '123@mail.com', password: 'passw1203489y132809hord123') }
+    let(:user) { User.create(first_name: 'Raz', last_name: 'Z', username: 'zrav', email: '123@mail.com', password: 'passw1203489y132809hord123') }
     it 'secure' do
       expect(user.authenticate('notthepassword')).to be_falsey
       expect(user.authenticate(user.password)).to eq user
     end
 
     it 'strong' do
-      u = User.new(first_name: 'Any', last_name: 'Y', username: 'YAny', email: 'eamail@email.email', password: 'pa1203489y1328sdfadsf09hsspa1a203489y132809hss')
+      u = User.new(first_name: 'Any', last_name: 'Y', username: 'yany', email: 'eamail@email.email', password: 'pa1203489y1328sdfadsf09hsspa1a203489y132809hss')
       expect(u.valid?).to eq true
       expect(u.save).to eq true
     end
@@ -20,6 +20,7 @@ describe User do
       expect(u.save).to eq false
     end
 
+
     context 'common password:' do
       it 'qwerty' do
         u = User.new(first_name: 'Any', last_name: 'Y', username: 'YAny', email: 'eamail@email.email', password: 'qwerty')
@@ -28,21 +29,21 @@ describe User do
       end
 
       it 'password' do
-      u = User.new(first_name: 'Any', last_name: 'Y', username: 'YAny', email: 'eamail@email.email', password: 'password')
-      expect(u.valid?).to eq false
-      expect(u.save).to eq false
+        u = User.new(first_name: 'Any', last_name: 'Y', username: 'YAny', email: 'eamail@email.email', password: 'password')
+        expect(u.valid?).to eq false
+        expect(u.save).to eq false
       end
 
       it 'qwertyuiop' do
-      u = User.new(first_name: 'Any', last_name: 'Y', username: 'YAny', email: 'eamail@email.email', password: 'qwertyuiop')
-      expect(u.valid?).to eq false
-      expect(u.save).to eq false
+        u = User.new(first_name: 'Any', last_name: 'Y', username: 'YAny', email: 'eamail@email.email', password: 'qwertyuiop')
+        expect(u.valid?).to eq false
+        expect(u.save).to eq false
       end
 
       it '1234567890' do
-      u = User.new(first_name: 'Any', last_name: 'Y', username: 'YAny', email: 'eamail@email.email', password: '1234567890')
-      expect(u.valid?).to eq false
-      expect(u.save).to eq false
+        u = User.new(first_name: 'Any', last_name: 'Y', username: 'YAny', email: 'eamail@email.email', password: '1234567890')
+        expect(u.valid?).to eq false
+        expect(u.save).to eq false
       end
 
       it 'pass' do
@@ -51,7 +52,6 @@ describe User do
         expect(u.save).to eq false
       end
     end
-
   end
 
   context 'validations' do
@@ -98,8 +98,13 @@ describe User do
       expect(assc.macro).to eq :has_many
     end
 
-    it 'has many invitations' do
-      assc = User.reflect_on_association(:invitations)
+    it 'has many received invitations' do
+      assc = User.reflect_on_association(:received)
+      expect(assc.macro).to eq :has_many
+    end
+
+    it 'has many sent invitations' do
+      assc = User.reflect_on_association(:sent)
       expect(assc.macro).to eq :has_many
     end
 

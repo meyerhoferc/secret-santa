@@ -9,13 +9,13 @@
     </div>
 
     <div class="dashboard-inv-grp">
-      <% if @invitations %>
+      <% if !current_user.outstanding_invitations.empty? %>
       <div class="dashboard-invitations">
         <div class="dashboard-invitations-title">
           <h2>Invitations</h2>
         </div>
         <div class="dashboard-invitations-inv">
-          <% @invitations.each do |invitation| %>
+          <% current_user.outstanding_invitations.each do |invitation| %>
             <% if invitation.accepted.nil? %>
               <div class="dashboard-invitations-each-invite">
                 <p class="greeting">

@@ -2,10 +2,6 @@ class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
   before_action -> { unauthorized_user(@group.owner) }, only: [:update, :edit, :destroy]
 
-  def index # Delete for the future?
-    @groups = Group.all
-  end
-
   def new
     @group = Group.new
   end
@@ -46,18 +42,18 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    @lists = List.where("group_id = :group_id", {group_id: @group.id})
-    if !@lists.empty?
-      @lists.each do |list|
-        items = Item.where("list_id = :list_id", {list_id: list.id})
+    lists = List.where(group_id: @group.id)
+    if !lists.empty?
+      lists.each do |list|
+        items = Item.where(list_id: list.id)
         items.each { |item| item.destroy }
         list.destroy
       end
     end
 
-    @invitations = Invitation.where("group_id = :group_id", {group_id: @group.id})
-    if !@invitations.empty?
-      @invitations.each do |invitation|
+    invitations = Invitation.where(group_id: @group.id)
+    if !invitations.empty?
+      invitations.each do |invitation|
         invitation.destroy
       end
     end

@@ -1,7 +1,7 @@
 <h1><%= @group.name %></h1>
 <%= @group.description %>
 <br>
-Created on: <%= @group.created_at %>
+<span title="<%= time_ago_in_words(@group.created_at) %> ago">Created on: <%= @group.created_at %></span>
 <br>
 Gift Due Date: <%= @group.gift_due_date %>
 <br>
@@ -23,7 +23,6 @@ Gift Exchange Year: <%= @group.gift_due_date.year if @group.gift_due_date %>
 <% if authorized_user(@group.owner) %>
 <h2>Send an invitation</h2>
 <%= render partial: 'invitations/group_form' %>
-
 <% end %>
 
 <br>

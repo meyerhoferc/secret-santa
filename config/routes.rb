@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   delete '/logout' => 'sessions#destroy', as: 'logout'
 
   resources :users, only: [:show, :create, :edit, :update] do
-    resources :invitations, only: [:show, :create]
+    resources :invitations, only: [:create]
   end
   get '/accept/:id' => 'invitations#accept', as: 'accept'
   get '/decline/:id' => 'invitations#decline', as: 'decline'

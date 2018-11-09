@@ -43,7 +43,7 @@ describe 'user signup' do
 
       click_on 'Create User'
 
-      expect(page).to have_content "First name can't be blank, Last name can't be blank, Username can't be blank, Username must contain only letters, numbers or underscores"
+      expect(page).to have_content "First name can't be blank, First name must contain only letters, apostrophes or dashes, Last name can't be blank, Last name must contain only letters, apostrophes or dashes, Username can't be blank, Username must contain only letters, numbers or underscores, Password can't be blank, and Password is too weak"
       expect(current_path).to eq signup_path
     end
 

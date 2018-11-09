@@ -61,6 +61,7 @@ describe 'owner sending multiple invites' do
   let(:group) { Group.create(name: 'The season to give gifts', description: 'We love gifts more than you know', gift_due_date: '2022-01-01') }
   let(:owner) { User.create(first_name: 'Leaf', last_name: 'Fall', username: 'fallleaf', email: 'email@fall.co', password: 'hspa1203489y132809hss12034pas1203489y13280989y132809h') }
   let(:invitee) { User.create!(first_name: 'Punkin', last_name: 'Patch', username: 'october', email: 'punkin@october.patch', password: 'pas1203489y132809h132809hss1203489y132spa1203489y809h') }
+  let(:user) { User.create!(first_name: 'Lee', last_name: 'Ray', username: 'lasdf', email: 'leasdfe@ray.com', password: 'pas1203489y132809h13280dsfsdsdf9hss1203489y132spa1203489y809h') }
 
   context 'with email' do
     it 'user declining' do
@@ -88,11 +89,11 @@ describe 'owner sending multiple invites' do
       fill_in 'Username or email', with: invitee.email
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
-      expect(page).to have_content 'Receiver has already been invited to this group'
+      expect(page).to have_content 'Invitation sent'
 
       sign_out
       sign_in(invitee)
-      expect(page).to have_no_content group.name
+      expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}"
     end
 
     it 'user accepting' do
@@ -154,11 +155,11 @@ describe 'owner sending multiple invites' do
       fill_in 'email', with: invitee.email
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
-      expect(page).to have_content 'Receiver has already been invited to this group'
+      expect(page).to have_content 'Invitation sent'
 
       sign_out
       sign_in(invitee)
-      expect(page).to have_no_content group.name
+      expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}"
     end
 
     it 'user accepting' do
@@ -192,6 +193,47 @@ describe 'owner sending multiple invites' do
       sign_out
       sign_in(invitee)
       expect(page).to have_no_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+    end
+  end
+
+  context 'for another user' do
+    it 'accepting' do
+      sign_in(owner)
+      click_on 'Create a Group'
+      create_group(group)
+      click_on 'Create Group'
+      fill_in 'email', with: invitee.email
+      fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
+      click_on 'Submit'
+      expect(page).to have_content 'Invitation sent'
+      sign_out
+
+      sign_in(user)
+      expect(current_path).to eq dashboard_path
+      expect(page).to have_no_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+      expect(page).to have_no_content 'Accept', 'Decline'
+      visit "/accept/#{invitee.received.first.id}"
+      expect(page).to have_content 'Action is unauthorized'
+
+    end
+
+    it 'declining' do
+      sign_in(owner)
+      click_on 'Create a Group'
+      create_group(group)
+      click_on 'Create Group'
+      fill_in 'email', with: invitee.email
+      fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
+      click_on 'Submit'
+      expect(page).to have_content 'Invitation sent'
+      sign_out
+
+      sign_in(user)
+      expect(current_path).to eq dashboard_path
+      expect(page).to have_no_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+      expect(page).to have_no_content 'Accept', 'Decline'
+      visit "/decline/#{invitee.received.first.id}"
+      expect(page).to have_content 'Action is unauthorized'
     end
   end
 end

@@ -4,8 +4,12 @@ class User < ApplicationRecord
   has_many :lists
   has_many :invitations
 
+  has_many :received, foreign_key: :receiver_id, class_name: 'Invitation'
+  has_many :sent, foreign_key: :sender_id, class_name: 'Invitation'
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates_format_of :first_name, with: /\A[a-z([-'])]+\z/i, message: 'must contain only letters, apostrophes or dashes'
+  validates_format_of :last_name, with: /\A[a-z([-'])]+\z/i, message: 'must contain only letters, apostrophes or dashes'
   validates :username, presence: true
   validates_uniqueness_of :username
   validates :email, presence: true, on: :update, if: Proc.new { |user| user.email.blank? }
@@ -25,5 +29,20 @@ class User < ApplicationRecord
 
   def skip_pass_strength=(value)
     @skip_pass_strength = value
+  end
+
+  def outstanding_invitations
+    Invitation.where('receiver_id = ? AND accepted IS NULL', id)
+  end
+
+  def invitable_groups(current_user)
+    current_user_owned_groups = Group.joins(:users)
+    .where.not("users.id = #{id}")
+    .where("owner_id = #{current_user.id}").distinct
+    user_invited_groups = Group.joins(:invitations)
+    .where("receiver_id = #{id}")
+    .where('accepted IS true OR accepted IS NULL')
+    .where("group_id = groups.id")
+    current_user_owned_groups - user_invited_groups
   end
 end

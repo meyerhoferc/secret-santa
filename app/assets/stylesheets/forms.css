@@ -92,7 +92,7 @@
 .form-field input {
   font-size: 1.25rem;
   color: var(--form-input);
-  background-color: var(--form-background);
+  background-color: var(--form-input-background);
   height: 40px;
   border: none;
   border-radius: 3px;

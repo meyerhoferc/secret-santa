@@ -71,7 +71,7 @@ describe 'editing a user' do
       find("[id^=name_edit_user]").fill_in 'Current password', with: user.password
       click_on 'Update Name'
 
-      expect(page).to have_content "First name can't be blank and Last name can't be blank"
+      expect(page).to have_content "First name can't be blank, First name must contain only letters, apostrophes or dashes, Last name can't be blank, and Last name must contain only letters, apostrophes or dashes"
     end
 
     it 'a blank email' do

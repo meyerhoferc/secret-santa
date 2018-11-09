@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SecretSanta</title>
+    <title>Secret Santa</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -13,6 +13,7 @@
     <% flash.each do |type, message| %>
       <%= content_tag :div, sanitize(message), class: type %>
     <% end %>
+    <!-- insert render partial here for nav bar -->
     <%= yield %>
   </body>
 </html>

@@ -45,8 +45,10 @@
   "invitations";
 }
 
-.dashboard-invitations-title {
+.dashboard-invitations-title,
+.dashboard-groups-title {
   grid-area: title;
+  margin: 10px 0;
 }
 
 .dashboard-invitations-inv {
@@ -55,24 +57,61 @@
   flex-direction: column;
 }
 
-.dashboard-invitations-each-invite {
+.dashboard-invitations-each-invite,
+.dashboard-groups-each-group {
   border: 2px solid var(--border);
-  background-color: var(--background-text-primary);
+  background-color: var(--background-text-secondary);
   margin: 10px 0;
 }
 
-.dashboard-invitations-each-invite p {
-  margin: 5px 0;
+.dashboard-invitations-each-invite p,
+.dashboard-groups-each-group p {
+  margin: 9px;
 }
 
 .greeting {
-
 }
 
 .comment {
-
 }
 
 .reply {
+  padding: 15px 0;
+  margin: 10px 0;
+}
 
+.reply a {
+  box-sizing: border-box;
+  text-decoration: none;
+  color: var(--text);
+  background-color: var(--button-background);
+  border: 4px solid var(--button-background);
+  padding: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.reply a:hover {
+  background-color: var(--button-background-hover);
+}
+
+.dashboard-groups {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+  "title"
+  "create"
+  "groups";
+}
+
+.dashboard-groups-create {
+  grid-area: create;
+  margin: 10px 0;
+}
+
+.dashboard-groups-grp {
+  grid-area: groups;
+  display: flex;
+  flex-direction: column;
 }

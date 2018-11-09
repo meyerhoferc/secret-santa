@@ -37,15 +37,19 @@
       </div>
       <% end %>
       <div class="dashboard-groups">
-        <h2>My Groups</h2>
-        <%= link_to "Create a Group", new_group_path %>
-        <br>
-        <br>
-        <% if !current_user.groups.empty? %>
-          <%= render partial: 'users/groups', collection: current_user.groups %>
-        <% else %>
-          You are not part of any groups.
-        <% end %>
+        <div class="dashboard-groups-title">
+          <h2>My Groups</h2>
+        <div>
+        <div class="dashboard-groups-create">
+          <%= link_to "Create a Group", new_group_path %>
+        </div>
+        <div class="dashboard-groups-grp">
+          <% if !current_user.groups.empty? %>
+            <%= render partial: 'users/groups', collection: current_user.groups %>
+          <% else %>
+            You are not part of any groups.
+          <% end %>
+        </div>
       </div>
     <% end %>
   </div>

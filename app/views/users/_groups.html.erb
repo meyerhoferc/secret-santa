@@ -1,4 +1,8 @@
-<div>
-  Group Name: <%= link_to groups.name, group_path(groups.id) %>
-  <p><%= groups.description %></p>
+<div class="dashboard-groups-each-group">
+  <p>
+    <%= link_to groups.name, group_path(groups.id) %>
+  </p>
+  <p>
+    <%= groups.description %>
+  </p>
 </div>

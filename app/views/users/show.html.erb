@@ -1,20 +1,32 @@
-<h1>Profile</h1>
-Name: <%= "#{@user.first_name} #{@user.last_name}" %>
-<br>
-Username: <%= @user.username %>
-<br>
-<% if authorized_user(@user) %>
-Email: <%= @user.email %>
-<br>
-<% end %>
-
-<% if !authorized_user(@user) && !@invitable_groups.empty? %>
-  <h2>Invite <%= "#{@user.first_name} #{@user.last_name}" %> to a Group</h2>
-  <%= render partial: 'invitations/user_profile_form' %>
-<% end %>
-
-<% if authorized_user(@user) %>
-  <%= link_to 'Update Your Information', edit_user_path(@user.id) %>
-<% end %>
-<br>
+<div class="users-container">
+  <div class="users-title">
+    <h1>Profile</h1>
+  </div>
+  <div class="users-data">
+    <div class="users-information">
+      <p>
+        Name: <%= "#{@user.first_name} #{@user.last_name}" %>
+      </p>
+      <p>
+        Username: <%= @user.username %>
+      </p>
+      <% if authorized_user(@user) %>
+        <p>
+          Email: <%= @user.email %>
+        </p>
+      <% end %>
+    </div>
+    <% if !authorized_user(@user) && !@invitable_groups.empty? %>
+      <div class="users-group-invitation">
+        <h2>Invite <%= "#{@user.first_name} #{@user.last_name}" %> to a Group</h2>
+        <%= render partial: 'invitations/user_profile_form' %>
+      </div>
+    <% end %>
+    <div class="users-update">
+      <% if authorized_user(@user) %>
+        <%= link_to 'Update Your Information', edit_user_path(@user.id) %>
+      <% end %>
+    </div>
+  </div>
+</div>
 <%= link_to 'Back to Dashboard', dashboard_path %>

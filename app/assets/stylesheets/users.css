@@ -1,0 +1,40 @@
+.users-container {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+  "title"
+  "data";
+  padding: 20px;
+  min-width: 320px;
+  max-width: 850px;
+  min-height: 400px;
+  margin: 50px auto 0 auto;
+  background: linear-gradient(to top, var(--background-text-primary) 25%, var(--background-text-secondary));
+  background-repeat: no-repeat;
+  border: 6px solid var(--border);
+  border-radius: 3px;
+}
+
+.users-title {
+  grid-area: title;
+  justify-self: center;
+}
+
+.users-data {
+  grid-area: data;
+  display: grid;
+  flex-direction: column;
+}
+
+.users-information p {
+  margin: 10px 0;
+}
+
+.users-group-invitation {
+
+}
+
+.users-update {
+
+}

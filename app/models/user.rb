@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many :sent, foreign_key: :sender_id, class_name: 'Invitation'
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates_format_of :first_name, with: /\A[a-z([-'])]+\z/i, message: 'must contain only letters, apostrophes or dashes'
+  validates_format_of :last_name, with: /\A[a-z([-'])]+\z/i, message: 'must contain only letters, apostrophes or dashes'
   validates :username, presence: true
   validates_uniqueness_of :username
   validates :email, presence: true, on: :update, if: Proc.new { |user| user.email.blank? }

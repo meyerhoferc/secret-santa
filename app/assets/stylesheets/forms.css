@@ -89,7 +89,8 @@
 }
 
 .form-field textarea,
-.form-field input {
+.form-field input,
+.form-field select {
   font-size: 1.25rem;
   color: var(--form-input);
   background-color: var(--form-input-background);
@@ -100,7 +101,7 @@
 }
 
 .form-field textarea {
-  height: 350px;
+  height: 250px;
   width: 65%;
 }
 

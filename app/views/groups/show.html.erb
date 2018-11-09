@@ -1,46 +1,54 @@
-<h1><%= @group.name %></h1>
-<%= @group.description %>
-<br>
-<span title="<%= time_ago_in_words(@group.created_at) %> ago">Created on: <%= @group.created_at %></span>
-<br>
-Gift Due Date: <%= @group.gift_due_date %>
-<br>
-Gift Exchange Year: <%= @group.gift_due_date.year if @group.gift_due_date %>
-<br>
-<br>
-<% if authorized_user(@group.owner) %>
-  <%= link_to 'Edit Group', edit_group_path %>
-  <%= link_to 'Delete Group', group_path, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' } %>
-  <br>
-  <br>
-<% end %>
-<% if @user_wish_list %>
-  <%= link_to 'View your Wish List', group_list_path(@group, @user_wish_list.id) %>
-<% end %>
-<br>
-<br>
+<div class="groups-container">
+  <div class="groups-title">
+    <h1><%= @group.name %></h1>
+  </div>
+  <div class="groups-data">
+    <p>
+      <%= @group.description %>
+    </p>
+    <p>
+      <span title="<%= time_ago_in_words(@group.created_at) %> ago">Created on: <%= @group.created_at %></span>
+    </p>
+    <p>
+      Gift Due Date: <%= @group.gift_due_date %>
+    </p>
+    <p>
+      Gift Exchange Year: <%= @group.gift_due_date.year if @group.gift_due_date %>
+    </p>
+  </div>
+  <div class="groups-modify">
+    <% if authorized_user(@group.owner) %>
+      <p>
+        <%= link_to 'Edit Group', edit_group_path %>
+      </p>
+      <p>
+        <%= link_to 'Delete Group', group_path, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' } %>
+      </p>
+    <% end %>
+    <% if @user_wish_list %>
+      <%= link_to 'View your Wish List', group_list_path(@group, @user_wish_list.id) %>
+    <% end %>
+  </div>
+  <div class="groups-invitation">
+    <% if authorized_user(@group.owner) %>
+      <h3>Send an invitation</h3>
+      <%= render partial: 'invitations/group_form' %>
+    <% end %>
+  </div>
+  <div class="groups-users">
+    <h3>Users in this group</h3>
+    <ul>
+      <% @group.users.each do |user| %>
+      <li>
+        <%= "#{user.first_name} #{user.last_name}: " %>
+        <%= link_to 'Profile', user_path(user.id) %>
+        <%= link_to "Wish List", group_list_path(@group.id, @group.user_wish_list(user).id) %>
+        <%= "(Group Owner)" if @group.owner.id == user.id %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
 
-<% if authorized_user(@group.owner) %>
-<h2>Send an invitation</h2>
-<%= render partial: 'invitations/group_form' %>
-<% end %>
 
-<br>
-<br>
-Users in this group:
-<ul>
-  <% @group.users.each do |user| %>
-  <li>
-    <%= "#{user.first_name} #{user.last_name}: " %>
-    <%= link_to 'Profile', user_path(user.id) %>
-    <%= link_to "Wish List", group_list_path(@group.id, @group.user_wish_list(user).id) %>
-    <%= "(Group Owner)" if @group.owner.id == user.id %>
-  </li>
-  <% end %>
-</ul>
-
-
-
-
-<br>
 <%= link_to 'Back to Dashboard', dashboard_path %>

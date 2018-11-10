@@ -5,9 +5,9 @@ class ItemsController < ApplicationController
   before_action :set_user, except: :index
   before_action -> { unauthorized_user(@user) }, except: [:show]
 
-  def new
-    @item = Item.new
-  end
+  # def new
+  #   @item = Item.new
+  # end
 
   def create
     @item = Item.new(item_params)
@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
       redirect_to group_list_path(@group, @list)
     else
       flash[:warning] = @item.errors.full_messages.to_sentence
-      render 'new'
+      redirect_to group_list_path(@group, @list)
     end
   end
 

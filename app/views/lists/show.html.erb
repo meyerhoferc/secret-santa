@@ -3,7 +3,8 @@
 <%= link_to "#{@user.first_name} #{@user.last_name}'s profile", user_path(@user) %>
 <br>
 <% if authorized_user(@user) %>
-  <%= link_to 'Add an item to your wish list', new_group_list_item_path(@group, @list) %>
+  Add an item to your wish list
+  <%= render partial: 'items/form' %>
 <% end %>
 <ul>
   <% @items.each do |item| %>

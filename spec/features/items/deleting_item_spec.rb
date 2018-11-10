@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'deleting' do
   let(:user) { User.create(first_name: 'Raaa', last_name: 'Zzzz', username: 'ZzzRaa', email: 'emmaiil@raa.zzz', password: 'pa1203489y132809hsspas1203489y132809hs') }
   let(:group) { Group.create(name: 'The best group there is, that I know', description: 'Whoever wants to join', gift_due_date: '2019/12/31') }
-  let(:item_one) { Item.create(name: 'Keys', description: 'So many', size: 'S', note: 'I have many of these.') }
+  let(:item_one) { Item.create(name: 'Keys', description: 'So many', size: 'Small', note: 'I have many of these.') }
 
   it 'an item' do
     sign_in(user)
@@ -13,7 +13,6 @@ describe 'deleting' do
     visit dashboard_path
     click_on group.name
     click_on 'View your Wish List'
-    click_on 'Add an item to your wish list'
     create_item(item_one)
     click_on 'Create Item'
 

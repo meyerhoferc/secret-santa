@@ -36,7 +36,7 @@ describe 'group creation' do
       sign_in(user)
 
       expect(current_path).to eq dashboard_path
-      expect(page).to have_content 'Welcome, Raa.'
+      expect(page).to have_content "Welcome #{user.first_name}"
       click_on 'Create a Group'
 
       expect(current_path).to eq new_group_path

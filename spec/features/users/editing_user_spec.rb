@@ -53,7 +53,7 @@ describe 'editing a user' do
       fill_in 'Password', with: user.password + 't34fa'
       click_on 'Log In'
 
-      expect(page).to have_content "Welcome, #{user.first_name}."
+      expect(page).to have_content "Welcome #{user.first_name}"
     end
   end
 
@@ -213,7 +213,7 @@ describe 'editing a user' do
       click_on 'Log In'
 
       sign_in(user)
-      expect(page).to have_content "Welcome, #{user.first_name}."
+      expect(page).to have_content "Welcome #{user.first_name}"
     end
   end
 

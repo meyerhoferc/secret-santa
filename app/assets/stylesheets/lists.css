@@ -1,12 +1,5 @@
-.groups-container {
+.lists-container {
   display: grid;
-  grid-template-columns: auto auto;
-  grid-template-rows: auto auto auto auto;
-  grid-template-areas:
-  "title title"
-  "data invitation"
-  "modify modify"
-  "users users";
   padding: 20px;
   min-width: 320px;
   max-width: 850px;
@@ -16,25 +9,25 @@
   background-repeat: no-repeat;
   border: 6px solid var(--border);
   border-radius: 3px;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+  "title title"
+  "data profile-link";
+  /* "data"; */
 }
 
-.groups-title {
+.lists-title {
   grid-area: title;
   justify-self: center;
 }
 
-.groups-data {
+.lists-profile-link {
+  grid-area: profile-link;
+}
+
+.lists-data {
   grid-area: data;
-}
-
-.groups-modify {
-  grid-area: modify;
-}
-
-.groups-invitation {
-  grid-area: invitation;
-}
-
-.groups-users {
-  grid-area: users;
+  display: flex;
+  flex-direction: column;
 }

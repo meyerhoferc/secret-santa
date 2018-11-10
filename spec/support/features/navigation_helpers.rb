@@ -29,7 +29,7 @@ module Features
   end
 
   def dashboard_path_content(user)
-    expect(page).to have_content "Welcome, #{user[:first_name]}."
+    expect(page).to have_content "Welcome #{user[:first_name]}"
     expect(page).to have_link 'Sign Out'
     expect(page).to have_link 'Profile'
     expect(page).not_to have_link 'Log In'

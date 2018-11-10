@@ -1,15 +1,21 @@
-<h1><%= "#{@user.first_name} #{@user.last_name}'s wishlist for the #{@group.name} group" %></h1>
-
-<%= link_to "#{@user.first_name} #{@user.last_name}'s profile", user_path(@user) %>
-<br>
-<% if authorized_user(@user) %>
-  Add an item to your wish list
-  <%= render partial: 'items/form' %>
-<% end %>
-<ul>
-  <% @items.each do |item| %>
-  <li><%= link_to "#{item.name}", group_list_item_path(@group, @list, item.id) %></li>
-  <% end %>
-</ul>
+<div class="lists-container">
+  <div class="lists-title">
+    <h1><%= "#{@user.first_name} #{@user.last_name}'s wishlist for the #{@group.name} group" %></h1>
+  </div>
+  <div class="lists-profile-link">
+    <%= link_to "#{@user.first_name} #{@user.last_name}'s profile", user_path(@user) %>
+  </div>
+  <div class="lists-data">
+    <% if authorized_user(@user) %>
+      Add an item to your wish list:
+      <%= render partial: 'items/form' %>
+    <% end %>
+    <ul>
+      <% @items.each do |item| %>
+      <li><%= link_to "#{item.name}", group_list_item_path(@group, @list, item.id) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
 
 <%= link_to 'Back to Group', group_path(@group.id) %>

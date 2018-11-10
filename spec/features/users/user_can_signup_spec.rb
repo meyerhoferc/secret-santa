@@ -22,7 +22,7 @@ describe 'user signup' do
       click_on 'Log In'
 
       expect(current_path).to eq dashboard_path
-      expect(page).to have_content "Welcome, #{user[:first_name]}."
+      expect(page).to have_content "Welcome #{user[:first_name]}"
       expect(page).to have_link 'Sign Out'
       expect(page).to have_link 'Profile'
       expect(page).not_to have_link 'Log In'

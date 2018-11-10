@@ -10,7 +10,7 @@ describe "user login" do
       click_on 'Log In'
 
       expect(current_path).to eq dashboard_path
-      expect(page).to have_content 'Welcome, Test.'
+      expect(page).to have_content 'Welcome Test'
     end
 
     it 'correctly but wrong case' do
@@ -20,7 +20,7 @@ describe "user login" do
       click_on 'Log In'
 
       expect(current_path). to eq dashboard_path
-      expect(page).to have_content 'Welcome, Test.'
+      expect(page).to have_content 'Welcome Test'
     end
 
     it 'incorrect password' do
@@ -40,7 +40,7 @@ describe "user login" do
     it 'correctly' do
       sign_in_username(user)
 
-      expect(page).to have_content 'Welcome, Test.'
+      expect(page).to have_content 'Welcome Test'
       expect(current_path).to eq dashboard_path
     end
 
@@ -50,7 +50,7 @@ describe "user login" do
       fill_in 'Password', with: user.password
       click_on 'Log In'
 
-      expect(page).to have_content 'Welcome, Test.'
+      expect(page).to have_content 'Welcome Test'
       expect(current_path).to eq dashboard_path
     end
 

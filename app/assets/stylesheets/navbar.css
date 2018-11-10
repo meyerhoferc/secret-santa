@@ -1,0 +1,10 @@
+.navbar-container {
+  background-color: var(--background-text-primary);
+  height: 45px;
+}
+
+.navbar-links {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}

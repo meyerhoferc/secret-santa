@@ -13,7 +13,7 @@
     <% flash.each do |type, message| %>
       <%= content_tag :div, sanitize(message), class: type %>
     <% end %>
-    <!-- insert render partial here for nav bar -->
+    <%= render 'navbar/display' %>
     <%= yield %>
   </body>
 </html>

@@ -3,10 +3,6 @@
     <div class="dashboard-title">
       <h1><%= "Welcome #{current_user.first_name || current_user.email}" %></h1>
     </div>
-    <div class="personal-links">
-      <%= link_to 'Profile', profile_path %>
-      <%= link_to 'Sign Out', logout_path, method: :delete %>
-    </div>
 
     <div class="dashboard-inv-grp">
       <% if !current_user.outstanding_invitations.empty? %>

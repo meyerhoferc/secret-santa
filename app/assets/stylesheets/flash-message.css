@@ -6,9 +6,18 @@
   padding: 15px;
   font-size: 1.25rem;
   position: fixed;
-  top: 0;
+  top: 0px;
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
   border-radius: 3px;
+}
+
+.notice {
+  /* border: 3px solid var(--button-background-hover); */
+  border: 3px solid #00ff00;
+}
+
+.warning {
+  border: 3px solid red;
 }

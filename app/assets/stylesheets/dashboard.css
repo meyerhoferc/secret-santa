@@ -108,8 +108,6 @@
 
 .dashboard-groups-grp {
   grid-area: groups;
-  /* display: flex;
-  flex-direction: column; */
 }
 
 .dashboard-groups-each-group {

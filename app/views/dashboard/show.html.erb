@@ -8,7 +8,7 @@
       <% if !current_user.outstanding_invitations.empty? %>
       <div class="dashboard-invitations">
         <div class="dashboard-invitations-title">
-          <h2>Invitations</h2>
+          <h2>My Invitations</h2>
         </div>
         <div class="dashboard-invitations-inv">
           <% current_user.outstanding_invitations.each do |invitation| %>
@@ -41,7 +41,7 @@
         </div>
         <div class="dashboard-groups-grp">
           <% if !current_user.groups.empty? %>
-            <%= render partial: 'users/groups', collection: current_user.groups %>
+            <%= render partial: 'users/groups', collection: current_user.groups.reorder('gift_due_date ASC') %>
           <% else %>
             You are not part of any groups.
           <% end %>

@@ -84,7 +84,7 @@
   height: 390px;
 }
 
-.tree-container svg:nth-child(12) {
+.tree-container svg:last-child {
   right: 2567px;
   width: 450px;
   height: 450px;

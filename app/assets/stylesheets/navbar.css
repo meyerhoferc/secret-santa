@@ -32,15 +32,21 @@
   flex-grow: 0;
   height: 53px;
   box-sizing: border-box;
-  cursor: default;
 }
 
-.navbar-dropdown {
+/* .navbar-groups, */
+.navbar-groups label {
+  cursor: pointer;
+}
+
+.navbar-dropdown,
+#groups-checkbox {
   display: none;
 }
 
-.navbar-groups:hover > .navbar-dropdown,
-.navbar-dropdown:hover {
+/* .navbar-groups:active > .navbar-dropdown,
+.navbar-groups:hover > .navbar-dropdown, */
+#groups-checkbox:checked ~ .navbar-dropdown {
   top: 59px;
   display: flex;
   position: absolute;

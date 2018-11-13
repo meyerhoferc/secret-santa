@@ -1,0 +1,54 @@
+.tree {
+  /* height: 150px; */
+  height: 250px;
+  width: 150px;
+  fill: #efefef;
+  /* fill: var(--text); */
+  /* fill: #fff; */
+  position: relative;
+  /* top: 0; */
+  float: none;
+  vertical-align: bottom;
+  /* display: inline-block; */
+}
+
+.tree-container {
+  z-index: -1;
+  display: inline-block;
+  position: absolute;
+  bottom: 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
+
+.trees-left,
+.trees-right {
+  display: inline;
+  /* position: absolute; */
+}
+
+.trees-left svg:first-child {
+  right: 65px;
+  width: 305px;
+  height: 410px;
+}
+
+.trees-left svg:nth-child(2) {
+  right: 55px;
+}
+
+.trees-left svg:nth-child(3) {
+  right: 25px;
+  width: 165px;
+}
+
+.trees-left svg:last-child {
+  right: 65px;
+}
+
+/* .trees-left:first-child,
+.trees-center:first-child, */
+/* .trees-right:first-child {
+  right: 50px;
+} */

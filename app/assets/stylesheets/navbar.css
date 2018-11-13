@@ -34,7 +34,6 @@
   box-sizing: border-box;
 }
 
-/* .navbar-groups, */
 .navbar-groups label {
   cursor: pointer;
 }
@@ -44,8 +43,6 @@
   display: none;
 }
 
-/* .navbar-groups:active > .navbar-dropdown,
-.navbar-groups:hover > .navbar-dropdown, */
 #groups-checkbox:checked ~ .navbar-dropdown {
   top: 59px;
   display: flex;

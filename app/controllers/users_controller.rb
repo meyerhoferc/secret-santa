@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :root_path_if_not_logged_in, only: [:new, :create]
   before_action :set_user, only: [:edit, :update, :profile]
+  before_action -> { unauthorized_user(User.find(params[:id])) }, only: [:update, :edit]
 
   def new
     @user = User.new

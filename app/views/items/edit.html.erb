@@ -1,8 +1,6 @@
 <div class="items-edit-container">
   <div class="items-title">
-    <h1>Edit Item</h1>
+    <h1>Edit: <%= "#{@item.name}" %></h1>
   </div>
   <%= render partial: 'items/form' %>
 </div>
-
-<%= link_to 'Back to Item', group_list_item_path(@group, @list, @item) %>

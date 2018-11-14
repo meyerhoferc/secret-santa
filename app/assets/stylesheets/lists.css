@@ -4,17 +4,18 @@
   min-width: 320px;
   max-width: 850px;
   min-height: 400px;
-  margin: 50px auto 0 auto;
+  margin: 50px auto;
   background: linear-gradient(to top, var(--background-text-primary) 25%, var(--background-text-secondary));
   background-repeat: no-repeat;
   border: 6px solid var(--border);
   border-radius: 3px;
+  grid-gap: 10px;
   grid-template-columns: auto auto;
   grid-template-rows: auto auto;
   grid-template-areas:
   "title title"
-  "data profile-link";
-  /* "data"; */
+  "items links"
+  "items item-creation";
 }
 
 .lists-title {
@@ -22,12 +23,43 @@
   justify-self: center;
 }
 
-.lists-profile-link {
-  grid-area: profile-link;
+.lists-links {
+  grid-area: links;
 }
 
-.lists-data {
-  grid-area: data;
+.lists-item-creation {
+  grid-area: item-creation;
   display: flex;
   flex-direction: column;
+}
+
+.lists-items {
+  grid-area: items;
+}
+
+.lists-links,
+.lists-item-creation,
+.lists-items {
+  border: 2px solid var(--border);
+  background-color: var(--background-text-secondary);
+  border-radius: 3px;
+  padding: 10px;
+  font-size: 1.25rem;
+}
+
+.lists-links a {
+  display: block;
+}
+
+.lists-links a:first-child {
+  margin-bottom: 15px;
+}
+
+.lists-item {
+  margin-bottom: 10px;
+}
+
+.lists-item-creation h2,
+.lists-items h2 {
+  margin-bottom: 15px;
 }

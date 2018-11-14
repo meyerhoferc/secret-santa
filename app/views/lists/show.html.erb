@@ -1,21 +1,28 @@
 <div class="lists-container">
   <div class="lists-title">
-    <h1><%= "#{@user.first_name} #{@user.last_name}'s wishlist for the #{@group.name} group" %></h1>
+    <h1><%= "#{@user.first_name} #{@user.last_name}'s Wish List" %></h1>
   </div>
-  <div class="lists-profile-link">
+  <div class="lists-links">
     <%= link_to "#{@user.first_name} #{@user.last_name}'s profile", user_path(@user) %>
+    <%= link_to "#{@group.name}", group_path(@group.id) %>
   </div>
-  <div class="lists-data">
-    <% if authorized_user(@user) %>
-      Add an item to your wish list:
+  <% if authorized_user(@user) %>
+    <div class="lists-item-creation">
+      <h2>Add item to wish list</h2>
       <%= render partial: 'items/form' %>
-    <% end %>
-    <ul>
+    </div>
+  <% end %>
+  <div class="lists-items">
+    <h2>Wish List Items</h2>
+    <% if !@items.empty? %>
       <% @items.each do |item| %>
-      <li><%= link_to "#{item.name}", group_list_item_path(@group, @list, item.id) %></li>
+      <div class="lists-item">
+        <%= link_to "#{item.name}", group_list_item_path(@group, @list, item.id) %>
+
+      </div>
       <% end %>
-    </ul>
+    <% else %>
+      <%= "#{@user.first_name} #{@user.last_name}'s list is empty." %>
+    <% end %>
   </div>
 </div>
-
-<%= link_to 'Back to Group', group_path(@group.id) %>

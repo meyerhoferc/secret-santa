@@ -5,7 +5,10 @@
   <div class="group-description">
     <%= groups.description %>
   </div>
-  <div class="group-due-date" title="In <%= time_ago_in_words(groups.gift_due_date) %>">
-    <%= groups.gift_due_date.to_formatted_s(:long_ordinal) %>
+  <div class="group-due-date">
+    Gifts Due:
+    <div title="Due in <%= time_ago_in_words(groups.gift_due_date) %>">
+      <%= groups.gift_due_date.to_formatted_s(:long_ordinal) %>
+    </div>
   </div>
 </div>

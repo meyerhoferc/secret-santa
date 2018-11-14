@@ -1,10 +1,10 @@
-<%= form_for :invitation, { url: group_invite_path(@group.id), html: {class: 'form-fields-container'} } do |f| %>
+<%= form_for :invitation, { url: group_invite_path(@group.id), html: {class: 'groups-form-fields-container'} } do |f| %>
   <div class="form-field">
     <%= label_tag :username_email, 'Username or email' %>
     <%= text_field_tag :username_email, params[:username_email] %>
   </div>
   <div class="form-field">
-    <%= f.label :comment, "Message" %><br/>
+    <%= f.label :comment, "Message" %>
     <%= f.text_field :comment %>
   </div>
   <div class="form-submit">

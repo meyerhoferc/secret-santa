@@ -1,12 +1,13 @@
 .groups-container {
   display: grid;
   grid-template-columns: auto auto;
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: auto auto auto;
   grid-template-areas:
   "title title"
-  "data invitation"
-  "modify modify"
-  "users users";
+  "description description"
+  "info users"
+  "owner users";
+  grid-gap: 10px;
   padding: 20px;
   min-width: 320px;
   max-width: 850px;
@@ -23,18 +24,81 @@
   justify-self: center;
 }
 
-.groups-data {
-  grid-area: data;
+.groups-description,
+.groups-info,
+.groups-users,
+.groups-owner {
+  border: 2px solid var(--border);
+  background-color: var(--background-text-secondary);
+  border-radius: 3px;
+  padding: 10px;
 }
 
-.groups-modify {
-  grid-area: modify;
+.groups-description {
+  grid-area: description;
+  font-size: 1.25rem;
 }
 
-.groups-invitation {
-  grid-area: invitation;
+.groups-info {
+  grid-area: info;
+  align-self: start;
+}
+
+.groups-info h3:first-child {
+  margin-bottom: 10px;
+}
+
+.groups-owner {
+  grid-area: owner;
+}
+
+.groups-owner h2 {
+  margin-bottom: 10px;
+}
+
+.groups-owner h3 {
+  margin-bottom: 10px;
+}
+
+.groups-owner span {
+  font-size: 1.25rem;
+  margin-bottom: 18px;
+  display: inline-block;
+}
+
+.groups-form-fields-container {
+  grid-area: none;
+  justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
+}
+
+.groups-owner .form-field input {
+  width: 300px;
+}
+
+.groups-form-fields-container .form-field label {
+  display: block;
+  margin-bottom: 8px;
 }
 
 .groups-users {
   grid-area: users;
+  justify-self: end;
+  box-sizing: border-box;
+}
+
+.groups-users h2 {
+  margin-bottom: 15px;
+}
+
+.groups-users-flex-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.groups-users .user {
+  font-size: 1.1rem;
+  margin: 10px;
 }

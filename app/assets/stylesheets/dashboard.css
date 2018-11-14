@@ -54,6 +54,7 @@
 .dashboard-groups-each-group {
   border: 2px solid var(--border);
   background-color: var(--background-text-secondary);
+  border-radius: 3px;
   margin: 10px 0;
 }
 
@@ -66,7 +67,8 @@
   font-size: 1.5rem;
 }
 
-.comment {
+.comment,
+.dashboard-invitations-due-date {
   font-size: 1.2rem;
 }
 

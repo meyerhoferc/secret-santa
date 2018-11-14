@@ -18,7 +18,6 @@
       <% @items.each do |item| %>
       <div class="lists-item">
         <%= link_to "#{item.name}", group_list_item_path(@group, @list, item.id) %>
-
       </div>
       <% end %>
     <% else %>

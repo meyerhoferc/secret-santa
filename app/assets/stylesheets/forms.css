@@ -1,17 +1,3 @@
-.user-update-form-container,
-.form-container {
-  display: grid;
-  padding: 20px;
-  min-width: 320px;
-  max-width: 850px;
-  min-height: 400px;
-  margin: 50px auto;
-  background: linear-gradient(to top, var(--background-text-primary) 25%, var(--background-text-secondary));
-  background-repeat: no-repeat;
-  border: 6px solid var(--border);
-  border-radius: 3px;
-}
-
 .form-container {
   grid-template-columns: auto;
   grid-template-rows: auto auto;

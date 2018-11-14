@@ -1,0 +1,45 @@
+/* Primary grid definitions */
+.welcome-container,
+.groups-container,
+.users-container,
+.user-update-form-container,
+.form-container,
+.items-edit-container,
+.items-container,
+.lists-container,
+.dashboard-container {
+  display: grid;
+  padding: 20px;
+  min-width: 320px;
+  max-width: 850px;
+  min-height: 400px;
+  margin: 50px auto;
+  background: linear-gradient(to top, var(--background-text-primary) 25%, var(--background-text-secondary));
+  background-repeat: no-repeat;
+  border: 6px solid var(--border);
+  border-radius: 3px;
+}
+
+.groups-container,
+.lists-container,
+.items-container {
+  grid-gap: 10px;
+}
+
+/* Sections within grid */
+.groups-description,
+.groups-info,
+.groups-users,
+.groups-owner,
+.lists-links,
+.lists-item-creation,
+.lists-items,
+.items-data,
+.items-modify,
+.items-profile-link {
+  border: 2px solid var(--border);
+  background-color: var(--background-text-secondary);
+  border-radius: 3px;
+  padding: 10px;
+  font-size: 1.25rem;
+}

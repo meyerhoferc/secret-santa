@@ -1,15 +1,4 @@
 .lists-container {
-  display: grid;
-  padding: 20px;
-  min-width: 320px;
-  max-width: 850px;
-  min-height: 400px;
-  margin: 50px auto;
-  background: linear-gradient(to top, var(--background-text-primary) 25%, var(--background-text-secondary));
-  background-repeat: no-repeat;
-  border: 6px solid var(--border);
-  border-radius: 3px;
-  grid-gap: 10px;
   grid-template-columns: auto auto;
   grid-template-rows: auto auto;
   grid-template-areas:
@@ -35,16 +24,6 @@
 
 .lists-items {
   grid-area: items;
-}
-
-.lists-links,
-.lists-item-creation,
-.lists-items {
-  border: 2px solid var(--border);
-  background-color: var(--background-text-secondary);
-  border-radius: 3px;
-  padding: 10px;
-  font-size: 1.25rem;
 }
 
 .lists-links a {

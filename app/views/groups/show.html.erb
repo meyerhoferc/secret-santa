@@ -12,7 +12,6 @@
     <% if @user_wish_list %>
       <h3><%= link_to 'My Wish List', group_list_path(@group, @user_wish_list.id) %></h3>
     <% end %>
-
   </div>
   <% if authorized_user(@group.owner) %>
     <div class="groups-owner">

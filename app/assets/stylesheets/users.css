@@ -1,19 +1,9 @@
 .users-container {
-  display: grid;
   grid-template-columns: auto;
   grid-template-rows: 65px auto;
   grid-template-areas:
   "title"
   "data";
-  padding: 20px;
-  min-width: 320px;
-  max-width: 850px;
-  min-height: 300px;
-  margin: 50px auto;
-  background: linear-gradient(to top, var(--background-text-primary) 25%, var(--background-text-secondary));
-  background-repeat: no-repeat;
-  border: 6px solid var(--border);
-  border-radius: 3px;
 }
 
 .users-title {

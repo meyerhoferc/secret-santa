@@ -7,14 +7,13 @@ describe 'deleting a group' do
     let(:item_one) { Item.create(name: 'Wallet', description: 'So pretty', size: 'XL', note: 'I would like many of these.') }
     let(:item_two) { Item.create(name: 'Shoes', description: 'So pretty', size: 'XL', note: 'I would like many of these.') }
 
-
     it 'no user items' do
       sign_in(user)
       click_on 'Create a Group'
       create_group(group)
       click_on 'Create Group'
       visit dashboard_path
-      click_on group.name
+      page.all('a', exact_text: group.name, visible:true).last.click
       click_on 'Delete Group'
 
       expect(page).to have_content "Group #{group.name} deleted!"
@@ -27,11 +26,11 @@ describe 'deleting a group' do
       create_group(group)
       click_on 'Create Group'
       visit dashboard_path
-      click_on group.name
-      click_on 'View your Wish List'
+      page.all('a', exact_text: group.name, visible:true).last.click
+      click_on 'My Wish List'
       create_item(item_one)
       click_on 'Create Item'
-      click_on 'Back to Group'
+      page.all('a', exact_text: group.name, visible:true).last.click
 
       click_on 'Delete Group'
       expect(page).to have_content"Group #{group.name} deleted!"
@@ -44,14 +43,14 @@ describe 'deleting a group' do
       create_group(group)
       click_on 'Create Group'
       visit dashboard_path
-      click_on group.name
+      page.all('a', exact_text: group.name, visible:true).last.click
 
-      click_on 'View your Wish List'
+      click_on 'My Wish List'
       create_item(item_one)
       click_on 'Create Item'
       create_item(item_two)
       click_on 'Create Item'
-      click_on 'Back to Group'
+      page.all('a', exact_text: group.name, visible:true).last.click
 
       click_on 'Delete Group'
       expect(page).to have_content "Group #{group.name} deleted!"

@@ -13,8 +13,8 @@ describe 'editing an item' do
       create_group(group)
       click_on 'Create Group'
       visit dashboard_path
-      click_on group.name
-      click_on 'View your Wish List'
+      page.all('a', exact_text: group.name, visible:true).last.click
+      click_on 'My Wish List'
       create_item(item_one)
       click_on 'Create Item'
 
@@ -37,8 +37,8 @@ describe 'editing an item' do
       create_group(group)
       click_on 'Create Group'
       visit dashboard_path
-      click_on group.name
-      click_on 'View your Wish List'
+      page.all('a', exact_text: group.name, visible: true).last.click
+      click_on 'My Wish List'
       click_on 'Create Item'
 
       expect(page).to have_content "Name can't be blank and Description can't be blank"
@@ -50,8 +50,8 @@ describe 'editing an item' do
       create_group(group)
       click_on 'Create Group'
       visit dashboard_path
-      click_on group.name
-      click_on 'View your Wish List'
+      page.all('a', exact_text: group.name, visible:true).last.click
+      click_on 'My Wish List'
       create_item(item_one)
       click_on 'Create Item'
 
@@ -63,7 +63,7 @@ describe 'editing an item' do
       click_on item_one.name
       item_page_content(item_one)
 
-      click_on 'Back to List'
+      click_on 'Wish List'
       click_on item_two.name
       item_page_content(item_two)
     end

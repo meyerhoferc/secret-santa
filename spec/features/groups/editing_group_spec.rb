@@ -13,7 +13,7 @@ describe 'editing a group' do
       visit dashboard_path
 
       expect(page).to have_link group.name
-      click_on group.name
+      page.all('a', exact_text: group.name, visible:true).last.click
       click_on 'Edit Group'
 
       fill_in 'Name', with: group.name + '!!'
@@ -23,7 +23,7 @@ describe 'editing a group' do
 
       expect(page).to have_content group.name + '!!'
       expect(page).to have_content group.description + '!!'
-      expect(page).to have_content group.gift_due_date.next.to_default_s
+      expect(page).to have_content group.gift_due_date.next.to_formatted_s(:long_ordinal)
 
     end
 
@@ -33,7 +33,7 @@ describe 'editing a group' do
       create_group(group)
       click_on 'Create Group'
       visit dashboard_path
-      click_on group.name
+      page.all('a', exact_text: group.name, visible:true).last.click
       click_on 'Edit Group'
 
       fill_in 'Name', with: ''

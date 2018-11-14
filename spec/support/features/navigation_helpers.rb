@@ -30,14 +30,13 @@ module Features
 
   def dashboard_path_content(user)
     expect(page).to have_content "Welcome #{user[:first_name]}"
-    expect(page).to have_link 'Sign Out'
+    expect(page).to have_link 'Log Out'
     expect(page).to have_link 'Profile'
     expect(page).not_to have_link 'Log In'
     expect(page).not_to have_link 'Sign Up'
   end
 
   def sign_out
-    visit dashboard_path
-    click_on 'Sign Out'
+    click_on 'Log Out'
   end
 end

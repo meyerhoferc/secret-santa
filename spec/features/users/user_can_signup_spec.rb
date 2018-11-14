@@ -13,7 +13,7 @@ describe 'user signup' do
       fill_in('user[email]', with: user[:email])
       fill_in('user[password]', with: user[:password])
       fill_in('user[password_confirmation]', with: user[:password])
-      expect(page).to have_link 'Back to Homepage'
+      expect(page).to have_link 'Home'
       click_on 'Create User'
 
       expect(current_path).to eq login_path
@@ -23,7 +23,7 @@ describe 'user signup' do
 
       expect(current_path).to eq dashboard_path
       expect(page).to have_content "Welcome #{user[:first_name]}"
-      expect(page).to have_link 'Sign Out'
+      expect(page).to have_link 'Log Out'
       expect(page).to have_link 'Profile'
       expect(page).not_to have_link 'Log In'
       expect(page).not_to have_link 'Sign Up'

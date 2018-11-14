@@ -14,8 +14,8 @@ describe 'item creation' do
       create_group(group)
       click_on 'Create Group'
       visit dashboard_path
-      click_on group.name
-      click_on 'View your Wish List'
+      page.all('a', exact_text: group.name, visible:true).last.click
+      click_on 'My Wish List'
       create_item(item_one)
       click_on 'Create Item'
 
@@ -34,8 +34,8 @@ describe 'item creation' do
       create_group(group)
       click_on 'Create Group'
       visit dashboard_path
-      click_on group.name
-      click_on 'View your Wish List'
+      page.all('a', exact_text: group.name, visible:true).last.click
+      click_on 'My Wish List'
       click_on 'Create Item'
 
       expect(page).to have_content "Name can't be blank and Description can't be blank"
@@ -47,8 +47,8 @@ describe 'item creation' do
       create_group(group)
       click_on 'Create Group'
       visit dashboard_path
-      click_on group.name
-      click_on 'View your Wish List'
+      page.all('a', exact_text: group.name, visible:true).last.click
+      click_on 'My Wish List'
       create_item(item_one)
       click_on 'Create Item'
 
@@ -60,7 +60,7 @@ describe 'item creation' do
       click_on item_one.name
       item_page_content(item_one)
 
-      click_on 'Back to List'
+      click_on 'Wish List'
       click_on item_two.name
       item_page_content(item_two)
     end
@@ -73,8 +73,8 @@ describe 'item creation' do
     let(:list) { List.create!(user_id: user_one.id, group_id: group.id) }
     it 'another user' do
       sign_in(user_two)
-      visit "/groups/#{group.id}/lists/#{list.id}/items/new"
-      expect(page).to have_content "Action is unauthorized."
+      visit "/groups/#{group.id}/lists/#{list.id}/"
+      expect(page).to have_no_content "Add item to wish list"
     end
   end
 end

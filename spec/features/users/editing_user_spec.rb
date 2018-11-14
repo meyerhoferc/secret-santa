@@ -6,8 +6,8 @@ describe 'editing a user' do
     it 'valid first and last name' do
       sign_in(user)
       click_on 'Profile'
-      expect(page).to have_link 'Update Your Information'
-      click_on 'Update Your Information'
+      expect(page).to have_link 'Edit your information'
+      click_on 'Edit your information'
 
       fill_in 'name_user_first_name', with: user.first_name + 't'
       fill_in 'name_user_last_name', with: user.last_name + 'a'
@@ -22,8 +22,8 @@ describe 'editing a user' do
     it 'valid email' do
       sign_in(user)
       click_on 'Profile'
-      expect(page).to have_link 'Update Your Information'
-      click_on 'Update Your Information'
+      expect(page).to have_link 'Edit your information'
+      click_on 'Edit your information'
 
       fill_in 'Email', with: user.email + 'TTT'
       # Finds the 'Current password' field within the email_edit_user form
@@ -37,17 +37,17 @@ describe 'editing a user' do
     it 'valid new password and confirmation' do
       sign_in(user)
       click_on 'Profile'
-      expect(page).to have_link 'Update Your Information'
-      click_on 'Update Your Information'
+      expect(page).to have_link 'Edit your information'
+      click_on 'Edit your information'
 
-      fill_in 'password_new', with: user.password + 't34fa'
-      fill_in 'password_new_confirmation', with: user.password + 't34fa'
+      fill_in 'New password', with: user.password + 't34fa'
+      fill_in 'New password confirmation', with: user.password + 't34fa'
       fill_in 'current_password', with: user.password
       click_on 'Update Password'
 
       expect(page).to have_content 'Password successfully updated.'
-      click_on 'Back to Dashboard'
-      click_on 'Sign Out'
+      click_on 'Dashboard'
+      click_on 'Log Out'
       click_on 'Log In'
       fill_in 'Username or email', with: user.email
       fill_in 'Password', with: user.password + 't34fa'
@@ -62,8 +62,8 @@ describe 'editing a user' do
     it 'a blank first and last name' do
       sign_in(user)
       click_on 'Profile'
-      expect(page).to have_link 'Update Your Information'
-      click_on 'Update Your Information'
+      expect(page).to have_link 'Edit your information'
+      click_on 'Edit your information'
 
       fill_in 'First name', with: ''
       fill_in 'Last name', with: ''
@@ -77,8 +77,8 @@ describe 'editing a user' do
     it 'a blank email' do
       sign_in(user)
       click_on 'Profile'
-      expect(page).to have_link 'Update Your Information'
-      click_on 'Update Your Information'
+      expect(page).to have_link 'Edit your information'
+      click_on 'Edit your information'
 
       fill_in 'Email', with: ''
       # Finds the 'Current password' field within the email_edit_user form
@@ -91,11 +91,11 @@ describe 'editing a user' do
     it 'a blank new password and confirmation' do
       sign_in(user)
       click_on 'Profile'
-      expect(page).to have_link 'Update Your Information'
-      click_on 'Update Your Information'
+      expect(page).to have_link 'Edit your information'
+      click_on 'Edit your information'
 
-      fill_in 'password_new', with: ''
-      fill_in 'password_new_confirmation', with: ''
+      fill_in 'New password', with: ''
+      fill_in 'New password confirmation', with: ''
       fill_in 'current_password', with: user.password
       click_on 'Update Password'
 
@@ -108,8 +108,8 @@ describe 'editing a user' do
     it 'blank entered email' do
       sign_in(user)
       click_on 'Profile'
-      expect(page).to have_link 'Update Your Information'
-      click_on 'Update Your Information'
+      expect(page).to have_link 'Edit your information'
+      click_on 'Edit your information'
 
       fill_in 'Email', with: ''
       # Finds the 'Current password' field within the email_edit_user form
@@ -122,8 +122,8 @@ describe 'editing a user' do
     it 'valid entered email' do
       sign_in(user)
       click_on 'Profile'
-      expect(page).to have_link 'Update Your Information'
-      click_on 'Update Your Information'
+      expect(page).to have_link 'Edit your information'
+      click_on 'Edit your information'
 
       fill_in 'Email', with: 'my@email.com'
       # Finds the 'Current password' field within the email_edit_user form
@@ -137,8 +137,8 @@ describe 'editing a user' do
     it 'valid entered email then a blank entered email' do
       sign_in(user)
       click_on 'Profile'
-      expect(page).to have_link 'Update Your Information'
-      click_on 'Update Your Information'
+      expect(page).to have_link 'Edit your information'
+      click_on 'Edit your information'
 
       fill_in 'Email', with: 'my@email.com'
       # Finds the 'Current password' field within the email_edit_user form
@@ -148,7 +148,7 @@ describe 'editing a user' do
       expect(page).to have_content 'Email successfully updated.'
       expect(page).to have_content 'Email: my@email.com'
 
-      click_on 'Update Your Information'
+      click_on 'Edit your information'
       fill_in 'Email', with: ''
       # Finds the 'Current password' field within the email_edit_user form
       find("[id^=email_edit_user]").fill_in 'Current password', with: user.password
@@ -163,8 +163,8 @@ describe 'editing a user' do
     it 'valid first and last name' do
       sign_in(user)
       click_on 'Profile'
-      expect(page).to have_link 'Update Your Information'
-      click_on 'Update Your Information'
+      expect(page).to have_link 'Edit your information'
+      click_on 'Edit your information'
 
       fill_in 'First name', with: user.first_name + 't'
       fill_in 'Last name', with: user.last_name + 'a'
@@ -180,8 +180,8 @@ describe 'editing a user' do
     it 'valid email' do
       sign_in(user)
       click_on 'Profile'
-      expect(page).to have_link 'Update Your Information'
-      click_on 'Update Your Information'
+      expect(page).to have_link 'Edit your information'
+      click_on 'Edit your information'
 
       fill_in 'Email', with: user.email + 't'
       # Finds the 'Current password' field within the email_edit_user form
@@ -196,20 +196,20 @@ describe 'editing a user' do
     it 'valid new password and confirmation' do
       sign_in(user)
       click_on 'Profile'
-      expect(page).to have_link 'Update Your Information'
-      click_on 'Update Your Information'
+      expect(page).to have_link 'Edit your information'
+      click_on 'Edit your information'
 
-      fill_in 'password_new', with: user.password + 't34fa'
-      fill_in 'password_new_confirmation', with: user.password + 't34fa'
+      fill_in 'New password', with: user.password + 't34fa'
+      fill_in 'New password confirmation', with: user.password + 't34fa'
       fill_in 'current_password', with: user.password + 'asjdhfash'
       click_on 'Update Password'
 
       expect(page).to have_content 'Password is incorrect'
       expect(page).to have_no_content 'Password successfully updated.'
 
-      click_on 'Back to Profile'
-      click_on 'Back to Dashboard'
-      click_on 'Sign Out'
+      click_on 'Profile'
+      click_on 'Dashboard'
+      click_on 'Log Out'
       click_on 'Log In'
 
       sign_in(user)
@@ -223,8 +223,8 @@ describe 'editing a user' do
     it 'the same email address case insensitive' do
       sign_in(user_one)
       click_on 'Profile'
-      expect(page).to have_link 'Update Your Information'
-      click_on 'Update Your Information'
+      expect(page).to have_link 'Edit your information'
+      click_on 'Edit your information'
 
       fill_in 'Email', with: user_two.email.upcase
       # Finds the 'Current password' field within the email_edit_user form

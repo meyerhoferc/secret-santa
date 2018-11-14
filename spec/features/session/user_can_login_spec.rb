@@ -31,7 +31,7 @@ describe "user login" do
 
       expect(current_path).to eq sessions_path
       expect(page).to have_content 'Username, Email or password invalid.'
-      expect(page).to have_link 'Back to Homepage'
+      expect(page).to have_link 'Home'
     end
   end
 

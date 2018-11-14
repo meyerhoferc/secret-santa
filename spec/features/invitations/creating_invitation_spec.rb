@@ -68,14 +68,14 @@ describe 'creating an invitation' do
           expect(page).to have_content 'Invitation sent'
 
           visit dashboard_path
-          click_on group.name
+          page.all('a', exact_text: group.name, visible:true).last.click
           fill_in 'Username or email', with: invitee.email
           fill_in 'invitation[comment]', with: 'Would you like to join our great group???'
           click_on 'Submit'
           expect(page).to have_content 'Receiver has already been invited to this group'
 
           visit dashboard_path
-          click_on group_two.name
+          page.all('a', exact_text: group_two.name, visible:true).last.click
           fill_in 'Username or email', with: invitee.email
           fill_in 'invitation[comment]', with: 'you  join  group'
           click_on 'Submit'
@@ -86,80 +86,82 @@ describe 'creating an invitation' do
         context 'with invitations' do
           it 'pending' do
             sign_in(owner)
-              click_on 'Create a Group'
-              create_group(group)
-              click_on 'Create Group'
-              visit dashboard_path
-              click_on 'Create a Group'
-              create_group(group_two)
-              click_on 'Create Group'
-              visit user_path(invitee.id)
-              page.select group.name, from: 'invitation[group_id]'
-              fill_in 'invitation[comment]', with: 'Would you like to join?'
-              click_on 'Submit'
-              expect(page).to have_content 'Invitation sent'
-              sign_out
+            click_on 'Create a Group'
+            create_group(group)
+            click_on 'Create Group'
+            visit dashboard_path
+            click_on 'Create a Group'
+            create_group(group_two)
+            click_on 'Create Group'
+            visit user_path(invitee.id)
+            page.select group.name, from: 'invitation[group_id]'
+            fill_in 'invitation[comment]', with: 'Would you like to join?'
+            click_on 'Submit'
+            expect(page).to have_content 'Invitation sent'
+            sign_out
 
-              sign_in(invitee)
-              expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}"
-              sign_out
+            sign_in(invitee)
+            expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}"
+            sign_out
 
-              sign_in(owner)
-              visit user_path(invitee.id)
-              expect(page).to have_no_content group.name
-              expect(page).to have_content group_two.name
+            sign_in(owner)
+            visit user_path(invitee.id)
+            page.has_no_select?('invitation_group_id', with_options: [group.name])
+            page.has_select?('invitation_group_id', with_options: [group_two.name])
+            expect(page).to have_content group_two.name
           end
+
           it 'accepted' do
             sign_in(owner)
-              click_on 'Create a Group'
-              create_group(group)
-              click_on 'Create Group'
-              visit dashboard_path
-              click_on 'Create a Group'
-              create_group(group_two)
-              click_on 'Create Group'
-              visit user_path(invitee.id)
-              page.select group.name, from: 'invitation[group_id]'
-              fill_in 'invitation[comment]', with: 'Would you like to join?'
-              click_on 'Submit'
-              expect(page).to have_content 'Invitation sent'
-              sign_out
+            click_on 'Create a Group'
+            create_group(group)
+            click_on 'Create Group'
+            visit dashboard_path
+            click_on 'Create a Group'
+            create_group(group_two)
+            click_on 'Create Group'
+            visit user_path(invitee.id)
+            page.select group.name, from: 'invitation[group_id]'
+            fill_in 'invitation[comment]', with: 'Would you like to join?'
+            click_on 'Submit'
+            expect(page).to have_content 'Invitation sent'
+            sign_out
 
-              sign_in(invitee)
-              expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}"
-              click_on 'Accept'
-              sign_out
+            sign_in(invitee)
+            expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}"
+            click_on 'Accept'
+            sign_out
 
-              sign_in(owner)
-              visit user_path(invitee.id)
-              expect(page).to have_no_content group.name
-              expect(page).to have_content group_two.name
+            sign_in(owner)
+            visit user_path(invitee.id)
+            page.has_no_select?('invitation_group_id', with_options: [group.name])
+            page.has_select?('invitation_group_id', with_options: [group_two.name])
           end
+
           it 'declined' do
             sign_in(owner)
-              click_on 'Create a Group'
-              create_group(group)
-              click_on 'Create Group'
-              visit dashboard_path
-              click_on 'Create a Group'
-              create_group(group_two)
-              click_on 'Create Group'
-              visit user_path(invitee.id)
-              page.select group.name, from: 'invitation[group_id]'
-              fill_in 'invitation[comment]', with: 'Would you like to join?'
-              click_on 'Submit'
-              expect(page).to have_content 'Invitation sent'
-              sign_out
+            click_on 'Create a Group'
+            create_group(group)
+            click_on 'Create Group'
+            visit dashboard_path
+            click_on 'Create a Group'
+            create_group(group_two)
+            click_on 'Create Group'
+            visit user_path(invitee.id)
+            page.select group.name, from: 'invitation[group_id]'
+            fill_in 'invitation[comment]', with: 'Would you like to join?'
+            click_on 'Submit'
+            expect(page).to have_content 'Invitation sent'
+            sign_out
 
-              sign_in(invitee)
-              expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}"
-              click_on 'Decline'
-              sign_out
+            sign_in(invitee)
+            expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}"
+            click_on 'Decline'
+            sign_out
 
-              sign_in(owner)
-              visit user_path(invitee.id)
-              expect(page).to have_content group.name
-              expect(page).to have_content group_two.name
+            sign_in(owner)
+            visit user_path(invitee.id)
+            page.has_select?('invitation_group_id', with_options: [group.name, group_two.name])
           end
         end
       end
@@ -297,7 +299,7 @@ describe 'creating an invitation' do
 
         sign_in(invitee)
         click_on 'Accept'
-        click_on group.name
+        page.all('a', exact_text: group.name, visible:true).last.click
         expect(page).to have_no_content 'Send an invitation', 'Submit'
       end
 
@@ -314,7 +316,7 @@ describe 'creating an invitation' do
 
        sign_in(invitee)
        click_on 'Accept'
-       click_on group.name
+       page.all('a', exact_text: group.name, visible:true).last.click
        expect(page).to have_no_content 'Send an invitation', 'Submit'
      end
     end

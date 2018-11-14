@@ -3,7 +3,6 @@
     <div class="dashboard-title">
       <h1><%= "Welcome #{current_user.first_name || current_user.email}" %></h1>
     </div>
-
     <div class="dashboard-inv-grp">
       <% if !current_user.outstanding_invitations.empty? %>
       <div class="dashboard-invitations">

@@ -1,7 +1,6 @@
 <div class="form-container">
   <div class="form-title">
-    <h1>Edit a Group</h1>
+    <h1>Edit: <%= "#{@group.name}" %></h1>
   </div>
   <%= render partial: 'groups/form' %>
 </div>
-<%= link_to 'Back to Group', group_path(@group) %>

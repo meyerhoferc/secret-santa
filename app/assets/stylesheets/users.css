@@ -9,7 +9,7 @@
   min-width: 320px;
   max-width: 850px;
   min-height: 300px;
-  margin: 50px auto 0 auto;
+  margin: 50px auto;
   background: linear-gradient(to top, var(--background-text-primary) 25%, var(--background-text-secondary));
   background-repeat: no-repeat;
   border: 6px solid var(--border);
@@ -28,6 +28,7 @@
   justify-self: center;
   align-items: center;
   justify-content: space-evenly;
+  font-size: 1.25rem;
 }
 
 .users-information {
@@ -45,3 +46,8 @@
 .users-update {
 
 }
+
+/* .groups-form-fields-container .form-field label {
+  display: block;
+  margin-bottom: 10px;
+} */

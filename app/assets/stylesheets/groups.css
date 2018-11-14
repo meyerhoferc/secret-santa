@@ -12,7 +12,7 @@
   min-width: 320px;
   max-width: 850px;
   min-height: 400px;
-  margin: 50px auto 0 auto;
+  margin: 50px auto;
   background: linear-gradient(to top, var(--background-text-primary) 25%, var(--background-text-secondary));
   background-repeat: no-repeat;
   border: 6px solid var(--border);
@@ -22,6 +22,7 @@
 .groups-title {
   grid-area: title;
   justify-self: center;
+  margin-bottom: 10px;
 }
 
 .groups-description,
@@ -77,14 +78,12 @@
   width: 300px;
 }
 
-.groups-form-fields-container .form-field label {
-  display: block;
-  margin-bottom: 8px;
+#group_gift_due_date {
+  width: auto;
 }
 
 .groups-users {
   grid-area: users;
-  justify-self: end;
   box-sizing: border-box;
 }
 

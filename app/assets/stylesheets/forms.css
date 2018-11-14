@@ -92,6 +92,7 @@
 .form-field textarea,
 .form-field input {
   width: 330px;
+  caret-color: var(--form-input);
 }
 
 .form-field textarea {
@@ -100,6 +101,9 @@
 }
 
 .form-submit input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   font-size: 1.2rem;
   color: var(--text);
   background-color: var(--button-background);

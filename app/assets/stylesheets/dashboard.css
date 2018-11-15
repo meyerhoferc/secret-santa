@@ -17,6 +17,7 @@
   grid-area: invitations-groups;
   display: flex;
   flex-direction: column;
+  max-width: inherit;
 }
 
 .dashboard-invitations {
@@ -26,6 +27,7 @@
   grid-template-areas:
   "title"
   "invitations";
+  max-width: inherit;
 }
 
 .dashboard-invitations-title,
@@ -38,23 +40,29 @@
   grid-area: invitations;
   display: flex;
   flex-direction: column;
+  max-width: inherit;
 }
 
-.dashboard-invitations-each-invite,
-.dashboard-groups-each-group {
-  border: 2px solid var(--border);
-  background-color: var(--background-text-secondary);
-  border-radius: 3px;
-  margin: 10px 0;
+.dashboard-invitations-each-invite {
+  margin-bottom: 10px;
 }
 
-.dashboard-invitations-each-invite p,
-.dashboard-groups-each-group p {
-  margin: 10px;
+.dashboard-invitations-each-invite div {
+  margin-bottom: 10px;
+}
+
+.dashboard-invitations-each-invite div:last-child {
+  margin-bottom: 0;
 }
 
 .greeting {
   font-size: 1.5rem;
+  line-height: 1.35;
+}
+
+.greeting,
+.comment {
+  overflow-wrap: break-word;
 }
 
 .comment,
@@ -90,6 +98,7 @@
   "title"
   "groups"
   "create";
+  max-width: inherit;
 }
 
 .dashboard-groups-create {
@@ -100,21 +109,26 @@
 
 .dashboard-groups-grp {
   grid-area: groups;
+  max-width: inherit;
 }
 
 .dashboard-groups-each-group {
   display: grid;
   grid-template-rows: auto auto;
-  grid-template-columns: 60% auto;
+  grid-template-columns: 68% auto;
   grid-template-areas:
   "name name"
   "description date";
   padding: 10px;
+  margin-bottom: 10px;
+  max-width: inherit;
 }
 
 .group-name {
   grid-area: name;
   margin-bottom: 10px;
+  max-width: 825px;
+  overflow-wrap: break-word;
 }
 
 .group-description {
@@ -122,6 +136,8 @@
   margin-bottom: 10px;
   font-size: 1.2rem;
   justify-self: start;
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 .group-due-date {

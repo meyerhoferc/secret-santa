@@ -14,21 +14,21 @@
             <% group = Group.find(invitation.group_id) %>
             <% if invitation.accepted.nil? %>
               <div class="dashboard-invitations-each-invite">
-                <p class="greeting">
+                <div class="greeting">
                   <% user = User.find(invitation.sender_id) %>
                   <%= link_to "#{user.first_name} #{user.last_name}", user_path(invitation.sender_id) %><%= " has invited you to join the group "%><%= link_to "#{group.name}!", group_path(group.id) %>
-                </p>
+                </div>
                 <% if invitation.comment %>
-                  <p class="comment">
+                  <div class="comment">
                     <%= invitation.comment %>
-                  </p>
+                  </div>
                 <% end %>
-                <p class="dashboard-invitations-due-date">
+                <div class="dashboard-invitations-due-date">
                   Gifts due: <span title="Due in <%= time_ago_in_words(group.gift_due_date) %>"><%= "#{group.gift_due_date.to_formatted_s(:long_ordinal)}" %></span>
-                </p>
-                <p class="reply">
+                </div>
+                <div class="reply">
                   <%= link_to "Accept", accept_path(invitation.id)%> <%= link_to "Decline", decline_path(invitation.id)%>
-                </p>
+                </div>
               </div>
             <% end %>
           <% end %>

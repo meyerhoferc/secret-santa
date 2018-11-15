@@ -1,0 +1,13 @@
+<%= form_for @user, namespace: 'email' do |f| %>
+  <div>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+  <div>
+    <%= f.label :password, 'Current Password' %>
+    <%= f.password_field :password %>
+  </div>
+  <div>
+    <%= f.submit 'Update Email' %>
+  </div>
+<% end %>

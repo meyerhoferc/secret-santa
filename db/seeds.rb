@@ -16,7 +16,8 @@
 
   group = Group.create!(name: Faker::MostInterestingManInTheWorld.unique.quote,
                 description: Faker::GameOfThrones.quote,
-                owner_id: user.id)
+                owner_id: user.id,
+                gift_due_date: "#{Faker::Number.between(2018, 2020)}/#{Faker::Number.between(1, 12)}/#{Faker::Number.between(1, 28)}")
 
   group.user_ids << user.id
   user.groups << group

@@ -4,6 +4,11 @@ Name: <%= "#{@user.first_name} #{@user.last_name}" %>
 Email: <%= @user.email %>
 <br>
 
+<% if @group_invitations %>
+  <h2>Invite <%= "#{@user.first_name} #{@user.last_name}" %> to a Group</h2>
+  <%= render partial: 'invitations/form' %>
+<% end %>
+
 <% if authorized_user(@user) %>
   <%= link_to 'Update Your Information', edit_user_path(@user.id) %>
 <% end %>

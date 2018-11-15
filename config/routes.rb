@@ -14,8 +14,15 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new', as: 'login'
   delete '/logout' => 'sessions#destroy', as: 'logout'
 
-  resources :users, only: [:show, :create, :edit, :update]
-  resources :groups do
+  resources :users, only: [:show, :create, :edit, :update] do
+    resources :invitations, only: [:create]
+  end
+  get '/accept/:id' => 'invitations#accept', as: 'accept'
+  get '/decline/:id' => 'invitations#decline', as: 'decline'
+
+
+  resources :groups, except: [:index] do
+    post '/invite' => 'invitations#invite', as: 'invite'
     resources :lists, only: [:show] do
       resources :items
     end

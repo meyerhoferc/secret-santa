@@ -1,0 +1,13 @@
+<%= form_for [ @user, @invitation ] do |f| %>
+  <p>
+    <%= f.collection_select(:group_id, @user_invitable_groups, :id, :name,
+                             { prompt: 'Select Group' }) %>
+  </p>
+  <p>
+    <%= f.label :comment, "Message" %><br/>
+    <%= f.text_field :comment %>
+  </p>
+  <p>
+    <%= f.submit 'Submit' %>
+  </p>
+<% end %>

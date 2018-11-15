@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:email])
+    user = User.find_by(email: downcase_email)
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to dashboard_path
@@ -19,5 +19,11 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     flash[:notice] = "Log out successful."
     redirect_to root_path
+  end
+
+  private
+
+  def downcase_email
+    params[:email].downcase
   end
 end

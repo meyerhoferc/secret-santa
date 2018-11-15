@@ -15,7 +15,7 @@ class ItemsController < ApplicationController
     if authorized_user(@user) && @item.save
       redirect_to group_list_path(@group, @list)
     else
-      flash[:warning] = 'Invalid entry.'
+      flash[:warning] = 'Please enter valid information.'
       render 'new'
     end
   end

@@ -8,6 +8,10 @@
     <%= f.text_area :description %>
   </div>
   <div>
+    <%= f.label 'group', 'Gift Due Date' %>
+    <%= date_field 'group', 'gift_due_date', min: (action_name == 'new' ? Date.today : @group.created_at) %>
+  </div>
+  <div>
     <%= f.submit %>
   </div>
 <% end %>

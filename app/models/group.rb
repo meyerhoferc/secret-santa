@@ -3,6 +3,7 @@ class Group < ApplicationRecord
   has_many :users, through: :user_groups
   has_many :lists
   has_many :invitations
+  has_many :exclusion_teams
   validates :name, presence: true
   validates_uniqueness_of :name, message: 'is already in use.'
   validates :description, presence: true

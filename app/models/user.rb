@@ -3,9 +3,13 @@ class User < ApplicationRecord
   has_many :groups, through: :user_groups
   has_many :lists
   has_many :invitations
+  has_many :invitations_received, foreign_key: :receiver_id, class_name: 'Invitation'
+  has_many :invitations_sent, foreign_key: :sender_id, class_name: 'Invitation'
+  has_many :user_exclusion_teams
+  has_many :exclusion_teams, through: :user_exclusion_teams
+  has_many :secret_santa, foreign_key: :santa_id, class_name: 'Santa Assignment'
+  has_many :santa_recipient, foreign_key: :receiver_id, class_name: 'Santa Assignment'
 
-  has_many :received, foreign_key: :receiver_id, class_name: 'Invitation'
-  has_many :sent, foreign_key: :sender_id, class_name: 'Invitation'
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates_format_of :first_name, with: /\A[a-z([-'])]+\z/i, message: 'must contain only letters, apostrophes or dashes'

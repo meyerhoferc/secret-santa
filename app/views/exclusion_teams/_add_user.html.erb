@@ -1,0 +1,13 @@
+<%= form_for [ @group, @user_exclusion_team ], html: { class: 'form-fields-container' } do |f| %>
+  <div class="form-field">
+    <%= f.collection_select(:user_id, @group.users, :id, :full_name,
+                             { prompt: 'Select User'}) %>
+  </div>
+  <div class="form-field">
+    <%= f.collection_select(:exclusion_team_id, @exclusion_teams, :id, :name,
+                            { prompt: 'Select Team'}) %>
+  </div>
+  <div class="form-submit">
+    <%= submit_tag 'Add to Team' %>
+  </div>
+<% end %>

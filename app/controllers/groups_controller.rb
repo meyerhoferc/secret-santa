@@ -25,6 +25,9 @@ class GroupsController < ApplicationController
     @user_wish_list = @group.user_wish_list(current_user)
     if authorized_user(@group.owner)
       @invitation = Invitation.new
+      @exclusion_team = ExclusionTeam.new
+      @exclusion_teams = @group.exclusion_teams
+      @user_exclusion_team = UserExclusionTeam.new
     end
   end
 

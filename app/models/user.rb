@@ -23,6 +23,10 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, password_strength: { use_dictionary: true, min_entropy: 20 }, if: :should_validate_password?
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   def should_validate_password?
     new_record? || !skip_pass_strength
   end

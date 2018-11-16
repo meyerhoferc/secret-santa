@@ -20,11 +20,14 @@ Rails.application.routes.draw do
   get '/accept/:id' => 'invitations#accept', as: 'accept'
   get '/decline/:id' => 'invitations#decline', as: 'decline'
 
-
   resources :groups, except: [:index] do
     post '/invite' => 'invitations#invite', as: 'invite'
+    resources :exclusion_teams, only: [:create, :edit, :update, :destroy] do
+      resources :user_exclusion_teams, only: [:destroy]
+    end
+    resources :user_exclusion_teams, only: [:create]
     resources :lists, only: [:show] do
-      resources :items
+      resources :items, except: [:new]
     end
   end
   resources :sessions, except: [:edit, :update]

@@ -45,9 +45,19 @@ describe Group do
       expect(assc.macro).to eq :has_many
     end
 
-    it 'belongs to user' do
+    it 'belongs to owner' do
       assc = Group.reflect_on_association(:owner)
       expect(assc.macro).to eq :belongs_to
+    end
+
+    it 'has many santa_assignments' do
+      assc = Group.reflect_on_association(:santa_assignments)
+      expect(assc.macro).to eq :has_many
+    end
+
+    it 'has many exclusion teams' do
+      assc = Group.reflect_on_association(:exclusion_teams)
+      expect(assc.macro).to eq :has_many
     end
   end
 end

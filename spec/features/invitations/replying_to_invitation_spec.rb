@@ -212,7 +212,7 @@ describe 'owner sending multiple invites' do
       expect(current_path).to eq dashboard_path
       expect(page).to have_no_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
       expect(page).to have_no_content 'Accept', 'Decline'
-      visit "/accept/#{invitee.received.first.id}"
+      visit "/accept/#{invitee.invitations_received.first.id}"
       expect(page).to have_content 'Action is unauthorized'
 
     end
@@ -232,7 +232,7 @@ describe 'owner sending multiple invites' do
       expect(current_path).to eq dashboard_path
       expect(page).to have_no_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
       expect(page).to have_no_content 'Accept', 'Decline'
-      visit "/decline/#{invitee.received.first.id}"
+      visit "/decline/#{invitee.invitations_received.first.id}"
       expect(page).to have_content 'Action is unauthorized'
     end
   end

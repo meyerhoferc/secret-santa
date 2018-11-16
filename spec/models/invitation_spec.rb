@@ -29,7 +29,7 @@ describe Invitation do
       expect(assc.macro).to eq :belongs_to
     end
 
-    it 'belongs to receiver' do
+    it 'belongs to sender' do
       assc = Invitation.reflect_on_association(:sender)
       expect(assc.macro).to eq :belongs_to
     end

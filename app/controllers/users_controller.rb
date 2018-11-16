@@ -20,7 +20,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Account successfully created."
       redirect_to login_path
     else
-      flash[:warning] = @user.errors.full_messages.to_sentence
+      flash[:warning] = full_sentence_errors(@user)
       redirect_to signup_path
     end
   end
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
       flash[:notice] = "#{segment_string} successfully updated."
       redirect_to profile_path
     else
-      flash[:warning] = @user.errors.full_messages.to_sentence
+      flash[:warning] = full_sentence_errors(@user)
       render 'edit'
     end
   end

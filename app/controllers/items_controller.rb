@@ -16,7 +16,7 @@ class ItemsController < ApplicationController
       flash[:notice] = "Item created successfully."
       redirect_to group_list_path(@group, @list)
     else
-      flash[:warning] = @item.errors.full_messages.to_sentence
+      flash[:warning] = full_sentence_errors(@item)
       render 'new'
     end
   end
@@ -32,7 +32,7 @@ class ItemsController < ApplicationController
       flash[:notice] = "#{@item.name}, updated."
       redirect_to group_list_item_path(@group, @list, @item)
     else
-      flash[:warning] = @item.errors.full_messages.to_sentence
+      flash[:warning] = full_sentence_errors(@item)
       render 'edit'
     end
   end

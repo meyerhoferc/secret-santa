@@ -14,7 +14,7 @@ describe 'editing a group' do
 
       expect(page).to have_link group.name
       page.all('a', exact_text: group.name, visible:true).last.click
-      click_on 'Edit Group'
+      click_on 'Edit'
 
       fill_in 'Name', with: group.name + '!!'
       fill_in 'Description', with: group.description + '!!'
@@ -34,7 +34,7 @@ describe 'editing a group' do
       click_on 'Create Group'
       visit dashboard_path
       page.all('a', exact_text: group.name, visible:true).last.click
-      click_on 'Edit Group'
+      click_on 'Edit'
 
       fill_in 'Name', with: ''
       fill_in 'Description', with: ''

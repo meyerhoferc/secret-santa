@@ -23,3 +23,15 @@ describe UserExclusionTeam do
     end
   end
 end
+
+describe UserExclusionTeam, type: :model do
+  it { should belong_to(:user) }
+  it { should belong_to(:exclusion_team) }
+
+  it do
+    should validate_uniqueness_of(:user_id)
+    .scoped_to(:exclusion_team_id)
+    .case_insensitive
+    .with_message('already belongs to this team.')
+  end
+end

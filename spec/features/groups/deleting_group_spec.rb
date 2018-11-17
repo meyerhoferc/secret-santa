@@ -14,7 +14,7 @@ describe 'deleting a group' do
       click_on 'Create Group'
       visit dashboard_path
       page.all('a', exact_text: group.name, visible:true).last.click
-      click_on 'Delete Group'
+      click_on 'Delete'
 
       expect(page).to have_content "Group #{group.name} deleted!"
       expect(page).to have_no_link group.name
@@ -32,7 +32,7 @@ describe 'deleting a group' do
       click_on 'Create Item'
       page.all('a', exact_text: group.name, visible:true).last.click
 
-      click_on 'Delete Group'
+      click_on 'Delete'
       expect(page).to have_content"Group #{group.name} deleted!"
       expect(page).to have_no_link group.name
     end
@@ -52,7 +52,7 @@ describe 'deleting a group' do
       click_on 'Create Item'
       page.all('a', exact_text: group.name, visible:true).last.click
 
-      click_on 'Delete Group'
+      click_on 'Delete'
       expect(page).to have_content "Group #{group.name} deleted!"
       expect(page).to have_no_link group.name
     end

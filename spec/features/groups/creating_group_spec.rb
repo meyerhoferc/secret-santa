@@ -48,7 +48,7 @@ describe 'group creation' do
       expect(page).to have_content group.name
       expect(page).to have_content group.description
       expect(page).to have_content group.gift_due_date.to_formatted_s(:long_ordinal)
-      expect(page).to have_content 'Edit Group', 'Delete Group'
+      expect(page).to have_content 'Edit', 'Delete'
       expect(page).to have_content "#{user.first_name} #{user.last_name}:"
       expect(page).to have_content 'Send an invitation', 'My Wish List'
     end

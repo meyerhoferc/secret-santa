@@ -73,7 +73,7 @@ describe 'item creation' do
     let(:list) { List.create!(user_id: user_one.id, group_id: group.id) }
     it 'another user' do
       sign_in(user_two)
-      visit "/groups/#{group.id}/lists/#{list.id}/"
+      visit "/groups/#{group.id}/wishlists/#{list.id}/"
       expect(page).to have_no_content "Add item to wish list"
     end
   end

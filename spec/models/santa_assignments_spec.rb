@@ -18,3 +18,9 @@ describe SantaAssignment do
     end
   end
 end
+
+describe SantaAssignment, type: :model do
+  it { should belong_to(:santa).class_name('User') }
+  it { should belong_to(:recipient).class_name('User') }
+  it { should belong_to(:group) }
+end

@@ -26,3 +26,10 @@ describe ExclusionTeam do
     end
   end
 end
+
+describe ExclusionTeam, type: :model do
+  it { should validate_presence_of(:name) }
+  it { should belong_to(:group).class_name('Group') }
+  it { should have_many(:user_exclusion_teams) }
+  it { should have_many(:users).through(:user_exclusion_teams) }
+end

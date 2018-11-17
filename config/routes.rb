@@ -22,11 +22,11 @@ Rails.application.routes.draw do
 
   resources :groups, except: [:index] do
     post '/invite' => 'invitations#invite', as: 'invite'
-    resources :exclusion_teams, only: [:create, :edit, :update, :destroy] do
-      resources :user_exclusion_teams, only: [:destroy]
+    resources :exclusion_teams, only: [:create, :edit, :update, :destroy], path: 'teams' do
+      resources :user_exclusion_teams, only: [:destroy], path: 'user'
     end
     resources :user_exclusion_teams, only: [:create]
-    resources :lists, only: [:show] do
+    resources :lists, only: [:show], path: 'wishlists' do
       resources :items, except: [:new]
     end
   end

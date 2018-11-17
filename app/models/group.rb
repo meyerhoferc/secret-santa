@@ -18,4 +18,9 @@ class Group < ApplicationRecord
                      { user_id: user.id, group_id: self.id }])
     list.first
   end
+
+  def no_exclusion_team_users
+    available_users = users.pluck(:user_id) - exclusion_teams.joins(:users).pluck(:user_id)
+    User.find(available_users)
+  end
 end

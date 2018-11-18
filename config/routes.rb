@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   resources :groups, except: [:index] do
     post '/invite' => 'invitations#invite', as: 'invite'
+    post '/assign-santa' => 'santa_assignments#assign', as: '/assign-santa'
     resources :exclusion_teams, only: [:create, :edit, :update, :destroy], path: 'teams' do
       resources :user_exclusion_teams, only: [:destroy], path: 'user'
     end

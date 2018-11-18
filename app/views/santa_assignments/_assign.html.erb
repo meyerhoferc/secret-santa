@@ -1,0 +1,5 @@
+<%= form_for [ @group, @santa_assignment ], url: group_assign_santa_path(@group), html: { class: 'form-fields-container' } do |f| %>
+  <div class="form-submit">
+    <%= submit_tag 'Assign Secret Santas', data: { confirm: "Verify you are ready to assign Santas for the group.\nThis acion cannot be undone." } %>
+  </div>
+<% end %>

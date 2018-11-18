@@ -28,6 +28,7 @@ class GroupsController < ApplicationController
       @exclusion_team = ExclusionTeam.new
       @exclusion_teams = @group.exclusion_teams
       @user_exclusion_team = UserExclusionTeam.new
+      @santa_assignment = SantaAssignment.new
     end
   end
 

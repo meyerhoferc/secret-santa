@@ -8,12 +8,11 @@ class ExclusionTeamsController < ApplicationController
     team.group_id = @group.id
     if team.save
       flash[:notice] = "Exclusion team \"#{team.name}\" added."
-      redirect_to group_path(@group)
     else
       # use new helper method!!!
       flash[:warning] = team.errors.full_messages.to_sentence
-      redirect_to group_path(@group)
     end
+    redirect_to group_path(@group)
   end
 
   def edit
@@ -22,12 +21,11 @@ class ExclusionTeamsController < ApplicationController
   def update
     if authorized_user(@group.owner) && @exclusion_team.update(exclusion_team_params)
       flash[:notice] = "Exclusion Team \"#{@exclusion_team.name}\" updated!"
-      redirect_to group_path(@group)
     else
       #USE NEW HELPER METHOD WHEN PULLING IN
       flash[:warning] = @exclusion_team.errors.full_messages.to_sentence
-      redirect_to group_path(@group)
     end
+    redirect_to group_path(@group)
   end
 
   def destroy

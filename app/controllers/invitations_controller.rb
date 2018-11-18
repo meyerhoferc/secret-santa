@@ -5,11 +5,10 @@ class InvitationsController < ApplicationController
     @invitation.receiver_id = params[:user_id]
     if @invitation.save
       flash[:notice] = 'Invitation sent'
-      redirect_to user_path(@invitation.receiver_id)
     else
       flash[:warning] = @invitation.errors.full_messages.to_sentence
-      redirect_to user_path(@invitation.receiver_id)
     end
+    redirect_to user_path(@invitation.receiver_id)
   end
 
   def accept
@@ -23,11 +22,10 @@ class InvitationsController < ApplicationController
         user.groups << @group
         create_list
         flash[:notice] = 'Invitation accepted.'
-        redirect_to dashboard_path
       else
         flash[:warning] = 'You already belong to this group.'
-        redirect_to dashboard_path
       end
+      redirect_to dashboard_path
     else
       flash[:warning] = 'Action is unauthorized.'
       redirect_to root_path

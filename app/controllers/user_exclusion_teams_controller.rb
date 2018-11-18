@@ -6,11 +6,10 @@ class UserExclusionTeamsController < ApplicationController
     user_exclusion_team = UserExclusionTeam.new(user_exclusion_team_params)
     if user_exclusion_team.save
       flash[:notice] = "#{user_exclusion_team.user.full_name} added to #{user_exclusion_team.exclusion_team.name}."
-      redirect_to group_path(@group)
     else
       flash[:warning] = user_exclusion_team.errors.full_messages.to_sentence
-      redirect_to group_path(@group)
     end
+    redirect_to group_path(@group)
   end
 
   def destroy

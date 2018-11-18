@@ -10,11 +10,10 @@ class ItemsController < ApplicationController
     @item.list_id = @list.id
     if authorized_user(@user) && @item.save
       flash[:notice] = "Item created successfully."
-      redirect_to group_list_path(@group, @list)
     else
       flash[:warning] = @item.errors.full_messages.to_sentence
-      redirect_to group_list_path(@group, @list)
     end
+    redirect_to group_list_path(@group, @list)
   end
 
   def show

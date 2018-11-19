@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get '/decline/:id' => 'invitations#decline', as: 'decline'
 
 
-  resources :groups do
+  resources :groups, except: [:index] do
     post '/invite' => 'invitations#invite', as: 'invite'
     resources :lists, only: [:show] do
       resources :items

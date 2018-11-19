@@ -7,7 +7,7 @@ class InvitationsController < ApplicationController
       flash[:notice] = 'Invitation sent'
       redirect_to user_path(@invitation.receiver_id)
     else
-      flash[:warning] = @invitation.errors.full_messages.to_sentence
+      flash[:warning] = full_sentence_errors(@invitation)
       redirect_to user_path(@invitation.receiver_id)
     end
   end
@@ -61,7 +61,7 @@ class InvitationsController < ApplicationController
       if invitation.save
         flash[:notice] = 'Invitation sent'
       else
-        flash[:warning] = invitation.errors.full_messages.to_sentence
+        flash[:warning] = full_sentence_errors(invitation)
       end
     elsif params[:username_email].blank?
       flash[:warning] = "Username or email can't be blank"

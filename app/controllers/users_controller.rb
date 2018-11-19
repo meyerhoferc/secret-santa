@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :root_path_if_not_logged_in, only: [:new, :create]
   before_action :set_user, only: [:edit, :update, :profile]
+  before_action -> { unauthorized_user(User.find(params[:id])) }, only: [:update, :edit]
 
   def new
     @user = User.new
@@ -13,13 +14,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.email.downcase! if @user.email
+    @user&.email&.downcase!
     @user.username.downcase!
     if @user.save
       flash[:notice] = "Account successfully created."
       redirect_to login_path
     else
-      flash[:warning] = @user.errors.full_messages.to_sentence
+      flash[:warning] = full_sentence_errors(@user)
       redirect_to signup_path
     end
   end
@@ -50,7 +51,7 @@ class UsersController < ApplicationController
       flash[:notice] = "#{segment_string} successfully updated."
       redirect_to profile_path
     else
-      flash[:warning] = @user.errors.full_messages.to_sentence
+      flash[:warning] = full_sentence_errors(@user)
       render 'edit'
     end
   end

@@ -26,7 +26,7 @@ class GroupsController < ApplicationController
     if authorized_user(@group.owner)
       @invitation = Invitation.new
       @exclusion_team = ExclusionTeam.new
-      @exclusion_teams = @group.exclusion_teams
+      @exclusion_teams = @group.exclusion_teams.reorder('name ASC')
       @user_exclusion_team = UserExclusionTeam.new
       @santa_assignment = SantaAssignment.new
     end

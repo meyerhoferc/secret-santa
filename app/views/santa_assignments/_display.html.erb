@@ -1,10 +1,12 @@
 <h2>Santa Assignments</h2>
 <%= render partial: 'santa_assignments/assign' %>
-<h3>Manage Exclusion Teams</h3>
-<%= render partial: 'exclusion_teams/add_exclusion_team' %>
-<% if !@exclusion_teams.empty? %>
-  <h3>Add User to Exclusion Team</h3>
-  <%= render partial: 'exclusion_teams/add_user' %>
-  <h3>Exclusion Teams</h3>
-  <%= render partial: 'exclusion_teams/show_teams' %>
+<% if @group.users.count > 3 %>
+  <h3>Manage Exclusion Teams</h3>
+  <%= render partial: 'exclusion_teams/add_exclusion_team' %>
+  <% if !@exclusion_teams.empty? %>
+    <h3>Add User to Exclusion Team</h3>
+    <%= render partial: 'exclusion_teams/add_user' %>
+    <h3>Exclusion Teams</h3>
+    <%= render partial: 'exclusion_teams/show_teams' %>
+  <% end %>
 <% end %>

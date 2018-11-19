@@ -3,8 +3,13 @@ class SantaAssignmentsController < ApplicationController
   before_action -> { unauthorized_user(@group.owner) }, only: [:assign]
 
   def assign
-    byebug
-    flash[:notice] = 'Nothing.'
+    santa = SantaAssignmentService.new(@group).assign
+    if santa.validity
+      flash[:notice] = 'Valid'
+    else
+      # Add error formatter method, similar to other helper method
+      flash[:warning] = santa.errors.join(', ').to_s
+    end
     redirect_to group_path(@group)
   end
 

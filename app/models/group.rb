@@ -28,8 +28,6 @@ class Group < ApplicationRecord
     users_in_exclusion_teams.count
   end
 
-  private
-
   def users_in_exclusion_teams
     exclusion_teams.joins(:users).pluck(:user_id)
   end

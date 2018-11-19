@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
   helper_method :current_user, :authorized_user, :unauthorized_user, :svg
   before_action :root_path_if_not_logged_in
 

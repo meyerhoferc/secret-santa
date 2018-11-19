@@ -45,7 +45,9 @@ class User < ApplicationRecord
   end
 
   def invitable_groups(current_user)
-    owned_groups_excludes_user = current_user.owned_groups.joins(:users)
+    owned_groups_excludes_user = current_user.owned_groups
+      .where('santas_assigned IS false')
+      .joins(:users)
       .where.not("users.id = #{id}").distinct
     user_invited_groups = Group.joins(:invitations)
       .where("receiver_id = #{id}")

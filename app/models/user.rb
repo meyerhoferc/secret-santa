@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :exclusion_teams, through: :user_exclusion_teams
   has_many :secret_santa, foreign_key: :santa_id, class_name: 'SantaAssignment'
   has_many :santa_recipient, foreign_key: :receiver_id, class_name: 'SantaAssignment'
+  has_many :owned_groups, foreign_key: :owner_id, class_name: 'Group'
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -44,13 +45,12 @@ class User < ApplicationRecord
   end
 
   def invitable_groups(current_user)
-    current_user_owned_groups = Group.joins(:users)
-    .where.not("users.id = #{id}")
-    .where("owner_id = #{current_user.id}").distinct
+    owned_groups_excludes_user = current_user.owned_groups.joins(:users)
+      .where.not("users.id = #{id}").distinct
     user_invited_groups = Group.joins(:invitations)
-    .where("receiver_id = #{id}")
-    .where('accepted IS true OR accepted IS NULL')
-    .where("group_id = groups.id")
-    current_user_owned_groups - user_invited_groups
+      .where("receiver_id = #{id}")
+      .where('accepted IS true OR accepted IS NULL')
+      .where("group_id = groups.id")
+    owned_groups_excludes_user - user_invited_groups
   end
 end

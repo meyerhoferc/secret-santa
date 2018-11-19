@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
     if authorized_user(@user) && @item.save
       flash[:notice] = "Item created successfully."
     else
-      flash[:warning] = @item.errors.full_messages.to_sentence
+      flash[:warning] = full_sentence_errors(@item)
     end
     redirect_to group_list_path(@group, @list)
   end
@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
       flash[:notice] = "#{@item.name}, updated."
       redirect_to group_list_item_path(@group, @list, @item)
     else
-      flash[:warning] = @item.errors.full_messages.to_sentence
+      flash[:warning] = full_sentence_errors(@item)
       render 'edit'
     end
   end

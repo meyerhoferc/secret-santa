@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   end
   get '/accept/:id' => 'invitations#accept', as: 'accept'
   get '/decline/:id' => 'invitations#decline', as: 'decline'
-
+  
   resources :groups, except: [:index] do
     post '/invite' => 'invitations#invite', as: 'invite'
     post '/assign-santa' => 'santa_assignments#assign', as: '/assign-santa'

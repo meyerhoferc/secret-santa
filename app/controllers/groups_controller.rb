@@ -16,7 +16,7 @@ class GroupsController < ApplicationController
       flash[:notice] = 'Group created successfully.'
       redirect_to group_path(@group)
     else
-      flash[:warning] = @group.errors.full_messages.to_sentence
+      flash[:warning] = full_sentence_errors(@group)
       render 'new'
     end
   end
@@ -41,7 +41,7 @@ class GroupsController < ApplicationController
       flash[:notice] = "Group '#{@group.name}' updated!"
       redirect_to group_path(@group)
     else
-      flash[:warning] = @group.errors.full_messages.to_sentence
+      flash[:warning] = full_sentence_errors(@group)
       redirect_to edit_group_path(@group)
     end
   end

@@ -1,9 +1,10 @@
 class SantaAssignmentService
-  attr_reader :validity, :errors
+  attr_reader :validity, :errors, :messages
 
   def initialize(group)
     @errors = []
     @group = group
+    @messages = []
   end
 
   def assign
@@ -21,17 +22,36 @@ class SantaAssignmentService
   def santa_assignments!
     users = sorted_users
     if @group.exclusion_teams.any?
-      # byebug
       assignment_array = inverse_bubble_sort(users)
-      # byebug
       if assignment_array.empty?
-        self.errors = 'Santa Assignments error.'
+        self.errors = 'Santa Assignments matching error.'
         self.validity = false
       else
-        self.validity = assignment_array
+        save_to_db(assignment_array)
       end
     else
 
+    end
+  end
+
+  def save_to_db(array)
+    assignments = []
+    array.reverse! if rand(0..1) == 1 # Changes assignment direction randomly
+    0.upto(array.length - 1) do |int|
+      santa = SantaAssignment.new(
+        group_id: @group.id,
+        santa_id: array[int],
+        receiver_id: ( int >= array.length - 1 ? array[int - int] : array[int + 1] )
+      )
+      assignments.push(santa)
+    end
+    if assignments.all? { |assignment| assignment.valid? }
+      assignments.each { |assignment| assignment.save }
+      self.messages = 'Santa Assignments Complete!'
+      self.validity = true
+    else
+      self.errors = 'Santa Assignments saving error.'
+      self.validity = false
     end
   end
 
@@ -39,17 +59,17 @@ class SantaAssignmentService
     limit = array.length - 1
     iteration_limit = array.length * 50
     failsafe = 0
-    while failsafe <= iteration_limit do # 50 iterations over the array
+    while failsafe <= iteration_limit  do # 50 iterations over the array
       break if array.size <= 1 # Small array failsafe
       swap_count = 0
       0.upto(limit) do |int|
         if int <= 0 # Beginning of the array
-          if invalid_assignment?(array[int], array[int + 1])
+          if invalid_assignment?(array[int], array[int + 1]) # User after
             array[int], array[int + 1] = array[int + 1], array[int]
             swap_count += 1
           end
         elsif int >= limit # End of the array
-          if invalid_assignment?(array[int - int], array[int]) || invalid_assignment?(array[int - 1], array[int]) # Loop back to beginning of array
+          if invalid_assignment?(array[int - int], array[int]) || invalid_assignment?(array[int - 1], array[int]) # Users before and at beginning of array
             array[int], array[int - int] = array[int - int], array[int]
             swap_count += 1
           end
@@ -61,7 +81,6 @@ class SantaAssignmentService
         end
         failsafe += 1
       end
-
       break if swap_count == 0 # If no swaps have occurred in one iteration
       array = [] if failsafe + 1 >= iteration_limit
     end
@@ -95,6 +114,10 @@ class SantaAssignmentService
 
   def errors=(error)
     @errors.push(error)
+  end
+
+  def messages=(message)
+    @messages.push(message)
   end
 
   def exclusion_teams_validity

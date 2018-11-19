@@ -5,7 +5,7 @@ class SantaAssignmentsController < ApplicationController
   def assign
     santa = SantaAssignmentService.new(@group).assign
     if santa.validity
-      flash[:notice] = santa.validity.to_s
+      flash[:notice] = santa.messages.join(', ').to_s
     else
       # Add error formatter method, similar to other helper method
       flash[:warning] = santa.errors.join(', ').to_s

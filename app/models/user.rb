@@ -7,8 +7,8 @@ class User < ApplicationRecord
   has_many :invitations_sent, foreign_key: :sender_id, class_name: 'Invitation'
   has_many :user_exclusion_teams
   has_many :exclusion_teams, through: :user_exclusion_teams
-  has_many :secret_santa, foreign_key: :santa_id, class_name: 'Santa Assignment'
-  has_many :santa_recipient, foreign_key: :receiver_id, class_name: 'Santa Assignment'
+  has_many :secret_santa, foreign_key: :santa_id, class_name: 'SantaAssignment'
+  has_many :santa_recipient, foreign_key: :receiver_id, class_name: 'SantaAssignment'
 
   validates :first_name, presence: true
   validates :last_name, presence: true

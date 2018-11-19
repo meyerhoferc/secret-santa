@@ -14,9 +14,11 @@ class Group < ApplicationRecord
   # validate gift due date is in the future only, on update only!
 
   def user_wish_list(user)
-    list = self.lists.where(['user_id = :user_id AND group_id = :group_id',
-                     { user_id: user.id, group_id: self.id }])
-    list.first
+    self
+      .lists
+      .where(['user_id = :user_id AND group_id = :group_id',
+        { user_id: user.id, group_id: self.id }])
+      .first
   end
 
   def no_exclusion_team_users

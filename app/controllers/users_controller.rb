@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :root_path_if_not_logged_in, only: [:new, :create]
   before_action :set_user, only: [:edit, :update, :profile]
+  before_action -> { unauthorized_user(User.find(params[:id])) }, only: [:update, :edit]
 
   def new
     @user = User.new
@@ -13,19 +14,19 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.email.downcase!
+    @user&.email&.downcase!
+    @user.username.downcase!
     if @user.save
       flash[:notice] = "Account successfully created."
       redirect_to login_path
     else
-      flash[:warning] = "Please enter valid credentials."
+      flash[:warning] = full_sentence_errors(@user)
       redirect_to signup_path
     end
   end
 
   def profile
     if @user
-      @authorized_user = true
       render 'show'
     else
       redirect_to root_url
@@ -35,26 +36,22 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @authorized_user = authorized_user(@user)
-    @user_invitable_groups = invitable_groups
-    @group_invitations = !@user_invitable_groups.empty? && !@authorized_user
-    # Groups owned by the current user && it is not the current user's profile
-    if @group_invitations
-      @invitation = Invitation.new
-    end
+    @invitable_groups = @user.invitable_groups(current_user)
+    @invitation = Invitation.new
   end
 
   def edit
   end
 
   def update
-    segment_string = params[:commit].split(' ')[1]
-    current_pass = params[:current_password] || params[:user][:password]
+    segment_string = params[:commit].split(' ').last
+    current_pass = params[:user][:current_password] || params[:current_password]
+    @user.skip_pass_strength = true unless segment_string == 'Password'
     if authenticate_user(current_pass) && @user.update(validate_params(segment_string))
       flash[:notice] = "#{segment_string} successfully updated."
       redirect_to profile_path
     else
-      flash[:warning] = "An error occurred, please try again."
+      flash[:warning] = full_sentence_errors(@user)
       render 'edit'
     end
   end
@@ -62,32 +59,24 @@ class UsersController < ApplicationController
   private
 
   def authenticate_user(current_pass)
-    !!@user.authenticate(current_pass)
+    if @user.authenticate(current_pass)
+      true
+    else
+      @user.errors.add(:password, 'is incorrect.')
+      false
+    end
   end
 
   def validate_params(string)
     case string
     when 'Name'
-      return params.require(:user).permit(:first_name, :last_name, :password)
+      return user_params
     when 'Email'
       downcase_email_param!
-      return params.require(:user).permit(:email, :password)
+      return user_params
     when 'Password'
       return params.require(:user).permit(:password, :password_confirmation)
     end
-  end
-
-  def invitable_groups
-    Group.where("owner_id = ?", current_user.id).select do |group|
-      user_does_not_belong_to_group = !group.users.ids.include?(@user.id)
-      no_pending_user_invitations = user_invitations("group_id = ? AND receiver_id = ? AND accepted IS NULL", group.id, @user.id)
-      no_declined_user_invitations = user_invitations("group_id = ? AND receiver_id = ? AND accepted = false", group.id, @user.id)
-      user_does_not_belong_to_group && no_pending_user_invitations && no_declined_user_invitations
-    end
-  end
-
-  def user_invitations(accepted_string, group, user)
-    Invitation.joins(:group).where([accepted_string, group, user,]).empty?
   end
 
   def set_user
@@ -95,7 +84,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :username, :email, :password, :password_confirmation)
   end
 
   def downcase_email_param!

@@ -8,7 +8,7 @@ Gift Due Date: <%= @group.gift_due_date %>
 Gift Exchange Year: <%= @group.gift_due_date.year if @group.gift_due_date %>
 <br>
 <br>
-<% if authorized_user(User.find(@group.owner_id)) %>
+<% if authorized_user(@group.owner) %>
   <%= link_to 'Edit Group', edit_group_path %>
   <%= link_to 'Delete Group', group_path, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' } %>
   <br>
@@ -22,7 +22,7 @@ Gift Exchange Year: <%= @group.gift_due_date.year if @group.gift_due_date %>
 
 <% if authorized_user(@group.owner) %>
 <h2>Send an invitation</h2>
-<%= render partial: 'groups/invitation_form' %>
+<%= render partial: 'invitations/group_form' %>
 <% end %>
 
 <br>

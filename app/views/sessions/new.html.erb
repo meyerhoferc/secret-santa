@@ -2,8 +2,8 @@
 
 <%= form_tag sessions_path do %>
   <div>
-    <%= label_tag :email %>
-    <%= text_field_tag :email, params[:email] %>
+    <%= label_tag :username_email, 'Username or email' %>
+    <%= text_field_tag :username_email, params[:username_email] %>
   </div>
   <div>
     <%= label_tag :password %>
@@ -13,3 +13,6 @@
     <%= submit_tag "Log In" %>
   </div>
 <% end %>
+
+<br>
+<%= link_to 'Back to Homepage', root_path %>

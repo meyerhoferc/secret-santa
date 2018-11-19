@@ -4,6 +4,5 @@ class ListsController < ApplicationController
     @user = @list.user
     @group = Group.find(params[:group_id])
     @items = @list.items
-    @authorized_user = authorized_user(@user)
   end
 end

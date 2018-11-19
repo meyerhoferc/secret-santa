@@ -10,8 +10,11 @@
     <%= f.text_field :last_name %>
   </div>
   <div>
+    <%= f.label :username %>
+    <%= f.text_field :username %>
+  <div>
     <%= f.label :email %>
-    <%= f.text_field :email %>
+    <%= f.email_field :email %>
   </div>
   <div>
     <%= f.label :password %>
@@ -25,3 +28,6 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<br>
+<%= link_to 'Back to Homepage', root_path %>

@@ -46,7 +46,7 @@ describe Group do
     end
 
     it 'belongs to user' do
-      assc = Group.reflect_on_association(:user)
+      assc = Group.reflect_on_association(:owner)
       expect(assc.macro).to eq :belongs_to
     end
   end

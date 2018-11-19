@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe 'editing a group' do
   context 'with' do
-    let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', email: 'email@raa.zzz', password: 'pa1203489y132809hsspa1203489y132809hss') }
+    let(:user) { User.create(first_name: 'Raa', last_name: 'Zzz', username: 'ZzzRaa', email: 'email@raa.zzz', password: 'pa1203489y132809hsspa1203489y132809hss') }
     let(:group) { Group.create(name: 'My first group creation', description: 'Whoever wants to join', gift_due_date: '2018/12/31') }
 
     it 'correct information' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Create a Group'
       create_group(group)
       click_on 'Create Group'
@@ -28,7 +28,7 @@ describe 'editing a group' do
     end
 
     it 'blank information' do
-      sign_in_as(user)
+      sign_in(user)
       click_on 'Create a Group'
       create_group(group)
       click_on 'Create Group'
@@ -41,16 +41,16 @@ describe 'editing a group' do
       fill_in 'group_gift_due_date', with: ''
       click_on 'Update Group'
 
-      expect(page).to have_content 'Please enter valid information.'
+      expect(page).to have_content "Name can't be blank, Description can't be blank, and Gift due date can't be blank"
     end
   end
 
   context 'attempt for' do
-    let(:user_one) { User.create!(first_name: 'Raa', last_name: 'Zzz', email: 'email@raa.zzz', password: 'pas1203489y132809hspas1203489y132809hs') }
-    let(:user_two) { User.create!(first_name: 'A', last_name: 'Zzrz', email: 'emaaaail@raa.zzz', password: 'pas1203489y132809hspas1203489y132809hs') }
+    let(:user_one) { User.create!(first_name: 'Raa', last_name: 'Zzz', username: 'aaasd', email: 'email@raa.zzz', password: 'pas1203489y132809hspas1203489y132809hs') }
+    let(:user_two) { User.create!(first_name: 'A', last_name: 'Zzrz', username: 'afdsasd', email: 'emaaaail@raa.zzz', password: 'pas1203489y132809hspas1203489y132809hs') }
     let(:group) { Group.create!(name: 'My first group creation', description: 'Whoever wants to join', gift_due_date: '2018/12/31', owner_id: user_one.id) }
     it 'another user' do
-      sign_in_as(user_two)
+      sign_in(user_two)
       visit "/groups/#{group.id}/edit"
       expect(page).to have_content "Action is unauthorized."
     end

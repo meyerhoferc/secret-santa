@@ -3,9 +3,13 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.new(invitation_params)
     @invitation.sender_id = current_user.id
     @invitation.receiver_id = params[:user_id]
-    @invitation.save
-    flash[:notice] = 'Invitation sent.'
-    redirect_to user_path(@invitation.receiver_id)
+    if @invitation.save
+      flash[:notice] = 'Invitation sent'
+      redirect_to user_path(@invitation.receiver_id)
+    else
+      flash[:warning] = full_sentence_errors(@invitation)
+      redirect_to user_path(@invitation.receiver_id)
+    end
   end
 
   def accept
@@ -21,7 +25,7 @@ class InvitationsController < ApplicationController
         flash[:notice] = 'Invitation accepted.'
         redirect_to dashboard_path
       else
-        flash[:warning] = 'You already belongs to this group.'
+        flash[:warning] = 'You already belong to this group.'
         redirect_to dashboard_path
       end
     else
@@ -46,38 +50,29 @@ class InvitationsController < ApplicationController
 
   def invite
     # sent from the groups page, by the group owner
-    receiver = User.find_by(email: downcase_email_param)
+    receiver = User.find_by(username: login_credential) || User.find_by(email: login_credential)
     group = Group.find(params[:group_id])
     if receiver
-      no_pending_user_invitations = user_invitations('group_id = ? AND receiver_id = ? AND accepted IS NULL', group.id, receiver.id)
-      no_declined_user_invitations = user_invitations('group_id = ? AND receiver_id = ? AND accepted = false', group.id, receiver.id)
-      not_inviting_self = (group.owner_id != receiver.id)
-    end
-
-    if no_pending_user_invitations && no_declined_user_invitations && not_inviting_self
       invitation = Invitation.new
       invitation.group_id = group.id
       invitation.receiver_id = receiver.id
       invitation.sender_id = group.owner_id
       invitation.comment = params[:invitation][:comment]
       if invitation.save
-        flash[:notice] = 'Invitation sent.'
+        flash[:notice] = 'Invitation sent'
       else
-        flash[:warning] = 'There was an error sending the invitation, please try again.'
+        flash[:warning] = full_sentence_errors(invitation)
       end
+    elsif params[:username_email].blank?
+      flash[:warning] = "Username or email can't be blank"
     else
-      flash[:notice] = "Invitation sent to user's email."
-      # Default failure behavior to not give away user's email
+      flash[:notice] = "Please enter a username or email"
       # Create a new user with this email address, eventually sending them an invitation email.
     end
     redirect_to group_path(group.id)
   end
 
   private
-
-  def user_invitations(accepted_string, group, user)
-    Invitation.joins(:group).where([accepted_string, group, user,]).empty?
-  end
 
   def invitation_params
     params.require(:invitation).permit(:comment, :group_id)
@@ -90,7 +85,7 @@ class InvitationsController < ApplicationController
     list.save
   end
 
-  def downcase_email_param
-    params[:email].downcase
+  def login_credential
+    params[:username_email].downcase
   end
 end

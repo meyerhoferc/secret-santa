@@ -16,7 +16,7 @@ class GroupsController < ApplicationController
       flash[:notice] = 'Group created successfully.'
       redirect_to group_path(@group)
     else
-      flash[:notice] = 'The group name is already taken. Please choose another name.'
+      flash[:warning] = full_sentence_errors(@group)
       render 'new'
     end
   end
@@ -36,7 +36,7 @@ class GroupsController < ApplicationController
       flash[:notice] = "Group '#{@group.name}' updated!"
       redirect_to group_path(@group)
     else
-      flash[:warning] = 'Please enter valid information.'
+      flash[:warning] = full_sentence_errors(@group)
       redirect_to edit_group_path(@group)
     end
   end
@@ -58,8 +58,8 @@ class GroupsController < ApplicationController
       end
     end
 
+    flash[:notice] = "Group #{@group.name} deleted!"
     @group.destroy
-    flash[:notice] = "Group Deleted!"
     redirect_to dashboard_path
   end
 

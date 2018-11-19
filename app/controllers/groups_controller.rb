@@ -30,6 +30,7 @@ class GroupsController < ApplicationController
       @user_exclusion_team = UserExclusionTeam.new
       @santa_assignment = SantaAssignment.new
     end
+    @santa = User.find(current_user.secret_santa.find_by(group_id: @group.id)&.receiver_id) if @group.santas_assigned
   end
 
   def edit

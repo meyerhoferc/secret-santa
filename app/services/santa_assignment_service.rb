@@ -21,7 +21,7 @@ class SantaAssignmentService
 
   def santa_assignments!
     users = sorted_users
-    if @group.exclusion_teams.any?
+    if @group.exclusion_teams.any? {|team| team.users.any?}
       assignment_array = inverse_bubble_sort(users)
       if assignment_array.empty?
         self.errors = 'Santa Assignments matching error.'
@@ -30,7 +30,7 @@ class SantaAssignmentService
         save_to_db(assignment_array)
       end
     else
-
+      save_to_db(users.shuffle!.shuffle!)
     end
   end
 
@@ -49,6 +49,8 @@ class SantaAssignmentService
       assignments.each { |assignment| assignment.save }
       self.messages = 'Santa Assignments Complete!'
       self.validity = true
+      @group.santas_assigned = true
+      @group.save
     else
       self.errors = 'Santa Assignments saving error.'
       self.validity = false

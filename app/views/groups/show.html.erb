@@ -12,6 +12,9 @@
     <% if @user_wish_list %>
       <h3><%= link_to 'My Wish List', group_list_path(@group, @user_wish_list.id) %></h3>
     <% end %>
+    <% if @group.santas_assigned %>
+      <%= render partial: 'santa_assignments/secret_santa' %>
+    <% end %>
   </div>
   <% if authorized_user(@group.owner) %>
     <div class="groups-owner">
@@ -21,9 +24,11 @@
       <h3>Send an invitation</h3>
       <%= render partial: 'invitations/group_form' %>
     </div>
-    <div class="groups-santa-assignments">
-      <%= render partial: 'santa_assignments/display' %>
-    </div>
+    <% if !@group.santas_assigned %>
+      <div class="groups-santa-assignments">
+        <%= render partial: 'santa_assignments/display' %>
+      </div>
+    <% end %>
   <% end %>
   <div class="groups-users">
     <h2>Group Users</h2>

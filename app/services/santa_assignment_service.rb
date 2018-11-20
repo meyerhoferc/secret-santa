@@ -8,7 +8,7 @@ class SantaAssignmentService
   end
 
   def assign
-    if exclusion_teams_validity
+    if group_validity && exclusion_teams_validity
       self.validity = true
       santa_assignments! # Move to ActiveJob in future
     else
@@ -139,5 +139,10 @@ class SantaAssignmentService
 
   def team_user_counts
     @group.exclusion_teams&.map { |team| team.users.count }
+  end
+
+  def group_validity
+    self.errors = 'Santas for this group have already been assigned.'
+    !@group.santas_assigned
   end
 end

@@ -4,8 +4,9 @@ class Invitation < ApplicationRecord
   belongs_to :group
   validates :comment, presence: true
   validates_uniqueness_of :receiver_id, scope: :group_id,
-                    message: 'has already been invited to this group',
-                    conditions: -> { where('(accepted = true) OR (accepted IS NULL)') }
-  validates_exclusion_of :sender_id, in: -> (invitation) { [invitation.receiver_id] },
-                          message: 'cannot send yourself an invitation'
+    message: 'has already been invited to this group',
+    conditions: -> { where('(accepted = true) OR (accepted IS NULL)') }
+  validates_exclusion_of :sender_id,
+    in: -> (invitation) { [invitation.receiver_id] },
+    message: 'cannot send yourself an invitation'
 end

@@ -7,7 +7,7 @@ class UserExclusionTeamsController < ApplicationController
     if user_exclusion_team.save
       flash[:notice] = "#{user_exclusion_team.user.full_name} added to #{user_exclusion_team.exclusion_team.name}."
     else
-      flash[:warning] = user_exclusion_team.errors.full_messages.to_sentence
+      flash[:warning] = full_sentence_errors(user_exclusion_team)
     end
     redirect_to group_path(@group)
   end

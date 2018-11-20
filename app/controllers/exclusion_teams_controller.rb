@@ -9,8 +9,7 @@ class ExclusionTeamsController < ApplicationController
     if team.save
       flash[:notice] = "Exclusion team \"#{team.name}\" added."
     else
-      # use new helper method!!!
-      flash[:warning] = team.errors.full_messages.to_sentence
+      flash[:warning] = full_sentence_errors(team)
     end
     redirect_to group_path(@group)
   end
@@ -22,8 +21,7 @@ class ExclusionTeamsController < ApplicationController
     if authorized_user(@group.owner) && @exclusion_team.update(exclusion_team_params)
       flash[:notice] = "Exclusion Team \"#{@exclusion_team.name}\" updated!"
     else
-      #USE NEW HELPER METHOD WHEN PULLING IN
-      flash[:warning] = @exclusion_team.errors.full_messages.to_sentence
+      flash[:warning] = full_sentence_errors(@exclusion_team)
     end
     redirect_to group_path(@group)
   end

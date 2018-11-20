@@ -65,6 +65,13 @@ class GroupsController < ApplicationController
       end
     end
 
+    santa_assignments = SantaAssignment.where(group_id: @group.id)
+    if !santa_assignments.empty?
+      santa_assignments.each do |assignment|
+        assignment.destroy
+      end
+    end
+
     flash[:notice] = "Group #{@group.name} deleted!"
     @group.destroy
     redirect_to dashboard_path

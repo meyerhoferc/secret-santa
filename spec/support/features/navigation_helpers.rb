@@ -39,4 +39,9 @@ module Features
   def sign_out
     click_on 'Log Out'
   end
+
+  def sign_out_and_log_in(user)
+    sign_out
+    sign_in(user)
+  end
 end

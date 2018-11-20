@@ -4,8 +4,12 @@ def receiver_is_sender?(receiver, sender)
   receiver == sender
 end
 
+def receiver_already_invited(receiver, group)
+  receiver.invitations_received.pluck(:group_id).include?(group.id)
+end
+
 10.times do
-  first_name = Faker::ElderScrolls.unique.first_name
+  first_name = Faker::Name.unique.first_name
   last_name = Faker::Name.unique.last_name
   email = "#{first_name.downcase}@#{last_name.downcase}.com".gsub(' ', '')
   username = "#{last_name.downcase}#{first_name.downcase}".gsub(/\W/i, '')
@@ -47,7 +51,7 @@ end
   comment = Faker::WorldOfWarcraft.quote
   receiver = users.sample
   sender = users.sample
-  while receiver_is_sender?(receiver, sender) do
+  while receiver_already_invited(receiver, sender.groups.first) || receiver_is_sender?(receiver, sender) do
     receiver = users.sample
     sender = users.sample
   end

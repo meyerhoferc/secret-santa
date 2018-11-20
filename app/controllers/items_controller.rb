@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
     @item.list_id = @list.id
     if authorized_user(@user) && @item.save
-      flash[:notice] = "Item created successfully."
+      flash[:notice] = 'Item created successfully.'
     else
       flash[:warning] = full_sentence_errors(@item)
     end

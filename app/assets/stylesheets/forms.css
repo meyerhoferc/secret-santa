@@ -54,7 +54,6 @@
   flex-direction: column;
   justify-content: space-between;
   min-height: auto;
-  /* height: 100%; */
 }
 
 .form-field {
@@ -90,13 +89,13 @@
   border-radius: 3px;
   padding: 4px 8px;
   max-width: 800px;
+  font-family: inherit;
 }
 
 .form-field textarea,
 .form-field input {
   width: 330px;
   caret-color: var(--form-input);
-  font-family: 'glacial-indifference-regular', sans-serif;
 }
 
 .form-field textarea {

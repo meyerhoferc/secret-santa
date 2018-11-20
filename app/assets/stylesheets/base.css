@@ -23,10 +23,19 @@
     font-style: normal;
 }
 
-@font-face {
+/* No longer in use */
+/* @font-face {
     font-family: 'glacial-indifference-regular';
     src: url('glacial-indifference/glacial-indifference-regular-webfont.woff2') format('woff2');
     src: url('glacial-indifference/glacial-indifference-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+} */
+
+@font-face {
+    font-family: 'cabin-regular';
+    src: url('cabin/cabin-regular-webfont.woff2') format('woff2');
+    src: url('cabin/cabin-regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -43,7 +52,7 @@ body {
   background: linear-gradient(to top, var(--background-primary) 15%, var(--background-secondary)) fixed;
   background-repeat: no-repeat;
   color: var(--text);
-  font-family: 'glacial-indifference-regular', sans-serif;
+  font-family: 'cabin-regular', sans-serif;
 }
 
 #body-holder {

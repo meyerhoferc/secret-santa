@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   end
   get '/accept/:id' => 'invitations#accept', as: 'accept'
   get '/decline/:id' => 'invitations#decline', as: 'decline'
-  
+
   resources :groups, except: [:index] do
     post '/invite' => 'invitations#invite', as: 'invite'
     post '/assign-santa' => 'santa_assignments#assign', as: '/assign-santa'
@@ -27,7 +27,8 @@ Rails.application.routes.draw do
       resources :user_exclusion_teams, only: [:destroy], path: 'user'
     end
     resources :user_exclusion_teams, only: [:create]
-    resources :lists, only: [:show], path: 'wishlists' do
+    get '/wishlists/:id/new', to: 'lists#new'
+    resources :lists, except: [:new, :index], path: 'wishlists' do
       resources :items, except: [:new]
     end
   end

@@ -1,0 +1,14 @@
+<div class="form-container">
+  <div class="form-title">
+    <h1>Write a private message for your Secret Santa</h1>
+  </div>
+  <%= form_for [@group, @list], url: { controller: "lists", action: "create", id: @list }, method: :post, html: { class: 'form-fields-container' } do |f| %>
+    <div class="form-field">
+      <%= f.label :santa_message %>
+      <%= f.text_area :santa_message %>
+    </div>
+    <div class="form-submit">
+      <%= submit_tag "Add message" %>
+    </div>
+  <% end %>
+</div>

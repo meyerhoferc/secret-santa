@@ -11,6 +11,15 @@
       <h2>Add item to wish list</h2>
       <%= render partial: 'items/form' %>
     </div>
+    <div class="lists-santa-message-creation">
+      <h2>Write a private message to your Secret Santa:</h2>
+      <% if @list.santa_message.nil? %>
+        <h3><%= link_to 'Add a message', controller: "lists", action: "new", id: @list %></h3>
+      <% else %>
+        <h3><%= link_to 'Edit', edit_group_list_path(@group, @list) %></h3> <h3><%= link_to 'Delete', group_list_path(@group, @list), method: :delete %></h3>
+        Message: <%= "#{@list.santa_message}" %>
+      <% end %>
+    </div>
   <% end %>
   <div class="lists-items">
     <h2>Wish List Items</h2>

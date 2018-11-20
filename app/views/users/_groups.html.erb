@@ -11,4 +11,13 @@
       <%= groups.gift_due_date.to_formatted_s(:long_ordinal) %>
     </div>
   </div>
+  <% if groups.santas_assigned %>
+    <% santa = User.find(current_user.secret_santa.find_by(group_id: groups.id).receiver_id) %>
+    <% santa_message = santa.lists.find_by(group_id: groups.id).santa_message %>
+    <div class="group-santa-user-info">
+      <h3>My Secret Santa Assignment</h3>
+      <%= link_to "#{santa.full_name}'s wish list", group_list_path(groups.id, groups.user_wish_list(santa).id) %>
+      <%= "#{santa.full_name}'s private message to you: #{santa_message}" if santa_message %>
+    </div>
+  <% end %>
 </div>

@@ -8,12 +8,7 @@ class ListsController < ApplicationController
   end
 
   def create
-    if authorized_user(@user) && @list.update(list_params)
-      flash[:notice] = 'Message added.'
-    else
-      flash[:warning] = full_sentence_errors(@list)
-    end
-    redirect_to group_list_path(@group, @list)
+    update_list_message('Message added.')
   end
 
   def show
@@ -22,12 +17,7 @@ class ListsController < ApplicationController
   end
 
   def update
-    if authorized_user(@user) && @list.update(list_params)
-      flash[:notice] = 'Message updated.'
-    else
-      flash[:warning] = full_sentence_errors(@list)
-    end
-    redirect_to group_list_path(@group, @list)
+    update_list_message('Message updated.')
   end
 
   def destroy
@@ -42,6 +32,15 @@ class ListsController < ApplicationController
   end
 
   private
+
+  def update_list_message(flash_message)
+    if authorized_user(@user) && @list.update(list_params)
+      flash[:notice] = flash_message
+    else
+      flash[:warning] = full_sentence_errors(@list)
+    end
+    redirect_to group_list_path(@group, @list)
+  end
 
   def set_user
     @user = @list.user

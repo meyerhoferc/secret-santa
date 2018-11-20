@@ -3,8 +3,7 @@
     <h1>Details for <%= "#{@item.name}" %></h1>
   </div>
   <div class="items-profile-link">
-    <%= link_to "#{@user.first_name} #{@user.last_name}:", user_path(@user.id) %>
-    <%= link_to "Wish List", group_list_path(@group, @list) %>
+    <%= link_to "#{@user.full_name}'s Wish List", group_list_path(@group, @list) %>
   </div>
   <div class="items-data">
     <span><%= "Name: #{@item.name}" %></span>

@@ -6,6 +6,13 @@
     <%= link_to "#{@user.first_name} #{@user.last_name}'s profile", user_path(@user) %>
     <%= link_to "#{@group.name}", group_path(@group.id) %>
   </div>
+  <% santa = User.find(@user.santa_recipient.find_by(group_id: @group.id).santa_id) %>
+  <% if authorized_user(santa) %>
+    <div class="lists-private-secret-santa-message">
+      <h2><%= "Private Message to #{santa.full_name}!"%></h2>
+      <%= @list.santa_message %>
+    </div>
+  <% end %>
   <% if authorized_user(@user) %>
     <div class="lists-item-creation">
       <h2>Add item to wish list</h2>

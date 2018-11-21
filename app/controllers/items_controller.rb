@@ -5,10 +5,6 @@ class ItemsController < ApplicationController
   before_action :set_user, except: :index
   before_action -> { unauthorized_user(@user) }, except: [:show]
 
-  def new
-    @item = Item.new
-  end
-
   def create
     @item = Item.new(item_params)
     @item.list_id = @list.id

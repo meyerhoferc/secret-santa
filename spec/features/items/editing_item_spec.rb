@@ -15,7 +15,6 @@ describe 'editing an item' do
       visit dashboard_path
       click_on group.name
       click_on 'View your Wish List'
-      click_on 'Add an item to your wish list'
       create_item(item_one)
       click_on 'Create Item'
 
@@ -40,7 +39,6 @@ describe 'editing an item' do
       visit dashboard_path
       click_on group.name
       click_on 'View your Wish List'
-      click_on 'Add an item to your wish list'
       click_on 'Create Item'
 
       expect(page).to have_content "Name can't be blank and Description can't be blank"
@@ -54,12 +52,10 @@ describe 'editing an item' do
       visit dashboard_path
       click_on group.name
       click_on 'View your Wish List'
-      click_on 'Add an item to your wish list'
       create_item(item_one)
       click_on 'Create Item'
 
       expect(page).to have_link item_one.name
-      click_on 'Add an item to your wish list'
       create_item(item_two)
       click_on 'Create Item'
 

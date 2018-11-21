@@ -4,7 +4,7 @@
                              { prompt: 'Select Group' }) %>
   </div>
   <div class="form-field">
-    <%= f.label :comment, "Message" %>
+    <%= f.label :comment, required_label_maker('Message') %>
     <%= f.text_field :comment %>
   </div>
   <div class="form-submit">

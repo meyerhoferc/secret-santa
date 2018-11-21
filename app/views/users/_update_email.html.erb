@@ -1,10 +1,10 @@
 <%= form_for @user, namespace: 'email', html: { class: 'form-fields-container-email' } do |f| %>
   <div class="form-field">
-    <%= f.label :email %>
+    <%= f.label :email, required_label_maker('Email') %>
     <%= f.email_field :email %>
   </div>
   <div class="form-field">
-    <%= f.label :current_password %>
+    <%= f.label :current_password, required_label_maker('Current password')%>
     <%= f.password_field :current_password %>
   </div>
   <div class="form-submit">

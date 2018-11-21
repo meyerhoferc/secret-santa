@@ -1,14 +1,14 @@
 <%= form_for @group, html: { class: 'form-fields-container' } do |f| %>
   <div class="form-field">
-    <%= f.label :name %>
+    <%= f.label :name, required_label_maker('Name') %>
     <%= f.text_field :name %>
   </div>
   <div class="form-field">
-    <%= f.label :description %>
+    <%= f.label :description, required_label_maker('Description') %>
     <%= f.text_area :description %>
   </div>
   <div class="form-field">
-    <%= f.label 'group', 'Gift Due Date' %>
+    <%= f.label 'group', required_label_maker('Gift Due Date') %>
     <%= date_field 'group', 'gift_due_date', min: (action_name == 'new' ? Date.today : @group.created_at) %>
   </div>
   <div class="form-submit">

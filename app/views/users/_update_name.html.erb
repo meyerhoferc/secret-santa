@@ -1,14 +1,14 @@
 <%= form_for @user, namespace: 'name', html: { class: 'form-fields-container-name' } do |f| %>
   <div class="form-field">
-    <%= f.label :first_name %>
+    <%= f.label :first_name, required_label_maker('First name') %>
     <%= f.text_field :first_name %>
   </div>
   <div class="form-field">
-    <%= f.label :last_name %>
+    <%= f.label :last_name, required_label_maker('Last name') %>
     <%= f.text_field :last_name %>
   </div>
   <div class="form-field">
-    <%= f.label :current_password %>
+    <%= f.label :current_password, required_label_maker('Current password') %>
     <%= f.password_field :current_password %>
   </div>
   <div class="form-submit">

@@ -4,15 +4,15 @@
   </div>
   <%= form_for @user, html: { class: 'form-fields-container' } do |f| %>
     <div class="form-field">
-      <%= f.label :first_name %>
+      <%= f.label :first_name, required_label_maker('First name') %>
       <%= f.text_field :first_name %>
     </div>
     <div class="form-field">
-      <%= f.label :last_name %>
+      <%= f.label :last_name, required_label_maker('Last name') %>
       <%= f.text_field :last_name %>
     </div>
     <div class="form-field">
-      <%= f.label :username %>
+      <%= f.label :username, required_label_maker('Username') %>
       <%= f.text_field :username %>
     </div>
     <div class="form-field">
@@ -20,11 +20,11 @@
       <%= f.email_field :email %>
     </div>
     <div class="form-field">
-      <%= f.label :password %>
+      <%= f.label :password, required_label_maker('Password') %>
       <%= f.password_field :password %>
     </div>
     <div class="form-field">
-      <%= f.label :password_confirmation %>
+      <%= f.label :password_confirmation, required_label_maker('Password confirmation') %>
       <%= f.password_field :password_confirmation %>
     </div>
     <div class="form-submit">

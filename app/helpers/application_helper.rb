@@ -14,4 +14,8 @@ module ApplicationHelper
   def join(text)
     text.join(', ').to_s
   end
+
+  def required_label_maker(text)
+    "#{text} <span class=\"required\" title=\"Required\">*</span>".html_safe
+  end
 end

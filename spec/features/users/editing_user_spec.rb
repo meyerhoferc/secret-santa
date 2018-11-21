@@ -40,7 +40,7 @@ describe 'editing a user' do
       expect(page).to have_link 'Edit your information'
       click_on 'Edit your information'
 
-      fill_in 'New password', with: user.password + 't34fa'
+      fill_in 'New password *', with: user.password + 't34fa'
       fill_in 'New password confirmation', with: user.password + 't34fa'
       fill_in 'current_password', with: user.password
       click_on 'Update Password'
@@ -94,7 +94,7 @@ describe 'editing a user' do
       expect(page).to have_link 'Edit your information'
       click_on 'Edit your information'
 
-      fill_in 'New password', with: ''
+      fill_in 'New password *', with: ''
       fill_in 'New password confirmation', with: ''
       fill_in 'current_password', with: user.password
       click_on 'Update Password'
@@ -199,7 +199,7 @@ describe 'editing a user' do
       expect(page).to have_link 'Edit your information'
       click_on 'Edit your information'
 
-      fill_in 'New password', with: user.password + 't34fa'
+      fill_in 'New password *', with: user.password + 't34fa'
       fill_in 'New password confirmation', with: user.password + 't34fa'
       fill_in 'current_password', with: user.password + 'asjdhfash'
       click_on 'Update Password'

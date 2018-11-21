@@ -116,8 +116,8 @@ describe 'assigning santas' do
       expect(page).to have_no_content 'Send an invitation'
       expect(page).to have_no_content 'Assign Secret Santas'
 
-      click_on "#{o_1.secret_santa.find_by(group_id: g_1.id).recipient.full_name}'s wish list"
-      expect(page).to have_content "Private Message to #{o_1.full_name}!"
+      click_on "#{o_1.secret_santa.find_by(group_id: g_1.id).recipient.full_name}'s Wish List"
+      expect(page).to have_content "Private Message to #{o_1.full_name}"
     end
 
     it 'displays/hides content after assigning santas without exclusion teams' do
@@ -143,8 +143,8 @@ describe 'assigning santas' do
       expect(page).to have_no_content 'Send an invitation'
       expect(page).to have_no_content 'Assign Secret Santas'
 
-      click_on "#{o_1.secret_santa.find_by(group_id: g_1.id).recipient.full_name}'s wish list"
-      expect(page).to have_content "Private Message to #{o_1.full_name}!"
+      click_on "#{o_1.secret_santa.find_by(group_id: g_1.id).recipient.full_name}'s Wish List"
+      expect(page).to have_content "Private Message to #{o_1.full_name}"
       pages_to_have_santa_name_all_users(@users, g_1)
     end
   end

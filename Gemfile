@@ -26,6 +26,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'strong_password', '~> 0.0.6'
 
+gem "loofah", ">= 2.2.3"
+gem "rack", ">= 2.0.6"
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

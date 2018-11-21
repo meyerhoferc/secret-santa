@@ -12,10 +12,12 @@
       <% end %>
     </div>
     <div title="Due in <%= time_ago_in_words(@group.gift_due_date) %>">
-      <h3>Gifts Due: <%= @group.gift_due_date.to_formatted_s(:long_ordinal) %></h3>
+      <h3>Gifts Due <%= @group.gift_due_date.to_formatted_s(:long_ordinal) %></h3>
     </div>
     <% if @user_wish_list %>
-      <h3><%= link_to 'My Wish List', group_list_path(@group, @user_wish_list.id) %></h3>
+      <div class="groups-wishlist-link">
+        <%= link_to 'My Wish List', group_list_path(@group, @user_wish_list.id) %>
+      </div>
     <% end %>
   </div>
   <% if authorized_user(@group.owner) %>
@@ -30,6 +32,9 @@
     </div>
     <% if !@group.santas_assigned %>
       <div class="groups-santa-assignments">
+        <div class="groups-santa-assignments-title">
+          <h2>Manage Santa Assignments</h2>
+        </div>
         <%= render partial: 'santa_assignments/display' %>
       </div>
     <% end %>

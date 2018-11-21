@@ -16,6 +16,6 @@ module ApplicationHelper
   end
 
   def required_label_maker(text)
-    "#{text} <span class=\"required\" title=\"Required\">*</span>".html_safe
+    "#{text} <span class=\"required\" title=\"Field is required\">*</span>".html_safe
   end
 end

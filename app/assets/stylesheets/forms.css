@@ -119,3 +119,9 @@
 .form-submit input:hover {
   background-color: var(--button-background-hover);
 }
+
+.form-submit input:disabled {
+  background-color: var(--border);
+  border: 4px solid var(--border);
+  cursor: not-allowed;
+}

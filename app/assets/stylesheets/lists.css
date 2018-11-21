@@ -4,7 +4,8 @@
   grid-template-areas:
   "title title"
   "items links"
-  "items item-creation";
+  "items santa-message"
+  "item-creation item-creation";
 }
 
 .lists-title {
@@ -23,6 +24,28 @@
   grid-area: item-creation;
   display: flex;
   flex-direction: column;
+}
+
+.lists-private-santa-message h2 {
+  margin-bottom: 15px;
+}
+
+.lists-santa-message {
+  grid-area: santa-message;
+  max-width: 405px;
+}
+
+.lists-santa-message h2 {
+  margin-bottom: 15px;
+}
+
+.lists-santa-message-modify {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+
+.lists-entered-santa-message {
+  line-height: 1.25;
 }
 
 .lists-items {

@@ -1,6 +1,6 @@
 <%= form_for @exclusion_team, url: group_exclusion_teams_path(@group), html: { class: 'form-fields-container' } do |f| %>
   <div class="form-field">
-    <%= f.label :name %>
+    <%= f.label :name, required_label_maker('Name') %>
     <%= f.text_field :name %>
   </div>
   <div class="form-submit">

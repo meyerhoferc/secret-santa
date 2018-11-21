@@ -33,7 +33,7 @@ class User < ApplicationRecord
   end
 
   def outstanding_invitations
-    Invitation.where('receiver_id = ? AND accepted IS NULL', id)
+    Invitation.joins(:group).where('receiver_id = ? AND accepted IS NULL', id).order('gift_due_date asc')
   end
 
   def invitable_groups(current_user)

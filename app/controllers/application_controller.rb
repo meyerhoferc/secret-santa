@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
-  helper_method :current_user, :authorized_user, :unauthorized_user
+  helper_method :current_user, :authorized_user, :unauthorized_user, :svg
   before_action :root_path_if_not_logged_in
 
   def current_user
@@ -27,5 +27,11 @@ class ApplicationController < ActionController::Base
       flash[:warning] = 'Action is unauthorized.'
       redirect_to root_path
     end
+  end
+
+  def svg(name)
+    file_path = "#{Rails.root}/app/assets/images/#{name}.svg"
+    return File.read(file_path).html_safe if File.exists?(file_path)
+    '(not found)'
   end
 end

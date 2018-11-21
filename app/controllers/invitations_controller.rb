@@ -66,7 +66,7 @@ class InvitationsController < ApplicationController
     elsif params[:username_email].blank?
       flash[:warning] = "Username or email can't be blank"
     else
-      flash[:notice] = "Please enter a username or email"
+      flash[:warning] = "Please enter a username or email"
       # Create a new user with this email address, eventually sending them an invitation email.
     end
     redirect_to group_path(group.id)

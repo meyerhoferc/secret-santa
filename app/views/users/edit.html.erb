@@ -1,12 +1,8 @@
-<h1>Edit Profile</h1>
-
-<%= render partial: 'users/update_name' %>
-<br>
-<br>
-<%= render partial: 'users/update_email' %>
-<br>
-<br>
-<%= render partial: 'users/update_password' %>
-<br>
-<br>
-<%= link_to 'Back to Profile', profile_path %>
+<div class="user-update-form-container">
+  <div class="form-title">
+    <h1>Edit: Your Profile</h1>
+  </div>
+  <%= render partial: 'users/update_name' %>
+  <%= render partial: 'users/update_email' %>
+  <%= render partial: 'users/update_password' %>
+</div>

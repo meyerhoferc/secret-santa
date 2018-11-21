@@ -1,32 +1,55 @@
-<% if current_user %>
-  <h1><%= "Welcome, #{current_user.first_name || current_user.email}." %></h1>
-  <%= link_to 'Profile', profile_path %>
-  <%= link_to 'Sign Out', logout_path, method: :delete %>
-
-  <% if !current_user.outstanding_invitations.empty? %>
-  <h2>Invitations</h2>
-    <% current_user.outstanding_invitations.each do |invitation| %>
-      <% if invitation.accepted.nil? %>
-        <p>
-          <% user = User.find(invitation.sender_id) %>
-          <%= link_to "#{user.first_name} #{user.last_name}", user_path(invitation.sender_id) %><%= " has invited you to join the group "%><%= link_to "#{Group.find(invitation.group_id).name}!", group_path(invitation.group_id) %>
-        </p>
-        <p>
-          <%= invitation.comment %>
-        </p>
-        <p>
-          <%= link_to "Accept", accept_path(invitation.id)%> <%= link_to "Decline", decline_path(invitation.id)%>
-        </p>
+<div class="dashboard-container">
+  <% if current_user %>
+    <div class="dashboard-title">
+      <h1><%= "Welcome #{current_user.first_name || current_user.email}" %></h1>
+    </div>
+    <div class="dashboard-inv-grp">
+      <% if !current_user.outstanding_invitations.empty? %>
+      <div class="dashboard-invitations">
+        <div class="dashboard-invitations-title">
+          <h2>My Invitations</h2>
+        </div>
+        <div class="dashboard-invitations-inv">
+          <% current_user.outstanding_invitations.each do |invitation| %>
+            <% group = Group.find(invitation.group_id) %>
+            <% if invitation.accepted.nil? %>
+              <div class="dashboard-invitations-each-invite">
+                <div class="greeting">
+                  <% user = User.find(invitation.sender_id) %>
+                  <%= link_to "#{user.first_name} #{user.last_name}", user_path(invitation.sender_id) %><%= " has invited you to join the group "%><%= link_to "#{group.name}!", group_path(group.id) %>
+                </div>
+                <% if invitation.comment %>
+                  <div class="comment">
+                    <%= invitation.comment %>
+                  </div>
+                <% end %>
+                <div class="dashboard-invitations-due-date">
+                  Gifts due: <span title="Due in <%= time_ago_in_words(group.gift_due_date) %>"><%= "#{group.gift_due_date.to_formatted_s(:long_ordinal)}" %></span>
+                </div>
+                <div class="reply">
+                  <%= link_to "Accept", accept_path(invitation.id)%> <%= link_to "Decline", decline_path(invitation.id)%>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
       <% end %>
+      <div class="dashboard-groups">
+        <div class="dashboard-groups-title">
+          <h2>My Groups</h2>
+        </div>
+        <div class="dashboard-groups-create">
+          <%= link_to "Create a Group", new_group_path %>
+        </div>
+        <div class="dashboard-groups-grp">
+          <% if !current_user.groups.empty? %>
+            <%= render partial: 'users/groups', collection: current_user.groups.reorder('gift_due_date ASC') %>
+          <% else %>
+            You are not part of any groups.
+          <% end %>
+        </div>
+      </div>
     <% end %>
-  <% end %>
-  <h2>My Groups</h2>
-  <%= link_to "Create a Group", new_group_path %>
-  <br>
-  <br>
-  <% if !current_user.groups.empty? %>
-    <%= render partial: 'users/groups', collection: current_user.groups %>
-  <% else %>
-    You are not part of any groups.
-  <% end %>
-<% end %>
+  </div>
+</div>

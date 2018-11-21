@@ -1,17 +1,17 @@
-<%= form_for @user, namespace: 'name' do |f| %>
-  <div>
+<%= form_for @user, namespace: 'name', html: { class: 'form-fields-container-name' } do |f| %>
+  <div class="form-field">
     <%= f.label :first_name %>
     <%= f.text_field :first_name %>
   </div>
-  <div>
+  <div class="form-field">
     <%= f.label :last_name %>
     <%= f.text_field :last_name %>
   </div>
-  <div>
+  <div class="form-field">
     <%= f.label :current_password %>
     <%= f.password_field :current_password %>
   </div>
-  <div>
+  <div class="form-submit">
     <%= f.submit 'Update Name' %>
   </div>
 <% end %>

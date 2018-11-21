@@ -11,8 +11,8 @@ describe 'deleting' do
     create_group(group)
     click_on 'Create Group'
     visit dashboard_path
-    click_on group.name
-    click_on 'View your Wish List'
+    page.all('a', exact_text: group.name, visible:true).last.click
+    click_on 'My Wish List'
     create_item(item_one)
     click_on 'Create Item'
 

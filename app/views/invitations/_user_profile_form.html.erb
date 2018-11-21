@@ -1,13 +1,13 @@
-<%= form_for [ @user, @invitation ] do |f| %>
-  <p>
+<%= form_for [ @user, @invitation ], html: { class: 'form-fields-container' } do |f| %>
+  <div class="form-field">
     <%= f.collection_select(:group_id, @invitable_groups, :id, :name,
                              { prompt: 'Select Group' }) %>
-  </p>
-  <p>
+  </div>
+  <div class="form-field">
     <%= f.label :comment, "Message" %><br/>
     <%= f.text_field :comment %>
-  </p>
-  <p>
+  </div>
+  <div class="form-submit">
     <%= f.submit 'Submit' %>
-  </p>
+  </div>
 <% end %>

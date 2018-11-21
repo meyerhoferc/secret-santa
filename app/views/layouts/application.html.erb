@@ -10,9 +10,13 @@
   </head>
 
   <body>
-    <% flash.each do |type, message| %>
-      <%= content_tag :div, sanitize(message), class: type %>
-    <% end %>
-    <%= yield %>
+    <div id="body-holder">
+      <% flash.each do |type, message| %>
+        <%= content_tag :div, sanitize(message), class: type %>
+      <% end %>
+      <%= render 'navbar/display' %>
+      <%= yield %>
+    </div>
+      <%= render 'background/trees' %>
   </body>
 </html>

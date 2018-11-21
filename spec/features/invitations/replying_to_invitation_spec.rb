@@ -27,12 +27,12 @@ describe 'replying to an invitation' do
     expect(page).to have_content 'Invitation accepted'
     expect(page).to have_link group.name
     expect(page).to have_content group.description
-    click_on group.name
+    page.all('a', exact_text: group.name, visible:true).last.click
 
     # might change over time
-    expect(page).to have_content "#{owner.first_name} #{owner.last_name}: Profile Wish List (Group Owner)"
+    expect(page).to have_content "#{owner.first_name} #{owner.last_name}: Wish List"
     expect(page).to have_content "#{invitee.first_name} #{invitee.last_name}:"
-    expect(page).to have_link 'View your Wish List'
+    expect(page).to have_link 'My Wish List'
   end
 
   it 'by declining' do
@@ -85,7 +85,7 @@ describe 'owner sending multiple invites' do
       sign_out
 
       sign_in(owner)
-      click_on group.name
+      page.all('a', exact_text: group.name, visible:true).last.click
       fill_in 'Username or email', with: invitee.email
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
@@ -117,7 +117,7 @@ describe 'owner sending multiple invites' do
       sign_out
 
       sign_in(owner)
-      click_on group.name
+      page.all('a', exact_text: group.name, visible:true).last.click
       fill_in 'Username or email', with: invitee.email
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
@@ -151,7 +151,7 @@ describe 'owner sending multiple invites' do
       sign_out
 
       sign_in(owner)
-      click_on group.name
+      page.all('a', exact_text: group.name, visible:true).last.click
       fill_in 'email', with: invitee.email
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'
@@ -184,7 +184,7 @@ describe 'owner sending multiple invites' do
       sign_out
 
       sign_in(owner)
-      click_on group.name
+      page.all('a', exact_text: group.name, visible:true).last.click
       fill_in 'email', with: invitee.email
       fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
       click_on 'Submit'

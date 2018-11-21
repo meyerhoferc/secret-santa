@@ -1,0 +1,26 @@
+<div class="navbar-container">
+  <div class="navbar-links">
+    <% if current_user %>
+      <%= link_to 'Dashboard', dashboard_path %>
+      <%= link_to('Profile', profile_path) %>
+      <% if !current_user.groups.empty? %>
+        <label for="groups-checkbox">
+          <div class="navbar-groups">
+            <input type="checkbox" id="groups-checkbox">
+            Groups
+            <div class="navbar-dropdown">
+              <% current_user.groups.reorder('gift_due_date ASC').each do |group| %>
+                <div class="navbar-group">
+                  <%= link_to("#{group.name}", group_path(group)) %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </label>
+      <% end %>
+      <%= !current_user ? link_to('Log In', login_path) : link_to('Log Out', logout_path, method: :delete) %>
+    <% elsif !current_user && controller_name != 'welcome' %>
+      <%= link_to 'Home', root_path %>
+    <% end %>
+  </div>
+</div>

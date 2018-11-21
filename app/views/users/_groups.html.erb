@@ -1,4 +1,14 @@
-<div>
-  Group Name: <%= link_to groups.name, group_path(groups.id) %>
-  <p><%= groups.description %></p>
+<div class="dashboard-groups-each-group">
+  <div class="group-name">
+    <h3><%= link_to groups.name, group_path(groups.id) %></h3>
+  </div>
+  <div class="group-description">
+    <%= groups.description %>
+  </div>
+  <div class="group-due-date">
+    Gifts Due:
+    <div title="Due in <%= time_ago_in_words(groups.gift_due_date) %>">
+      <%= groups.gift_due_date.to_formatted_s(:long_ordinal) %>
+    </div>
+  </div>
 </div>

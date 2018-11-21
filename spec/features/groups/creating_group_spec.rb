@@ -14,7 +14,7 @@ describe 'group creation' do
 
       expect(page).to have_content group_info.name
       expect(page).to have_content group_info.description
-      expect(page).to have_content group_info.gift_due_date
+      expect(page).to have_content group_info.gift_due_date.to_formatted_s(:long_ordinal)
     end
 
     it 'blank information' do
@@ -36,7 +36,7 @@ describe 'group creation' do
       sign_in(user)
 
       expect(current_path).to eq dashboard_path
-      expect(page).to have_content 'Welcome, Raa.'
+      expect(page).to have_content "Welcome #{user.first_name}"
       click_on 'Create a Group'
 
       expect(current_path).to eq new_group_path
@@ -47,11 +47,10 @@ describe 'group creation' do
 
       expect(page).to have_content group.name
       expect(page).to have_content group.description
-      expect(page).to have_content group.gift_due_date.to_default_s
+      expect(page).to have_content group.gift_due_date.to_formatted_s(:long_ordinal)
       expect(page).to have_content 'Edit Group', 'Delete Group'
       expect(page).to have_content "#{user.first_name} #{user.last_name}:"
-      expect(page).to have_content '(Group Owner)'
-      expect(page).to have_content 'Send an invitation', 'View your Wish List'
+      expect(page).to have_content 'Send an invitation', 'My Wish List'
     end
 
     it 'not logged in' do

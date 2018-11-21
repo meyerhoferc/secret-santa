@@ -1,20 +1,34 @@
-<h1>Profile</h1>
-Name: <%= "#{@user.first_name} #{@user.last_name}" %>
-<br>
-Username: <%= @user.username %>
-<br>
-<% if authorized_user(@user) %>
-Email: <%= @user.email %>
-<br>
-<% end %>
-
-<% if !authorized_user(@user) && !@invitable_groups.empty? %>
-  <h2>Invite <%= "#{@user.first_name} #{@user.last_name}" %> to a Group</h2>
-  <%= render partial: 'invitations/user_profile_form' %>
-<% end %>
-
-<% if authorized_user(@user) %>
-  <%= link_to 'Update Your Information', edit_user_path(@user.id) %>
-<% end %>
-<br>
-<%= link_to 'Back to Dashboard', dashboard_path %>
+<div class="users-container">
+  <div class="users-title">
+    <h1><%= "#{@user.first_name} #{@user.last_name}'s Profile" %></h1>
+  </div>
+  <div class="users-data">
+    <div class="users-information">
+      <p>
+        Name: <%= "#{@user.first_name} #{@user.last_name}" %>
+      </p>
+      <p>
+        Username: <%= @user.username %>
+      </p>
+      <% if authorized_user(@user) %>
+        <p>
+          Email: <%= @user.email %>
+        </p>
+      <% end %>
+      <p>
+        <span title="Member for: <%= time_ago_in_words(@user.created_at) %>">Joined on: <%= @user.created_at.strftime('%B %-d, %Y') %></span>
+      </p>
+    </div>
+    <% if !authorized_user(@user) && !@invitable_groups.empty? %>
+      <div class="users-group-invitation">
+        <h3>Invite <%= "#{@user.first_name} #{@user.last_name}" %> to a Group</h3>
+        <%= render partial: 'invitations/user_profile_form' %>
+      </div>
+    <% end %>
+    <div class="users-update">
+      <% if authorized_user(@user) %>
+        <%= link_to 'Edit your information', edit_user_path(@user.id) %>
+      <% end %>
+    </div>
+  </div>
+</div>

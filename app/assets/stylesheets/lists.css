@@ -1,0 +1,49 @@
+.lists-container {
+  grid-template-columns: 436px auto;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+  "title title"
+  "items links"
+  "items item-creation";
+}
+
+.lists-title {
+  grid-area: title;
+  justify-self: center;
+}
+
+.lists-links {
+  grid-area: links;
+  max-width: 405px;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+}
+
+.lists-item-creation {
+  grid-area: item-creation;
+  display: flex;
+  flex-direction: column;
+}
+
+.lists-items {
+  grid-area: items;
+}
+
+.lists-links a {
+  display: block;
+}
+
+.lists-links a:first-child {
+  margin-bottom: 15px;
+}
+
+.lists-item {
+  margin-bottom: 10px;
+  overflow-wrap: break-word;
+  max-width: inherit;
+}
+
+.lists-item-creation h2,
+.lists-items h2 {
+  margin-bottom: 15px;
+}

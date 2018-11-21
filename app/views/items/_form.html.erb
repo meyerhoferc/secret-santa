@@ -1,21 +1,21 @@
-<%= form_for [@group, @list, @item] do |f| %>
-  <div>
+<%= form_for [@group, @list, @item], html: { class: 'form-fields-container' } do |f| %>
+  <div class="form-field">
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
-  <div>
+  <div class="form-field">
     <%= f.label :description %>
     <%= f.text_area :description %>
   </div>
-  <div>
+  <div class="form-field">
     <%= f.label :size %>
     <%= f.text_field :size %>
   </div>
-  <div>
+  <div class="form-field">
     <%= f.label :note %>
     <%= f.text_area :note %>
   </div>
-  <div>
+  <div class="form-submit">
     <%= f.submit %>
   </div>
 <% end %>

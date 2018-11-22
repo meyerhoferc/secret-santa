@@ -29,7 +29,7 @@ describe Invitation do
       expect(assc.macro).to eq :belongs_to
     end
 
-    it 'belongs to receiver' do
+    it 'belongs to sender' do
       assc = Invitation.reflect_on_association(:sender)
       expect(assc.macro).to eq :belongs_to
     end
@@ -39,4 +39,11 @@ describe Invitation do
       expect(assc.macro).to eq :belongs_to
     end
   end
+end
+
+describe Invitation, type: :model do
+  it { should belong_to(:sender).with_foreign_key(:sender_id).class_name('User') }
+  it { should belong_to(:receiver).with_foreign_key(:receiver_id).class_name('User') }
+  it { should belong_to(:group) }
+  it { should validate_presence_of(:comment) }
 end

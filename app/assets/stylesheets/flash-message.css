@@ -16,9 +16,9 @@
 }
 
 .notice {
-  border: 3px solid #00ff00;
+  border: 3px solid var(--notice);
 }
 
 .warning {
-  border: 3px solid red;
+  border: 3px solid var(--warning);
 }

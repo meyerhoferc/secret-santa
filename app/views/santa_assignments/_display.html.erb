@@ -1,0 +1,17 @@
+<div class="groups-santa-assign">
+  <%= render partial: 'santa_assignments/assign' %>
+</div>
+<% if @group.users.count > 3 %>
+  <div class="groups-santa-manage-exclusion-teams">
+    <h3>Add Exclusion Teams</h3>
+    <%= render partial: 'exclusion_teams/add_exclusion_team' %>
+    <% if !@exclusion_teams.empty? %>
+      <h3>Add User to Exclusion Team</h3>
+      <%= render partial: 'exclusion_teams/add_user' %>
+    </div>
+    <div class="groups-santa-exclusion-teams">
+      <h3>Exclusion Teams</h3>
+      <%= render partial: 'exclusion_teams/show_teams' %>
+    <% end %>
+  </div>
+<% end %>

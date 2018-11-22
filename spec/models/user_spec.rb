@@ -98,13 +98,18 @@ describe User do
       expect(assc.macro).to eq :has_many
     end
 
+    it 'has many invitations' do
+      assc = User.reflect_on_association(:invitations)
+      expect(assc.macro).to eq :has_many
+    end
+
     it 'has many received invitations' do
-      assc = User.reflect_on_association(:received)
+      assc = User.reflect_on_association(:invitations_received)
       expect(assc.macro).to eq :has_many
     end
 
     it 'has many sent invitations' do
-      assc = User.reflect_on_association(:sent)
+      assc = User.reflect_on_association(:invitations_sent)
       expect(assc.macro).to eq :has_many
     end
 
@@ -112,5 +117,61 @@ describe User do
       assc = User.reflect_on_association(:user_groups)
       expect(assc.macro).to eq :has_many
     end
+
+    it 'has many user_exclusion_teams' do
+      assc = User.reflect_on_association(:user_exclusion_teams)
+      expect(assc.macro).to eq :has_many
+    end
+
+    it 'has many exclusion_teams' do
+      assc = User.reflect_on_association(:exclusion_teams)
+      expect(assc.macro).to eq :has_many
+    end
+
+    it 'has many secret_santa' do
+      assc = User.reflect_on_association(:secret_santa)
+      expect(assc.macro).to eq :has_many
+    end
+
+    it 'has many secret_recipient' do
+      assc = User.reflect_on_association(:santa_recipient)
+      expect(assc.macro).to eq :has_many
+    end
   end
+end
+
+# shoulda matchers
+
+describe User, type: :model do
+  it { should have_secure_password }
+  it { should validate_presence_of(:first_name) }
+  it { should validate_presence_of(:last_name) }
+  it { should validate_presence_of(:username) }
+  it { should validate_presence_of(:email).on(:update) }
+  it { should validate_uniqueness_of(:username) }
+
+  describe 'email update' do
+    subject { User.create(first_name: 'Larry', last_name: 'Lar', username: 'llar', password: 'pioqrey89s9ahf', password_confirmation: 'pioqrey89s9ahf') }
+    it { should validate_uniqueness_of(:email).case_insensitive.on(:update) }
+  end
+  it { should allow_value('Charles').for(:first_name) }
+  it { should allow_value('McGaffin').for(:last_name) }
+  it { should allow_value('M\'cG-aff\'in').for(:first_name) }
+  it { should_not allow_value('M#cGaf&&)]in').for(:first_name) }
+  it { should_not allow_value('M#cGaf&&)]in').for(:last_name) }
+  it { should_not allow_value('Charle$').for(:first_name) }
+  it { should_not allow_value('Mc&aff1n').for(:last_name) }
+
+  it { should_not allow_value('Charles@MCGAFFINemail.mmmmm').for(:username) }
+  it { should allow_value('Charles_________________MCGAFFINemail121901234870901401423mmmmm').for(:username) }
+
+  it { should allow_value('Charles@MCGAFFINemail.mmmmm').for(:email) }
+  it { should allow_value('').for(:email) }
+  it { should_not allow_value('').for(:email).on(:update) }
+  it { should allow_value('test@test.test').for(:email) }
+  it { should_not allow_value('Char^^%%%##@@kno.l``````````es').for(:email) }
+
+  it { should_not allow_value('').for(:password) }
+  it { should_not allow_value('qwerty').for(:password) }
+  it { should_not allow_value('password').for(:password) }
 end

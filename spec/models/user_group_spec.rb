@@ -22,3 +22,9 @@ describe UserGroup do
     end
   end
 end
+
+describe UserGroup, type: :model do
+  it { should belong_to(:user) }
+  it { should belong_to(:group) }
+  it { should validate_uniqueness_of(:user_id).scoped_to(:group_id).with_message('already belongs to this group.') }
+end

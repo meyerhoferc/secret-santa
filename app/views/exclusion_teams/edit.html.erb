@@ -1,0 +1,14 @@
+<div class="form-container">
+  <div class="form-title">
+    <h1>Edit: <%= "#{@exclusion_team.name}" %></h1>
+  </div>
+  <%= form_for @exclusion_team, url: group_exclusion_team_path(@group), html: { class: 'form-fields-container' } do |f| %>
+  <div class="form-field">
+    <%= f.label :name, required_label_maker('Name') %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="form-submit">
+    <%= submit_tag 'Update Exclusion Team' %>
+  </div>
+<% end %>
+</div>

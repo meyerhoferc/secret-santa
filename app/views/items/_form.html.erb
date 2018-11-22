@@ -1,10 +1,10 @@
 <%= form_for [@group, @list, @item], html: { class: 'form-fields-container' } do |f| %>
   <div class="form-field">
-    <%= f.label :name %>
+    <%= f.label :name, required_label_maker('Name') %>
     <%= f.text_field :name %>
   </div>
   <div class="form-field">
-    <%= f.label :description %>
+    <%= f.label :description, required_label_maker('Description') %>
     <%= f.text_area :description %>
   </div>
   <div class="form-field">

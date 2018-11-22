@@ -25,6 +25,13 @@ class GroupsController < ApplicationController
     @user_wish_list = @group.user_wish_list(current_user)
     if authorized_user(@group.owner)
       @invitation = Invitation.new
+      @exclusion_team = ExclusionTeam.new
+      @exclusion_teams = @group.exclusion_teams.reorder('name ASC')
+      @user_exclusion_team = UserExclusionTeam.new
+      @santa_assignment = SantaAssignment.new
+    end
+    if @group.santas_assigned
+      @santa = User.find(current_user.secret_santa.find_by(group_id: @group.id).receiver_id)
     end
   end
 
@@ -55,6 +62,13 @@ class GroupsController < ApplicationController
     if !invitations.empty?
       invitations.each do |invitation|
         invitation.destroy
+      end
+    end
+
+    santa_assignments = SantaAssignment.where(group_id: @group.id)
+    if !santa_assignments.empty?
+      santa_assignments.each do |assignment|
+        assignment.destroy
       end
     end
 

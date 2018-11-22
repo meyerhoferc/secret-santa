@@ -6,28 +6,49 @@
     <%= @group.description %>
   </div>
   <div class="groups-info">
+    <div class="secret-santa-info">
+      <% if @group.santas_assigned %>
+        <%= render partial: 'santa_assignments/secret_santa' %>
+      <% end %>
+    </div>
     <div title="Due in <%= time_ago_in_words(@group.gift_due_date) %>">
-      <h3>Gifts Due: <%= @group.gift_due_date.to_formatted_s(:long_ordinal) %></h3>
+      <h3>Gifts Due <%= @group.gift_due_date.to_formatted_s(:long_ordinal) %></h3>
     </div>
     <% if @user_wish_list %>
-      <h3><%= link_to 'My Wish List', group_list_path(@group, @user_wish_list.id) %></h3>
+      <div class="groups-wishlist-link">
+        <%= link_to 'My Wish List', group_list_path(@group, @user_wish_list.id) %>
+      </div>
     <% end %>
   </div>
   <% if authorized_user(@group.owner) %>
     <div class="groups-owner">
       <h2>Manage Group</h2>
-      <span class="edit-group"><%= link_to 'Edit Group', edit_group_path %></span>
-      <span class="delete-group"><%= link_to 'Delete Group', group_path, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' } %></span>
-      <h3>Send an invitation</h3>
-      <%= render partial: 'invitations/group_form' %>
+      <span class="edit-group"><%= link_to 'Edit', edit_group_path %></span>
+      <span class="delete-group"><%= link_to 'Delete', group_path, method: :delete, data: { confirm: "Are you sure you want to delete the group?\nThis cannot be undone." } %></span>
+      <% if !@group.santas_assigned %>
+        <h3>Send an invitation</h3>
+        <%= render partial: 'invitations/group_form' %>
+      <% end %>
     </div>
+    <% if !@group.santas_assigned %>
+      <div class="groups-santa-assignments">
+        <div class="groups-santa-assignments-title">
+          <h2>Manage Santa Assignments</h2>
+        </div>
+        <%= render partial: 'santa_assignments/display' %>
+      </div>
+    <% end %>
   <% end %>
   <div class="groups-users">
     <h2>Group Users</h2>
     <div class="group-users-flex-container">
       <% @group.users.each do |user| %>
         <div class="user">
-          <%= link_to "#{user.first_name} #{user.last_name}:", user_path(user.id) %>
+          <% if @group.owner != user %>
+            <%= link_to "#{user.full_name}:", user_path(user.id) %>
+          <% else %>
+            <%= link_to "#{user.full_name}:", user_path(user.id), html_options = { title: "Group Owner" } %>
+          <% end %>
           <%= link_to "Wish List", group_list_path(@group.id, @group.user_wish_list(user).id) %>
         </div>
       <% end %>

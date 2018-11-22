@@ -33,3 +33,9 @@ describe Item do
     end
   end
 end
+
+describe Item, type: :model do
+  it { should belong_to(:list) }
+  it { should validate_presence_of(:name) }
+  it { should validate_presence_of(:description) }
+end

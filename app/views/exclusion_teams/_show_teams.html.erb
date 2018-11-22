@@ -1,0 +1,24 @@
+<% @exclusion_teams.each do |team| %>
+<div class="groups-santa-exclusion-team">
+  <div class="groups-santa-exclusion-team-title">
+    <h4><%= "#{team.name}" %></h4>
+  </div>
+  <div class="groups-santa-exclusion-team-modify">
+      <%= link_to 'Edit', edit_group_exclusion_team_path(@group, team.id) %>
+      <%= link_to 'Delete',
+            group_exclusion_team_path(@group, team.id),
+            method: :delete,
+            data: { confirm: "Are you sure you want to delete the team #{team.name}?" } %>
+  </div>
+    <% team.users.each do |user| %>
+      <div class="groups-santa-exclusion-team-users">
+        <%= "#{user.full_name}" %>
+        <span class="groups-santa-exclusion-team-users-remove">
+          <%= link_to 'Remove',
+                group_exclusion_team_user_exclusion_team_path(@group, team.id, user.id),
+                method: :delete %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+<% end %>

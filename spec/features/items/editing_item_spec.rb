@@ -77,7 +77,7 @@ describe 'editing an item' do
     let(:item) { Item.create!(name: 'Wallet', description: 'So pretty', size: 'XL', note: 'I would like many of these.', list_id: list.id) }
     it 'another user' do
       sign_in(user_two)
-      visit "/groups/#{group.id}/lists/#{list.id}/items/#{item.id}/edit"
+      visit "/groups/#{group.id}/wishlists/#{list.id}/items/#{item.id}/edit"
       expect(page).to have_content "Action is unauthorized."
     end
   end

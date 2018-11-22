@@ -3,13 +3,36 @@
     <h1><%= "#{@user.first_name} #{@user.last_name}'s Wish List" %></h1>
   </div>
   <div class="lists-links">
-    <%= link_to "#{@user.first_name} #{@user.last_name}'s profile", user_path(@user) %>
     <%= link_to "#{@group.name}", group_path(@group.id) %>
+    <%= link_to "#{@user.first_name} #{@user.last_name}'s profile", user_path(@user) %>
   </div>
+  <% santa = User.find(@user.santa_recipient.find_by(group_id: @group.id).santa_id) if @group.santas_assigned %>
+  <% if @group.santas_assigned && authorized_user(santa) %>
+    <div class="lists-private-santa-message">
+      <h2><%= "Private Message to #{santa.full_name}"%></h2>
+      <%= @list.santa_message %>
+    </div>
+  <% end %>
   <% if authorized_user(@user) %>
     <div class="lists-item-creation">
-      <h2>Add item to wish list</h2>
+      <h2>Add Item to Wish List</h2>
       <%= render partial: 'items/form' %>
+    </div>
+    <div class="lists-santa-message">
+      <% if @list.santa_message.nil? %>
+        <h2>Add a Private Message for Your Secret Santa</h2>
+        <div class="lists-santa-message-modify">
+          <%= link_to 'Add a message', controller: "lists", action: "new", id: @list %>
+        </div>
+      <% else %>
+        <h2>Private Message for Your Secret Santa</h2>
+        <div class="lists-santa-message-modify">
+          <span><%= link_to 'Edit', edit_group_list_path(@group, @list) %></span> <span><%= link_to 'Delete', group_list_path(@group, @list), method: :delete %></span>
+        </div>
+        <div class="lists-entered-santa-message">
+          <%= "#{@list.santa_message}" %>
+        </div>
+      <% end %>
     </div>
   <% end %>
   <div class="lists-items">

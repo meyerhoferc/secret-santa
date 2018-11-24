@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: secret-santa_production
-  username: secret-santa
-  password: <%= ENV['SECRET-SANTA_DATABASE_PASSWORD'] %>
+  username: <%= ENV['SECRET_SANTA_DATABASE_USER'] %>
+  password: <%= ENV['SECRET_SANTA_DATABASE_PASSWORD'] %>

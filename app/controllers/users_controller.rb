@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     @user.username.downcase!
     if @user.save
       flash[:notice] = "Account successfully created."
+      NotifierMailer.welcome(@user).deliver_now
       redirect_to login_path
     else
       flash[:warning] = full_sentence_errors(@user)

@@ -74,10 +74,6 @@
   width: 300px;
 }
 
-#group_gift_due_date {
-  width: auto;
-}
-
 .groups-users {
   grid-area: users;
   box-sizing: border-box;

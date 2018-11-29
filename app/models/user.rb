@@ -22,7 +22,7 @@ class User < ApplicationRecord
   validates_format_of :username, with: /\A\w{1,}\z/i, message: 'must contain only letters, numbers or underscores'
   validates_uniqueness_of :email, allow_blank: true, case_sensitive: false
   has_secure_password
-  validates :password, password_strength: { use_dictionary: true, min_entropy: 20 }, if: :should_validate_password?
+  validates :password, password_strength: { use_dictionary: true, min_entropy: 15 }, if: :should_validate_password?
 
   def full_name
     "#{first_name} #{last_name}"

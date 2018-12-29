@@ -26,13 +26,19 @@
   flex-direction: column;
 }
 
+.lists-private-santa-message,
+.lists-santa-message {
+  max-width: 405px;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+}
+
 .lists-private-santa-message h2 {
   margin-bottom: 15px;
 }
 
 .lists-santa-message {
   grid-area: santa-message;
-  max-width: 405px;
 }
 
 .lists-santa-message h2 {

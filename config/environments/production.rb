@@ -1,7 +1,11 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-  config.force_ssl = true
   
+  # React production mode
+  config.react.variant = :production
+
+  config.force_ssl = true
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 

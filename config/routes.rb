@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/react' => 'react#index'
 
   namespace :api, defaults: { format: 'json' } do
+    post 'authenticate' => 'auth#authenticate'
    namespace :v1 do
      get '/dashboard' => 'dashboard#show', as: 'dashboard'
 

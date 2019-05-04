@@ -5,6 +5,7 @@ ruby '2.4.0'
 
 gem 'webpacker', '~> 4.x'
 gem 'react-rails'
+gem 'jwt'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'

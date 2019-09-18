@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
+  default from: "#{ENV["SMTP_USER_NAME"]}@kcmr.io"
   layout 'mailer'
 end

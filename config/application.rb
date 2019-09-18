@@ -31,5 +31,6 @@ module SecretSanta
     config.generators.system_tests = nil
 
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    config.action_mailer.default_url_options = { protocol: 'https', subdomain: 'secret-santa', host: 'kcmr.io' }
   end
 end

@@ -1,7 +1,7 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   config.force_ssl = true
-  
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -65,6 +65,14 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "secret-santa_#{Rails.env}"
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.smtp_settings = {
+    address: 'mail.kcmr.io',
+    domain: 'kcmr.io',
+    user_name: ENV["SMTP_USER_NAME"],
+    password: ENV["SMTP_PASSWORD"],
+    authentication: :login,
+    ssl: true
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

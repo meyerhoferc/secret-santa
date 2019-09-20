@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "#{ENV["SMTP_USER_NAME"]}@kcmr.io"
+  default from: "#{Rails.application.credentials.smtp_user}@kcmr.io"
   layout 'mailer'
 end

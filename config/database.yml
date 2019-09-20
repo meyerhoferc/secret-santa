@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: secret-santa_production
-  username: <%= ENV['SECRET_SANTA_DATABASE_USER'] %>
-  password: <%= ENV['SECRET_SANTA_DATABASE_PASSWORD'] %>
+  username: <%= Rails.application.credentials.SECRET_SANTA_DATABASE_USER %>
+  password: <%= Rails.application.credentials.SECRET_SANTA_DATABASE_PASSWORD %>

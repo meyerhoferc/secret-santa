@@ -68,6 +68,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: 'mail.kcmr.io',
     domain: 'kcmr.io',
+    port: 587,
     user_name: Rails.application.credentials.smtp_user,
     password: Rails.application.credentials.smtp_pass,
     authentication: :login,

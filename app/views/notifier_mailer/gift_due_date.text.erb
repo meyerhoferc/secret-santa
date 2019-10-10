@@ -1,3 +1,5 @@
-On <%= @group.gift_due_date.strftime("%B %d, %Y") %> (<%= (@group.gift_due_date - Date.current) %> days from now) your gifts are due for your secret santa group, <%= @group.name %>.
+In <%= @days %> days, your Secret Santa gift is due.
 
-If you haven't checked your Secret Santa's wish list yet, here's a link INSERT LINK HERE.
+On <%= @group.gift_due_date.strftime("%B %d, %Y") %>, your gift is due for your secret santa group, "<%= @group.name %>".
+
+Visit your group's page here to learn more: <%= url_for(@group) %>

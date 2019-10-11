@@ -25,6 +25,9 @@ task :group_reminder_email => :environment do
       end
     end
   rescue StandardError => e
-    RescueMailer.rake_task_rescue('group_reminder_email', e).deliver_later
+    # ActiveActiveJob::SerializationError:
+    # Unsupported argument type: StandardError
+    # The error object needs to be broken up before the email is processed
+    RescueMailer.rake_task_rescue('group_reminder_email', e.message, e.backtrace).deliver_later
   end
 end

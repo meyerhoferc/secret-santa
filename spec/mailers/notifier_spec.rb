@@ -13,7 +13,6 @@ RSpec.describe NotifierMailer, type: :mailer do
       it { expect(mailer.subject).to eq 'Welcome to Secret Santa' }
       it { expect(mailer.to).to include user.email }
       it {expect(mailer.body.encoded).to match(user.full_name) }
-
     end
 
     it 'email enqueue' do
@@ -41,7 +40,7 @@ RSpec.describe NotifierMailer, type: :mailer do
       it { expect(mailer_two.subject)
           .to eq "In #{days} days your Secret Santa gift is due" }
       it { expect(mailer_two.to).to include user.email }
-      # it { expect(mailer_two.from).to include "#{Rails.application.credentials.smtp_user}" }
+
       describe 'in email body' do
         it 'has group name' do
           expect(mailer_two.body.encoded).to match(group.name)

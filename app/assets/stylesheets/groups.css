@@ -133,6 +133,7 @@
 }
 
 .groups-santa-exclusion-team {
+  border: 2px solid #a3a19f;
   border: 2px solid var(--border);
   border-radius: 3px;
   margin: 10px 0;

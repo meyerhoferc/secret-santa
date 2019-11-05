@@ -82,7 +82,9 @@
 .form-field input,
 .form-field select {
   font-size: 1.2rem;
+  color: #030406;
   color: var(--form-input);
+  background-color: #cbd5d2;
   background-color: var(--form-input-background);
   height: 40px;
   border: none;
@@ -95,6 +97,7 @@
 .form-field textarea,
 .form-field input {
   width: 330px;
+  caret-color: #030406;
   caret-color: var(--form-input);
 }
 
@@ -108,8 +111,11 @@
   -moz-appearance: none;
   appearance: none;
   font-size: 1.2rem;
+  color: #e9ebf2;
   color: var(--text);
+  background-color: #2da7c7;
   background-color: var(--button-background);
+  border: 4px solid #2da7c7;
   border: 4px solid var(--button-background);
   padding: 10px;
   border-radius: 3px;
@@ -117,11 +123,14 @@
 }
 
 .form-submit input:hover {
+  background-color: #037f8c;
   background-color: var(--button-background-hover);
 }
 
 .form-submit input:disabled {
+  background-color: #a3a19f;
   background-color: var(--border);
+  border: 4px solid #a3a19f;
   border: 4px solid var(--border);
   cursor: not-allowed;
 }

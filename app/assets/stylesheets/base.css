@@ -24,8 +24,10 @@ html {
 }
 
 body {
+  background: linear-gradient(to top, #9cb6d9 15%, #a7e4f2) fixed;
   background: linear-gradient(to top, var(--background-primary) 15%, var(--background-secondary)) fixed;
   background-repeat: no-repeat;
+  color: #e9ebf2;
   color: var(--text);
   font-family: 'cabin-regular', sans-serif;
 }
@@ -68,16 +70,28 @@ a,
 }
 
 a {
+  color: #bdf2ed;
   color: var(--link);
   border-radius: 3px;
 }
 
 a:hover {
+  color: #e9ebf2;
   color: var(--text);
 }
 
 .required {
+  color: #f50;
   color: var(--warning);
-  cursor: help;
   font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.small {
+  font-size: 0.8rem;
+}
+
+.help-text {
+  color: #cbd5d2;
+  color: var(--form-input-background);
 }

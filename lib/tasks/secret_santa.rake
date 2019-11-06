@@ -11,7 +11,7 @@ task :group_reminder_email => :environment do
     if one_week_groups.present?
       one_week_groups.find_each do |group|
         group.users.find_each do |user|
-          next if user.email.blank?
+          next if user.email.blank? || user.disable_email?
           NotifierMailer.with(user: user, group: group).gift_due_date(7).deliver_later
         end
       end
@@ -19,7 +19,7 @@ task :group_reminder_email => :environment do
     if two_weeks_groups.present?
       two_weeks_groups.find_each do |group|
         group.users.find_each do |user|
-          next if user.email.blank?
+          next if user.email.blank? || user.disable_email?
           NotifierMailer.with(user: user, group: group).gift_due_date(14).deliver_later
         end
       end

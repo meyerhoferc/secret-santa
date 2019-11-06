@@ -60,6 +60,24 @@
         font-size: 1.25rem;
       }
 
+      .footer {
+        font-size: .8rem;
+        margin-top: 1rem;
+      }
+
+      .button {
+        text-decoration: none;
+        background-color: #2da7c7;
+        border: 4px solid #2da7c7;
+        padding: 10px;
+        border-radius: 3px;
+        display: inline-block;
+      }
+
+      .button:hover {
+        background-color: #037f8c;
+      }
+
       .tree {
         height: 250px;
         width: 150px;
@@ -156,7 +174,11 @@
 
   <body>
     <div id="body-holder">
-      <%= yield %>
+      <div class="container">
+        <%= yield %>
+
+        <%= render 'mailer_footer' %>
+      </div>
     </div>
 
     <%= File.read("#{Rails.root}/app/assets/images/trees.svg").html_safe if File.exists?("#{Rails.root}/app/assets/images/trees.svg") %>

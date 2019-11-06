@@ -27,6 +27,7 @@
 }
 
 /* Sections within grid */
+.nested-container,
 .dashboard-invitations-each-invite,
 .dashboard-groups-each-group,
 .groups-description,

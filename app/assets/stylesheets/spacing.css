@@ -1,3 +1,7 @@
+.mt0_5 {
+  margin-top: 0.5rem;
+}
+
 .mt1 {
   margin-top: 1rem;
 }
@@ -8,6 +12,10 @@
 
 .mt3 {
   margin-top: 3rem;
+}
+
+.mb0_5 {
+  margin-bottom: 0.5rem;
 }
 
 .mb1 {
@@ -22,6 +30,10 @@
   margin-bottom: 3rem;
 }
 
+.pt0_5 {
+  padding-top: 0.5rem;
+}
+
 .pt1 {
   padding-top: 1rem;
 }
@@ -32,6 +44,10 @@
 
 .pt3 {
   padding-top: 3rem;
+}
+
+.pb0_5 {
+  padding-bottom: 0.5rem;
 }
 
 .pb1 {

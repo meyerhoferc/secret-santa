@@ -1,4 +1,4 @@
-<div class="form-container">
+<div class="form-container mb2">
   <div class="form-title">
     <h1>Sign Up</h1>
   </div>
@@ -19,11 +19,14 @@
       <%= f.label :email %>
       <%= f.email_field :email %>
     </div>
-    <div class="form-field">
+    <div class="form-field mb0_5">
       <%= f.label :password, required_label_maker('Password') %>
       <%= f.password_field :password %>
+      <div class="small help-text">
+        Password must be at least 12 characters long
+      </div>
     </div>
-    <div class="form-field">
+    <div class="form-field mb1">
       <%= f.label :password_confirmation, required_label_maker('Password confirmation') %>
       <%= f.password_field :password_confirmation %>
     </div>

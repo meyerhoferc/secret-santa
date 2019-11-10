@@ -12,6 +12,7 @@ describe 'user signup' do
       fill_in('user[username]', with: user[:username])
       fill_in('user[email]', with: user[:email])
       fill_in('user[password]', with: user[:password])
+      expect(page).to have_text 'Password must be at least 12 characters long'      
       fill_in('user[password_confirmation]', with: user[:password])
       expect(page).to have_link 'Home'
       click_on 'Create User'
@@ -19,6 +20,7 @@ describe 'user signup' do
       expect(current_path).to eq login_path
       fill_in('Username or email', with: user[:email])
       fill_in('Password', with: user[:password])
+      expect(page).to have_link 'Sign up here'
       click_on 'Log In'
 
       expect(current_path).to eq dashboard_path

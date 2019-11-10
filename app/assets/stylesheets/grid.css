@@ -14,8 +14,10 @@
   max-width: 850px;
   min-height: 400px;
   margin: 50px auto 0 auto;
+  background: linear-gradient(to top, #1f5aa6 25%, #3b74bf);
   background: linear-gradient(to top, var(--background-text-primary) 25%, var(--background-text-secondary));
   background-repeat: no-repeat;
+  border: 6px solid #a3a19f;
   border: 6px solid var(--border);
   border-radius: 3px;
 }
@@ -43,7 +45,9 @@
 .items-data,
 .items-modify,
 .items-profile-link {
+  border: 2px solid #a3a19f;
   border: 2px solid var(--border);
+  background-color: #3b74bf;
   background-color: var(--background-text-secondary);
   border-radius: 3px;
   padding: 10px;

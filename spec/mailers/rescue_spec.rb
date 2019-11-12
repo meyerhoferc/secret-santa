@@ -10,8 +10,6 @@ RSpec.describe RescueMailer, type: :mailer do
 
     describe 'email contents' do
       it { expect(mailer.subject).to eq "#{task} has encountered an exception" }
-      it { expect(mailer.to).to include "#{Rails.application.credentials.admin_email}" }
-      it { expect(mailer.from).to include "#{Rails.application.credentials.smtp_user}" }
       it { expect(mailer.body.encoded).to match(task) }
 
       it 'displays error backtrace' do

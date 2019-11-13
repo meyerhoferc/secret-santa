@@ -8,8 +8,15 @@
     <%= f.text_area :description %>
   </div>
   <div class="form-field">
-    <%= f.label 'group', required_label_maker('Gift Due Date') %>
+    <%= f.label 'group', required_label_maker('Gift due date') %>
     <%= date_field 'group', 'gift_due_date', min: (action_name == 'new' ? Date.today : @group.created_at) %>
+  </div>
+  <div class="form-field">
+    <%= f.label :dollar_limit, 'Gift dollar limit' %>
+    <%= f.number_field :dollar_limit, min: 0.00, step: 0.01 %>
+    <div class="small help-text">
+      Set the price expectation for others
+    </div>
   </div>
   <div class="form-submit">
     <%= f.submit %>

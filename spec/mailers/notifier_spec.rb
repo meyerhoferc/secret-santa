@@ -38,12 +38,12 @@ RSpec.describe NotifierMailer, type: :mailer do
 
     describe 'email contents' do
       it { expect(mailer_two.subject)
-          .to eq "In #{days} days your Secret Santa gift is due" }
+          .to eq "You have #{days} days until your Secret Santa gift exchange" }
       it { expect(mailer_two.to).to include user.email }
 
       describe 'in email body' do
-        it 'has group name' do
-          expect(mailer_two.body.encoded).to match(group.name)
+        it 'has group date, formatted' do
+          expect(mailer_two.body.encoded).to match(group.gift_due_date.strftime("%B %-d, %Y"))
         end
         it 'has user first name' do
           expect(mailer_two.body.encoded).to match(user.first_name)

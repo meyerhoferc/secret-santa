@@ -6,7 +6,9 @@ class Group < ApplicationRecord
   has_many :exclusion_teams
   has_many :santa_assignments
   belongs_to :owner, foreign_key: :owner_id, class_name: 'User'
+
   validates_uniqueness_of :name, message: 'is already in use.'
+  validates_numericality_of :dollar_limit, greater_than_or_equal_to: 0.01, allow_nil: true
   validates :name, presence: true
   validates :description, presence: true
   validates :owner_id, presence: true

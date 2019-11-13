@@ -91,7 +91,7 @@ class GroupsController < ApplicationController
   end
 
   def group_params
-    params.require(:group).permit(:name, :description, :owner_id, :gift_due_date)
+    params.require(:group).permit(:name, :description, :owner_id, :gift_due_date, :dollar_limit)
   end
 
   def belonging_user(user_list)

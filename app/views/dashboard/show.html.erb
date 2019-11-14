@@ -1,3 +1,4 @@
+<% provide(:title, 'Dashboard') %>
 <div class="dashboard-container">
   <% if current_user %>
     <div class="dashboard-title">
@@ -16,7 +17,7 @@
               <div class="dashboard-invitations-each-invite">
                 <div class="greeting">
                   <% user = User.find(invitation.sender_id) %>
-                  <%= link_to "#{user.first_name} #{user.last_name}", user_path(invitation.sender_id) %><%= " has invited you to join the group "%><%= link_to "#{group.name}!", group_path(group.id) %>
+                  <%= link_to "#{user.full_name}", user_path(invitation.sender_id) %><%= " has invited you to join the group "%><%= link_to "#{group.name}!", group_path(group.id) %>
                 </div>
                 <% if invitation.comment %>
                   <div class="comment">

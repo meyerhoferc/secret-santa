@@ -101,7 +101,7 @@ describe 'creating an invitation' do
             sign_out
 
             sign_in(invitee)
-            expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}"
+            expect(page).to have_content "#{owner.full_name} has invited you to join the group #{group.name}"
             sign_out
 
             sign_in(owner)
@@ -128,7 +128,7 @@ describe 'creating an invitation' do
             sign_out
 
             sign_in(invitee)
-            expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}"
+            expect(page).to have_content "#{owner.full_name} has invited you to join the group #{group.name}"
             click_on 'Accept'
             sign_out
 
@@ -155,7 +155,7 @@ describe 'creating an invitation' do
             sign_out
 
             sign_in(invitee)
-            expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}"
+            expect(page).to have_content "#{owner.full_name} has invited you to join the group #{group.name}"
             click_on 'Decline'
             sign_out
 
@@ -174,7 +174,7 @@ describe 'creating an invitation' do
       click_on 'Create Group'
 
       visit user_path(owner.id)
-      expect(page).to have_no_content "Invite #{owner.first_name} #{owner.last_name} to a Group", 'Submit'
+      expect(page).to have_no_content "Invite #{owner.full_name} to a Group", 'Submit'
     end
 
     context 'with email' do
@@ -201,7 +201,7 @@ describe 'creating an invitation' do
         fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
         click_on 'Submit'
 
-        expect(page).to have_content "#{owner.first_name} #{owner.last_name}:"
+        expect(page).to have_content "#{owner.full_name}:"
         expect(page).to have_content "Sender cannot send yourself an invitation"
       end
     end
@@ -230,7 +230,7 @@ describe 'creating an invitation' do
         fill_in 'invitation[comment]', with: 'Would you like to join our great group?'
         click_on 'Submit'
 
-        expect(page).to have_content "#{owner.first_name} #{owner.last_name}:"
+        expect(page).to have_content "#{owner.full_name}:"
         expect(page).to have_content "Sender cannot send yourself an invitation"
       end
 
@@ -282,7 +282,7 @@ describe 'creating an invitation' do
       sign_in(invitee)
 
       visit user_path(owner.id)
-      expect(page).to have_no_content "Invite #{owner.first_name} #{owner.last_name} to a Group", 'Submit'
+      expect(page).to have_no_content "Invite #{owner.full_name} to a Group", 'Submit'
     end
 
     context 'from group page' do

@@ -16,7 +16,7 @@
     </div>
     <% if @group.dollar_limit.present? %>
       <div class="mb0_5">
-        <h4>Gift dollar limit: $<%= @group.dollar_limit %></h4>
+        <h4>Gift dollar limit: <%= display_money(@group.dollar_limit) %></h4>
       </div>
     <% end %>
     <% if @user_wish_list %>

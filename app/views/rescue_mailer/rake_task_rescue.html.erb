@@ -1,0 +1,22 @@
+<div class="container">
+  <h1>
+    <%= @task %> has encountered an exception.
+  </h1>
+
+  <div class="text">
+    <p>
+      The exception, <%= @error_message %>, had this backtrace:
+    </p>
+    <ol>
+      <% @error_backtrace.each_with_index do |line, index| %>
+        <% break if index >= 5 %>
+        <li>
+          <%= "#{line}" %>
+        </li>
+      <% end %>
+    </ol>
+    <p>
+      Thank you.
+    </p>
+  </div>
+</div>

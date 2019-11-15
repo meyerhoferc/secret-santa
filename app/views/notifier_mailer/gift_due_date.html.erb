@@ -1,14 +1,16 @@
-<div class="container">
-  <h1>
-    <%= @user.first_name %>, in <%= @days %> days your Secret Santa gift is due.
-  </h1>
-  <div class="text">
-    <p>
-      On <%= @group.gift_due_date.strftime("%B %d, %Y") %>, your gift is due for your secret santa group, <u><%= @group.name %></u>.
-    </p>
+<h1>
+  <%= @user.first_name %>, in <%= @days %> days your Secret Santa gift exchange will occur
+</h1>
+<div class="text">
+  <p>
+    Don't forget that on <%= @group.gift_due_date.strftime("%B %-d, %Y") %>, your secret santa group will be exchanging gifts.
+  </p>
 
-    <p>
-      Visit your group's page here to learn more: <%= link_to "#{url_for(@group)}", url_for(@group) %>.
-    </p>
-  </div>
+  <p>
+    If you'd like to see the wish list of your Santa match, log in here: <%= link_to "#{url_for(login_url)}", url_for(login_url) %>.
+  </p>
+
+  <p>
+    Happy gift giving!
+  </p>
 </div>

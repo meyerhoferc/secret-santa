@@ -1,0 +1,9 @@
+The task, <%= @task %>, has encountered an exception.
+
+The exception, <%= @error_message %>, had this backtrace:
+<% @error_backtrace.each_with_index do |line, index| %>
+  <% break if index >= 5 %>
+    <%= "Line #{index + 1}: #{line}" %>
+<% end %>
+
+Thank you.

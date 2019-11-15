@@ -1,18 +1,16 @@
-<div class="container">
-  <h1>
-    Welcome to Secret Santa, <%= "#{@user.full_name}" %>
-  </h1>
+<h1>
+  Welcome to Secret Santa, <%= "#{@user.full_name}" %>
+</h1>
 
-  <div class="text">
-    <p>
-      You have successfully signed up to secret-santa.kcmr.io, your username
-      is: <%= @user.username %>.
-    </p>
-    <p>
-      To log in to the site, follow this link: <%= link_to "#{url_for(@login_url)}", url_for(@login_url) %>
-    </p>
-    <p>
-      Thank you for joining, see you soon!
-    </p>
-  </div>
+<div class="text">
+  <p>
+    You have successfully signed up for <%= link_to 'secret-santa.kcmr.io', url_for(root_url)%>, your username
+    is: <%= @user.username %>.
+  </p>
+  <p>
+    To log in to the site, click here: <%= link_to "Log in", url_for(@login_url), class: 'button' %>
+  </p>
+  <p>
+    Thank you for joining, see you soon!
+  </p>
 </div>

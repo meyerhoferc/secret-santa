@@ -1,4 +1,4 @@
-<%= form_for @user, namespace: 'name', html: { class: 'form-fields-container-name' } do |f| %>
+<%= form_for @user, namespace: 'name', html: { class: 'form-fields-container-name nested-container' } do |f| %>
   <div class="form-field">
     <%= f.label :first_name, required_label_maker('First name') %>
     <%= f.text_field :first_name %>

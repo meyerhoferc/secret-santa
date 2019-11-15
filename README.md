@@ -14,6 +14,7 @@ Note: `rails` is an alias for `rake` within Rails 5+ projects. You can also run 
 
 `ssh` into server.
 * `git pull` in `secret-santa` folder.
+* Install gems: `bundle install`
 * Migrate db: `RAILS_ENV=production rails db:migrate`
 * Precompile assets: `RAILS_ENV=production rails assets:precompile`
 * Clean assets: `RAILS_ENV=production rails assets:clean`

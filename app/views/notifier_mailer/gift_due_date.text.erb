@@ -1,5 +1,7 @@
-<%= @user.first_name %>, in <%= @days %> days your Secret Santa gift is due.
+<%= @user.first_name %>, in <%= @days %> days your Secret Santa gift exchane will occur.
 
-On <%= @group.gift_due_date.strftime("%B %d, %Y") %>, your gift is due for your secret santa group, "<%= @group.name %>".
+Don't forget that on <%= @group.gift_due_date.strftime("%B %-d, %Y") %>, your secret santa group will be exchanging gifts.
 
-Visit your group's page here to learn more: <%= url_for(@group) %>
+If you'd like to see the wish list of your Santa match, log in here: <%= url_for(login_url) %>
+
+Happy gift giving!

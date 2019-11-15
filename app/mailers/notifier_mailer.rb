@@ -11,6 +11,6 @@ class NotifierMailer < ApplicationMailer
     @group = params[:group]
     @days = days
     email_with_name = %("#{@user.full_name}" <#{@user.email}>)
-    mail(to: email_with_name, subject: "In #{@days.to_s} days your Secret Santa gift is due")
+    mail(to: email_with_name, subject: "You have #{@days.to_s} days until your Secret Santa gift exchange")
   end
 end

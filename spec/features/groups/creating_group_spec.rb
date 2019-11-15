@@ -17,6 +17,21 @@ describe 'group creation' do
       expect(page).to have_content group_info.gift_due_date.to_formatted_s(:long_ordinal)
     end
 
+    it 'correct information with dollar limit' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      visit new_group_path
+      fill_in('group_name', with: group_info.name)
+      fill_in('group_description', with: group_info.description)
+      fill_in('group_gift_due_date', with: group_info.gift_due_date)
+      fill_in('group_dollar_limit', with: 23.47)
+      click_on 'Create Group'
+
+      expect(page).to have_content group_info.name
+      expect(page).to have_content group_info.description
+      expect(page).to have_content group_info.gift_due_date.to_formatted_s(:long_ordinal)
+      expect(page).to have_content display_money(23.47)
+    end
+
     it 'blank information' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       visit new_group_path

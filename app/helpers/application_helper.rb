@@ -18,4 +18,12 @@ module ApplicationHelper
   def required_label_maker(text)
     "#{text} <span class=\"required\" title=\"#{text} is required\">*</span>".html_safe
   end
+
+  def page_title(text)
+    if text.present?
+      "#{text} - Secret Santa".html_safe
+    else
+      "Secret Santa"
+    end
+  end
 end

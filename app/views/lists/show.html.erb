@@ -1,10 +1,11 @@
+<% provide(:title, "#{@user.full_name_possessive} Wish List'") %>
 <div class="lists-container">
   <div class="lists-title">
-    <h1><%= "#{@user.first_name} #{@user.last_name}'s Wish List" %></h1>
+    <h1><%= "#{@user.full_name_possessive} Wish List" %></h1>
   </div>
   <div class="lists-links">
     <%= link_to "#{@group.name}", group_path(@group.id) %>
-    <%= link_to "#{@user.first_name} #{@user.last_name}'s profile", user_path(@user) %>
+    <%= link_to "#{@user.full_name_possessive} profile", user_path(@user) %>
   </div>
   <% santa = User.find(@user.santa_recipient.find_by(group_id: @group.id).santa_id) if @group.santas_assigned %>
   <% if @group.santas_assigned && authorized_user(santa) %>
@@ -44,7 +45,7 @@
       </div>
       <% end %>
     <% else %>
-      <%= "#{@user.first_name} #{@user.last_name}'s list is empty." %>
+      <%= "#{@user.full_name_possessive} list is empty." %>
     <% end %>
   </div>
 </div>

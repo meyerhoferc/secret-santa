@@ -1,11 +1,12 @@
+<% provide(:title, "#{@user.full_name_possessive} Profile") %>
 <div class="users-container">
   <div class="users-title">
-    <h1><%= "#{@user.first_name} #{@user.last_name}'s Profile" %></h1>
+    <h1><%= "#{@user.full_name_possessive} Profile" %></h1>
   </div>
   <div class="users-data">
     <div class="users-information">
       <p>
-        Name: <%= "#{@user.first_name} #{@user.last_name}" %>
+        Name: <%= "#{@user.full_name}" %>
       </p>
       <p>
         Username: <%= @user.username %>
@@ -21,7 +22,7 @@
     </div>
     <% if !authorized_user(@user) && !@invitable_groups.empty? %>
       <div class="users-group-invitation">
-        <h3>Invite <%= "#{@user.first_name} #{@user.last_name}" %> to a Group</h3>
+        <h3>Invite <%= "#{@user.full_name}" %> to a Group</h3>
         <%= render partial: 'invitations/user_profile_form' %>
       </div>
     <% end %>

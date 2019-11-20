@@ -20,7 +20,7 @@ describe 'replying to an invitation' do
     visit root_path
     sign_in(invitee)
     expect(current_path).to eq dashboard_path
-    expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+    expect(page).to have_content "#{owner.full_name} has invited you to join the group #{group.name}!"
     expect(page).to have_content 'Accept', 'Decline'
     click_on 'Accept'
 
@@ -30,8 +30,8 @@ describe 'replying to an invitation' do
     page.all('a', exact_text: group.name, visible:true).last.click
 
     # might change over time
-    expect(page).to have_content "#{owner.first_name} #{owner.last_name}: Wish List"
-    expect(page).to have_content "#{invitee.first_name} #{invitee.last_name}:"
+    expect(page).to have_content "#{owner.full_name}: Wish List"
+    expect(page).to have_content "#{invitee.full_name}:"
     expect(page).to have_link 'My Wish List'
   end
 
@@ -48,7 +48,7 @@ describe 'replying to an invitation' do
 
     sign_in(invitee)
     expect(current_path).to eq dashboard_path
-    expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+    expect(page).to have_content "#{owner.full_name} has invited you to join the group #{group.name}!"
     expect(page).to have_content 'Accept', 'Decline'
     click_on 'Decline'
 
@@ -77,7 +77,7 @@ describe 'owner sending multiple invites' do
 
       sign_in(invitee)
       expect(current_path).to eq dashboard_path
-      expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+      expect(page).to have_content "#{owner.full_name} has invited you to join the group #{group.name}!"
       expect(page).to have_content 'Accept', 'Decline'
       click_on 'Decline'
       expect(page).to have_content 'Invitation declined'
@@ -93,7 +93,7 @@ describe 'owner sending multiple invites' do
 
       sign_out
       sign_in(invitee)
-      expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}"
+      expect(page).to have_content "#{owner.full_name} has invited you to join the group #{group.name}"
     end
 
     it 'user accepting' do
@@ -109,7 +109,7 @@ describe 'owner sending multiple invites' do
 
       sign_in(invitee)
       expect(current_path).to eq dashboard_path
-      expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+      expect(page).to have_content "#{owner.full_name} has invited you to join the group #{group.name}!"
       expect(page).to have_content 'Accept', 'Decline'
       click_on 'Accept'
       expect(page).to have_content 'Invitation accepted'
@@ -125,7 +125,7 @@ describe 'owner sending multiple invites' do
 
       sign_out
       sign_in(invitee)
-      expect(page).to have_no_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+      expect(page).to have_no_content "#{owner.full_name} has invited you to join the group #{group.name}!"
     end
   end
 
@@ -143,7 +143,7 @@ describe 'owner sending multiple invites' do
 
       sign_in(invitee)
       expect(current_path).to eq dashboard_path
-      expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+      expect(page).to have_content "#{owner.full_name} has invited you to join the group #{group.name}!"
       expect(page).to have_content 'Accept', 'Decline'
       click_on 'Decline'
       expect(page).to have_content 'Invitation declined'
@@ -159,7 +159,7 @@ describe 'owner sending multiple invites' do
 
       sign_out
       sign_in(invitee)
-      expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}"
+      expect(page).to have_content "#{owner.full_name} has invited you to join the group #{group.name}"
     end
 
     it 'user accepting' do
@@ -175,11 +175,11 @@ describe 'owner sending multiple invites' do
 
       sign_in(invitee)
       expect(current_path).to eq dashboard_path
-      expect(page).to have_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+      expect(page).to have_content "#{owner.full_name} has invited you to join the group #{group.name}!"
       expect(page).to have_content 'Accept', 'Decline'
       click_on 'Accept'
       expect(page).to have_content 'Invitation accepted'
-      expect(page).to have_no_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+      expect(page).to have_no_content "#{owner.full_name} has invited you to join the group #{group.name}!"
 
       sign_out
 
@@ -192,7 +192,7 @@ describe 'owner sending multiple invites' do
 
       sign_out
       sign_in(invitee)
-      expect(page).to have_no_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+      expect(page).to have_no_content "#{owner.full_name} has invited you to join the group #{group.name}!"
     end
   end
 
@@ -210,7 +210,7 @@ describe 'owner sending multiple invites' do
 
       sign_in(user)
       expect(current_path).to eq dashboard_path
-      expect(page).to have_no_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+      expect(page).to have_no_content "#{owner.full_name} has invited you to join the group #{group.name}!"
       expect(page).to have_no_content 'Accept', 'Decline'
       visit "/accept/#{invitee.invitations_received.first.id}"
       expect(page).to have_content 'Action is unauthorized'
@@ -230,7 +230,7 @@ describe 'owner sending multiple invites' do
 
       sign_in(user)
       expect(current_path).to eq dashboard_path
-      expect(page).to have_no_content "#{owner.first_name} #{owner.last_name} has invited you to join the group #{group.name}!"
+      expect(page).to have_no_content "#{owner.full_name} has invited you to join the group #{group.name}!"
       expect(page).to have_no_content 'Accept', 'Decline'
       visit "/decline/#{invitee.invitations_received.first.id}"
       expect(page).to have_content 'Action is unauthorized'

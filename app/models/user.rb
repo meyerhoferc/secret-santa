@@ -28,6 +28,11 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def full_name_possessive
+    name = full_name
+    "#{name}'#{'s' if name[-1] != 's'}"
+  end
+
   def should_validate_password?
     new_record? || !skip_pass_strength
   end

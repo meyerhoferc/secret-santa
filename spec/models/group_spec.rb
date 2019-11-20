@@ -17,6 +17,11 @@ describe Group do
       expect(g.valid?).to eq false
     end
 
+    it 'validates dollar_limit is greater than 0.00' do
+      g = Group.new(name: 'This one Group', description: 'Here is a description', owner_id: 3, gift_due_date: '', dollar_limit: 0.00)
+      expect(g.valid?).to eq false
+    end
+
     it 'validates name is unique' do
       Group.create(name: 'This one Group', description: 'Here is a description', owner_id: 3, gift_due_date: '2018/12/31')
       g = Group.new(name: 'This one Group', description: 'Here is a description', owner_id: 3, gift_due_date: '2018/12/31')
@@ -75,6 +80,8 @@ describe Group, type: :model do
   it { should validate_presence_of(:description) }
   it { should validate_presence_of(:owner_id) }
   it { should validate_presence_of(:gift_due_date) }
+  it { should validate_numericality_of(:dollar_limit).allow_nil }
+
 
   describe 'uniqueness' do
     let(:user) { User.create!(first_name: 'Larry', last_name: 'Lar', username: 'llar', password: 'pioqrey89s9ahf', password_confirmation: 'pioqrey89s9ahf') }

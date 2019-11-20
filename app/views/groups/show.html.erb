@@ -15,6 +15,11 @@
     <div title="Due in <%= time_ago_in_words(@group.gift_due_date) %>">
       <h3>Gifts Due <%= @group.gift_due_date.to_formatted_s(:long_ordinal) %></h3>
     </div>
+    <% if @group.dollar_limit.present? %>
+      <div class="mb0_5">
+        <h4>Gift dollar limit: <%= display_money(@group.dollar_limit) %></h4>
+      </div>
+    <% end %>
     <% if @user_wish_list %>
       <div class="groups-wishlist-link">
         <%= link_to 'My Wish List', group_list_path(@group, @user_wish_list.id) %>

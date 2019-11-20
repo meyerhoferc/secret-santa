@@ -15,6 +15,10 @@ module ApplicationHelper
     text.join(', ').to_s
   end
 
+  def display_money(float)
+    "$#{format('%.2f', float)}"
+  end
+
   def required_label_maker(text)
     "#{text} <span class=\"required\" title=\"#{text} is required\">*</span>".html_safe
   end

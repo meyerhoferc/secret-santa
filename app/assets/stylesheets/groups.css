@@ -6,7 +6,8 @@
   "description description"
   "info users"
   "owner users"
-  "santa-assignments santa-assignments";
+  "santa-assignments santa-assignments"
+  "comments comments";
 }
 
 .groups-title {
@@ -81,6 +82,10 @@
 
 .groups-users h2 {
   margin-bottom: 15px;
+}
+
+.groups-comments {
+  grid-area: comments;
 }
 
 .groups-users-flex-container {

@@ -29,6 +29,7 @@
 }
 
 /* Sections within grid */
+.comments-container,
 .nested-container,
 .dashboard-invitations-each-invite,
 .dashboard-groups-each-group,

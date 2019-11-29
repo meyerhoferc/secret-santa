@@ -55,4 +55,8 @@ class User < ApplicationRecord
       .where("group_id = groups.id")
     owned_groups_excludes_user - user_invited_groups
   end
+
+  def belongs_to_group?(group_id)
+    UserGroup.where(group_id: group_id, user_id: self.id).present?
+  end
 end

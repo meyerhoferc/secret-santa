@@ -7,7 +7,7 @@
   </div>
   <div class="groups-info">
     <div class="secret-santa-info">
-      <% if @group.santas_assigned %>
+      <% if @group.santas_assigned? %>
         <%= render partial: 'santa_assignments/secret_santa' %>
       <% end %>
     </div>
@@ -30,12 +30,12 @@
       <h2>Manage Group</h2>
       <span class="edit-group"><%= link_to 'Edit', edit_group_path %></span>
       <span class="delete-group"><%= link_to 'Delete', group_path, method: :delete, data: { confirm: "Are you sure you want to delete the group?\nThis cannot be undone." } %></span>
-      <% if !@group.santas_assigned %>
+      <% if !@group.santas_assigned? %>
         <h3>Send an invitation</h3>
         <%= render partial: 'invitations/group_form' %>
       <% end %>
     </div>
-    <% if !@group.santas_assigned %>
+    <% if !@group.santas_assigned? %>
       <div class="groups-santa-assignments">
         <div class="groups-santa-assignments-title">
           <h2>Manage Santa Assignments</h2>
@@ -59,4 +59,10 @@
       <% end %>
     </div>
   </div>
+
+  <% if current_user.belongs_to_group?(@group.id) %>
+    <div class="comments-container groups-comments">
+      <%= render 'comments/container', page: 'Group' %>
+    </div>
+  <% end %>
 </div>

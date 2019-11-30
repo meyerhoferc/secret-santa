@@ -1,14 +1,20 @@
 <h2><%= page %> comments</h2>
 
-<div >
+<div class="comments-list">
 <% @comments.each do |comment| %>
-  <div>
-    <span title="<%= "#{comment.created_at.strftime("%m/%d/%Y")} #{comment.created_at.strftime("%H:%M")}" %>"><%= time_ago_in_words(comment.created_at, include_seconds: true) %> ago</span>
-    <%= link_to comment.user.full_name %>
-    <%= comment.text %>
+  <div class="comment">
+    <div class="comment-user-data">
+      <%= link_to comment.user.full_name, comment.user %>
+      <span title="<%= "#{comment.created_at.strftime("%m/%d/%Y")} #{comment.created_at.strftime("%H:%M")}" %>"><%= time_ago_in_words(comment.created_at, include_seconds: true) %> ago</span>
+    </div>
     <% if comment.user_id == current_user.id %>
-      <%= link_to 'Delete', comment_path(comment.id), method: :delete, data: { confirm: "Are you sure you want to delete this comment?" } %>
+      <div class="comment-user-controls">
+        <%= link_to 'Delete', comment_path(comment.id), method: :delete, data: { confirm: "Are you sure you want to delete this comment?" } %>
+      </div>
     <% end %>
+    <div class="comment-text">
+      <%= comment.text %>
+    </div>
   </div>
 <% end %>
 </div>

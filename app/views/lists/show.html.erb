@@ -47,4 +47,9 @@
       <%= "#{@user.first_name} #{@user.last_name}'s list is empty." %>
     <% end %>
   </div>
+  <% if current_user.belongs_to_group?(@group.id) %>
+    <div class="comments-container lists-comments">
+      <%= render 'comments/container', page: 'Wishlist' %>
+    </div>
+  <% end %>
 </div>

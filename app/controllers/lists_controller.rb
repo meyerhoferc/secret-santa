@@ -14,6 +14,11 @@ class ListsController < ApplicationController
   def show
     @items = @list.items
     @item = Item.new
+
+    if current_user.belongs_to_group?(@group.id)
+      @comments = Comment.where(commentable: @list).includes(:user).order(:created_at)
+      @comment = Comment.new(user_id: current_user.id, commentable: @list)
+    end
   end
 
   def update

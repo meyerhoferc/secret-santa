@@ -1,11 +1,12 @@
 .lists-container {
   grid-template-columns: 436px auto;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto auto auto;
   grid-template-areas:
   "title title"
   "items links"
   "items santa-message"
-  "item-creation item-creation";
+  "item-creation item-creation"
+  "comments comments";
 }
 
 .lists-title {

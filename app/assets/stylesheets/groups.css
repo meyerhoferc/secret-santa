@@ -84,13 +84,6 @@
   margin-bottom: 15px;
 }
 
-.groups-comments {
-  grid-area: comments;
-  box-sizing: border-box;
-  max-width: inherit;
-  width: 100%;
-}
-
 .groups-users-flex-container {
   display: flex;
   flex-direction: column;

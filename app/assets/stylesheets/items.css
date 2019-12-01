@@ -4,7 +4,8 @@
   grid-template-areas:
   "title title"
   "data links"
-  "data modify";
+  "data modify"
+  "comments comments";
 }
 
 .items-edit-container {

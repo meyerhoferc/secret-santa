@@ -7,7 +7,13 @@ class CommentsController < ApplicationController
     else
       flash[:warning] = 'Comment could not be saved.'
     end
-    redirect_to comment.commentable
+    if comment.commentable_type == 'Group'
+      redirect_to comment.commentable
+    elsif comment.commentable_type == 'List'
+      redirect_to group_list_path(comment.commentable.group_id, comment.commentable.id)
+    elsif comment.commentable_type == 'Item'
+      redirect_to group_list_item_path(comment.commentable.list.group_id, comment.commentable.list_id, comment.commentable.id)
+    end
   end
 
   def edit
@@ -26,7 +32,13 @@ class CommentsController < ApplicationController
     else
       flash[:warning] = 'You cannot delete this comment.'
     end
-    redirect_to comment.commentable
+    if comment.commentable_type == 'Group'
+      redirect_to comment.commentable
+    elsif comment.commentable_type == 'List'
+      redirect_to group_list_path(comment.commentable.group_id, comment.commentable.id)
+    elsif comment.commentable_type == 'Item'
+      redirect_to group_list_item_path(comment.commentable.list.group_id, comment.commentable.list_id, comment.commentable.id)
+    end
   end
 
   private

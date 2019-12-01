@@ -7,7 +7,7 @@
       <%= link_to comment.user.full_name, comment.user %>
       <span title="<%= "#{comment.created_at.strftime("%m/%d/%Y")} #{comment.created_at.strftime("%H:%M")}" %>"><%= time_ago_in_words(comment.created_at, include_seconds: true) %> ago</span>
     </div>
-    <% if comment.user_id == current_user.id %>
+    <% if comment.user_id == current_user.id || authorized_user(@group.owner) %>
       <div class="comment-user-controls">
         <%= link_to 'Delete', comment_path(comment.id), method: :delete, data: { confirm: "Are you sure you want to delete this comment?" } %>
       </div>

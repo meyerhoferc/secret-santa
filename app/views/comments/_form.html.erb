@@ -1,6 +1,6 @@
 <%= form_for :comment, { url: comments_path(@comment), html: { class: 'comments-form-fields-container' } } do |f| %>
-<%= f.hidden_field :commentable_type %>
-<%= f.hidden_field :commentable_id %>
+  <%= f.hidden_field :commentable_type %>
+  <%= f.hidden_field :commentable_id %>
   <%= f.hidden_field :user_id %>
   <div class="form-field">
     <%= f.label :text, required_label_maker('Comment') %>

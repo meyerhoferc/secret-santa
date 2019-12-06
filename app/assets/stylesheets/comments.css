@@ -10,7 +10,6 @@
 
 .comments-list {
   overflow-y: auto;
-  /* padding: 5px; */
   max-height: 650px;
   border-radius: 3px;
   margin: 10px 0;
@@ -31,9 +30,7 @@
   border: 2px solid #a3a19f;
   border: 2px solid var(--border);
   border-radius: 3px;
-  /* max-width: 850px; */
   max-width: inherit;
-  /* max-width: 100%; */
   width: 100%;
   display: grid;
   grid-template-rows: 25px auto;
@@ -59,11 +56,8 @@
 
 .comment-text {
   grid-area: comment-text;
-  /* max-width: inherit; */
   width: 100%;
   word-break: break-all;
-  /* overflow-wrap: break-word; */
-  /* overflow-x: auto; */
   min-height: 26px;
 }
 

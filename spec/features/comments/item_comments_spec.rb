@@ -1,6 +1,5 @@
 require 'rails_helper'
 include ActionView::Helpers::DateHelper
-# include ActionView::Helpers::UrlHelper
 
 describe 'item comments' do
   let(:group) { Group.create(name: 'Gift giving', description: 'We love gifts', gift_due_date: (Time.current + 3.weeks).strftime("%Y-%m-%d")) }

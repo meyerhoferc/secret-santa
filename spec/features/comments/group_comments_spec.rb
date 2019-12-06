@@ -1,8 +1,7 @@
 require 'rails_helper'
 include ActionView::Helpers::DateHelper
-# include ActionView::Helpers::UrlHelper
 
-describe 'comments' do
+describe 'group comments' do
   let(:group) { Group.create(name: 'Gift giving', description: 'We love gifts', gift_due_date: (Time.current + 3.weeks).strftime("%Y-%m-%d")) }
   let(:owner) { User.create(first_name: 'Ray', last_name: 'Lee', username: 'leeray', email: 'email@ray.lee', password: 'hspa1203489y132809hss12034pas1203489y13280989y132809h') }
   let(:invitee) { User.create!(first_name: 'Lee', last_name: 'Ray', username: 'raylee', email: 'lee@ray.com', password: 'pas1203489y132809h132809hss1203489y132spa1203489y809h') }

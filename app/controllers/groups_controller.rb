@@ -78,6 +78,18 @@ class GroupsController < ApplicationController
       end
     end
 
+    exclusion_teams = ExclusionTeam.where(group_id: @group.id)
+    if exclusion_teams.present?
+      exclusion_teams.each do |exclusion_team|
+        if exclusion_team.user_exclusion_teams.present?
+          exclusion_team.user_exclusion_teams.each do |user_exclusion_team|
+            user_exclusion_team.destroy
+          end
+        end
+        exclusion_team.destroy
+      end
+    end
+
     flash[:notice] = "Group #{@group.name} deleted!"
     @group.destroy
     redirect_to dashboard_path

@@ -30,6 +30,12 @@ class GroupsController < ApplicationController
       @user_exclusion_team = UserExclusionTeam.new
       @santa_assignment = SantaAssignment.new
     end
+
+    if current_user.belongs_to_group?(@group.id)
+      @comments = Comment.where(commentable: @group).includes(:user).order(:created_at)
+      @comment = Comment.new(user_id: current_user.id, commentable: @group)
+    end
+
     if @group.santas_assigned
       @santa = User.find(current_user.secret_santa.find_by(group_id: @group.id).receiver_id)
     end

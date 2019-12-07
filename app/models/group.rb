@@ -1,10 +1,11 @@
 class Group < ApplicationRecord
+  has_many :comments, as: :commentable
+  has_many :exclusion_teams
+  has_many :invitations
+  has_many :lists
+  has_many :santa_assignments
   has_many :user_groups
   has_many :users, through: :user_groups
-  has_many :lists
-  has_many :invitations
-  has_many :exclusion_teams
-  has_many :santa_assignments
   belongs_to :owner, foreign_key: :owner_id, class_name: 'User'
 
   validates_uniqueness_of :name, message: 'is already in use.'

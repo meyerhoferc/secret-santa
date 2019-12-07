@@ -20,4 +20,9 @@
           method: :delete, data: { confirm: "Are you sure you want to delete item #{@item.name}?" } %>
     </div>
   <% end %>
+  <% if current_user.belongs_to_group?(@group.id) %>
+    <div class="comments-container lists-comments">
+      <%= render 'comments/container', page: 'Item' %>
+    </div>
+  <% end %>
 </div>

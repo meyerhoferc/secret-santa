@@ -17,6 +17,10 @@ class ItemsController < ApplicationController
   end
 
   def show
+    if current_user.belongs_to_group?(@group.id)
+      @comments = Comment.where(commentable: @item).includes(:user).order(:created_at)
+      @comment = Comment.new(user_id: current_user.id, commentable: @item)
+    end
   end
 
   def edit

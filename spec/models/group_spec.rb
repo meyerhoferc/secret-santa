@@ -74,6 +74,7 @@ describe Group, type: :model do
   it { should have_many(:invitations) }
   it { should have_many(:exclusion_teams) }
   it { should have_many(:santa_assignments) }
+  it { should have_many(:comments) }
   it { should belong_to(:owner).with_foreign_key(:owner_id).class_name('User') }
 
   it { should validate_presence_of(:name) }
